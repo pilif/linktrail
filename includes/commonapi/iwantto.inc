@@ -142,9 +142,6 @@
   $method = $found[2];
   $str = "";
 
-  if (($expert != $auth->auth['uname']) and ($expert != "New_User") and ($expert != "Forgotten_Password") ){
-   $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
-  }
 
   $expert_data = get_user_from_name($expert);
   /* 
@@ -157,6 +154,9 @@
   */
   if ($expert_data != -1){
    if ( ($expert != $auth->auth['uname']) and ($auth->auth['uid'] != "nobody")){
+    if (($expert != "New_User") and ($expert != "Forgotten_Password") ){
+     $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
+    }
     $res = is_friendship($expert_data['User_ID'], $auth->auth['uid']);
     if ($res === true){
      $str .= print_friendstuff($expert_data['Username'], $expert_data['User_ID'], "quit");
@@ -172,8 +172,12 @@
    }
   } //expert_data != -1   
   
-  $str .= (($auth->auth['uid'] == "nobody") and ($auth->auth['uname'] == "")) ? print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User')) : "";
   $str .= (($auth->auth['uid'] != "nobody") and ($auth->auth['uname'] != "")) ? print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($PHP_SELF).'?dologout=1')) : print_action_logon();
+  $str .= (($auth->auth['uid'] == "nobody") and ($auth->auth['uname'] == "")) ? print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User')) : "";
+  if (($auth->auth['uid'] == "nobody")){
+   $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
+  }
+
   return $str;
  }
  
