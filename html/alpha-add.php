@@ -149,7 +149,7 @@ function add_account(){
                                                        $sprache, $land, $kontaktvon, $username, $passwort);
  $testerDB->query($query);
  $res = Array();
- exec("/usr/bin/htpasswd -b /home/linktrai/.htpasswd $username $password", $res);
+ exec("/usr/bin/htpasswd -b /home/linktrai/.htpasswd ".$HTTP_POST_VARS['username']." ".$HTTP_POST_VARS['passwort'], $res);
  echo("Htpasswd returned: <pre>".implode("\n", $res)."</pre>");
 }
 
@@ -305,6 +305,7 @@ zu haben.
 
 $headers = "";
 $headers .= "From: linktrail team <preview@linktrail.com>\n";
+$headers .= "Cc: pilif@linktrail.com\n";
 //$headers .= "To: \n";
 $headers .= "MIME-Version: 1.0\n";
 $headers .= "Content-Type: text/plain;\n";
