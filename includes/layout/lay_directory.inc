@@ -51,7 +51,7 @@ function print_announcebox($id, $boxonly=false){
 }
  
 
-function print_limit_nav($type, $active, $current_index, $max_trail, $objectname="trails", $urlextra=""){
+function print_limit_nav($type, $active, $current_index, $max_trail, $objectname="trails", $urlextra="", $pagesize=DIS_MAX_TRAILS){
  global $PHP_SELF, $REQUEST_URI, $sess;
  
  if ($objectname == "trails") $urlextra = "#trails";
@@ -60,9 +60,10 @@ function print_limit_nav($type, $active, $current_index, $max_trail, $objectname
  $str = ($active) ? "active" : "inactive";
   switch ($type) {
      case 0: //back
-         $new_index = $current_index - DIR_MAX_TRAILS;
+         $new_index = $current_index - $pagesize;
+//         echo("New: $pagesize");
          if ($new_index <= 0)
-          $new_index = "";
+          $new_index = "0";
          $tpl->set_file(array("main" => "prev_$str.html"));
          if ($active)
           $tpl->set_var("URL", $sess->url(alter_url($REQUEST_URI, 'ci', $new_index)).$urlextra);
@@ -72,10 +73,10 @@ function print_limit_nav($type, $active, $current_index, $max_trail, $objectname
          $tpl->set_file(array("main" => "all_$str.html"));
          $tpl->set_var("URL", $sess->url(alter_url($REQUEST_URI, 'ci', $new_index)).$urlextra);
          if (!$active)
-          $tpl->set_var("LIMIT", DIR_MAX_TRAILS);
+          $tpl->set_var("LIMIT", $pagesize);
          break;
      case 2: //next
-         $new_index = $current_index + DIR_MAX_TRAILS;
+         $new_index = $current_index + $pagesize;
          if ($new_index <= 0)
           $new_index = "";
          $tpl->set_file(array("main" => "next_$str.html"));
@@ -88,23 +89,23 @@ function print_limit_nav($type, $active, $current_index, $max_trail, $objectname
  return $tpl->get("main");  
 }
 
-function print_limitbox($currentindex, $maxtrail, $objectname="trails", $urlextra=""){
+function print_limitbox($currentindex, $maxtrail, $objectname="trails", $urlextra="", $display_count = DIR_MAX_TRAILS){
  if ($currentindex != -1){
   $lotrail = $currentindex + 1;
-  $hitrail = $currentindex+DIR_MAX_TRAILS;
+  $hitrail = $currentindex+$display_count;
   if ($hitrail > $maxtrail) {
    $hitrail = $maxtrail;
   }
-  $value['all'] = print_limit_nav(1, true, $currentindex, $maxtrail, $objectname, $urlextra);
-  $value['previous'] = print_limit_nav(0, ($currentindex >0), $currentindex, $maxtrail, $objectname, $urlextra);
-  $value['next'] = print_limit_nav(2, ( ($currentindex + DIR_MAX_TRAILS) < $maxtrail), $currentindex, $maxtrail, $objectname, $urlextra);
+  $value['all'] = print_limit_nav(1, true, $currentindex, $maxtrail, $objectname, $urlextra, $display_count);
+  $value['previous'] = print_limit_nav(0, ($currentindex >0), $currentindex, $maxtrail, $objectname, $urlextra, $display_count);
+  $value['next'] = print_limit_nav(2, ( ($currentindex + DIR_MAX_TRAILS) < $maxtrail), $currentindex, $maxtrail, $objectname, $urlextra, $display_count);
 
  }else{
   $lotrail = 1;
   $hitrail = $maxtrail;
-  $value['all']      = print_limit_nav(1, false, $currentindex, $maxtrail, $objectname, $urlextra);
-  $value['previous'] = print_limit_nav(0, false, $currentindex, $maxtrail, $objectname, $urlextra);;
-  $value['next']     = print_limit_nav(2, false, $currentindex, $maxtrail, $objectname, $urlextra);
+  $value['all']      = print_limit_nav(1, false, $currentindex, $maxtrail, $objectname, $urlextra, $display_count);
+  $value['previous'] = print_limit_nav(0, false, $currentindex, $maxtrail, $objectname, $urlextra, $display_count);
+  $value['next']     = print_limit_nav(2, false, $currentindex, $maxtrail, $objectname, $urlextra, $display_count);
  }
  $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("main" => "limitbox.html"));
