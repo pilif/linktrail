@@ -38,9 +38,9 @@ define("TEMPLATE_ROOT", APPLICATION_HOME."/templates/$glob_language_name/");
 
 //We are setting a new include-path...
 $inc = ini_get('include_path');
-$inc = str_replace(APPLICATION_HOME.'/templates/', TEMPLATE_ROOT, $inc);
+$inc = str_replace(APPLICATION_HOME.'/templates', TEMPLATE_ROOT, $inc);
 ini_set("include_path", $inc);
-//die($inc);
+#die($inc." -- ".APPLICATION_HOME);
 
 require("config/config.inc");
 require("commonapi/errors.inc");
