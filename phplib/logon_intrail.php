@@ -24,7 +24,7 @@ if ($in_trail == 1){
  //die(class_exists("Template"));
  if (!class_exists("Template"))
   include("template.inc");
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("simpleframe" => "simpleframe.html"));
  $tpl->set_var("CONTENT", print_loginform_trail($PHP_SELF, $this->auth["uname"], $ltrstr['Trail_Login'],$failed));
  $tpl->parse("simpleframe", "simpleframe");

@@ -3,7 +3,7 @@
 
 function print_reg_link_content(){
  global $ltrstr, $sess;
- $tpl  = new Template("/home/linktrai/templates/tour", "keep");
+ $tpl  = new Template(APPLICATION_HOME."/templates/tour", "keep");
  $tpl->set_file(array("main" => "link_simple.html")); 
  $tpl->set_var("URL", $sess->url('/Experts/New_User?dologout=1'));
  $tpl->set_var("TEXT", $ltrstr['Register now']);

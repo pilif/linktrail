@@ -11,7 +11,7 @@ if (!defined("COMUTILS_INC"))
 function print_search_error($err){
  global $ltrstr;
  
- $tpl  = new Template("/home/linktrai/templates/search", "keep");
+ $tpl  = new Template(APPLICATION_HOME."/templates/search", "keep");
  $tpl->set_file(array("main" => "error.html")); 
 // die($err['errcode']);
  $desc = ($ltrstr['Search_Error'][$err['errcode']]) ? $ltrstr['Search_Error'][$err['errcode']] : $ltrstr['Search_Error']['unknown'];
@@ -30,7 +30,7 @@ function print_limit_element($type, $active, $str, $iddata, $url_marker, $anchor
  if ($type != 2){
    $activestr = ($active) ? "active" : "inactive";
    $strs      = Array("prev", "browselist", "next");
-   $tpl       = new Template("/home/linktrai/templates/search/limitbox", "keep");
+   $tpl       = new Template(APPLICATION_HOME."/templates/search/limitbox", "keep");
    $filename  = $strs[$type-1]."_".$activestr;
    $new_index = ($type == 1) ? ($iddata['ci'] - $iddata['increment']) : ($iddata['ci'] + $iddata['increment']);
    if ($new_index < 0) $new_index = 0;
@@ -66,7 +66,7 @@ function print_limit_element($type, $active, $str, $iddata, $url_marker, $anchor
 }
 
 function limit_box_ex($ci, $display, $max, $element_description, $url_marker, $anchor=""){
- $tpl = new Template("/home/linktrai/templates/search/limitbox", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/search/limitbox", "keep");
  $tpl->set_file(array("main" => "limitbox_common.html"));
  $endstr = ($ci+$display < $max) ? ($ci + $display) : $max;
  $tpl->set_var("STAT_START", $ci+1);
@@ -103,7 +103,7 @@ global $glob_search_words, $glob_userdata;
 
 if (count($cats) == 0) return "";
 
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("main" => "categories.html"));
 $str = "<ul>";
 foreach($cats['results'] as $kat)
@@ -128,7 +128,7 @@ global $sess;
 
 if (count($experts) == 0) return "";
 
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("main" => "experts.html"));
 foreach($experts['results'] as $exp)
  $str .= sprintf('<a href="%s">%s</a><br>'."\n", $sess->url('/Experts/'.rawurlencode($exp['name'])), $exp['name']);
@@ -144,7 +144,7 @@ function print_found_trails($trails){
  
 if (count($trails) == 0) return "";
 
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("main" => "trails.html"));
 $str = "";
 foreach($trails['results'] as $trail)
@@ -163,7 +163,7 @@ return $tpl->get("main");
 function print_one_found_trail($traildata){
 global $glob_search_words, $sess, $randval;
 
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("main" => "trail.html"));
 $tpl->set_var("TRAILURL", $sess->url(build_good_url($traildata['name'])."?hilight=".base64_encode(implode("|",$glob_search_words)))); //pretty urls...
 $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
@@ -184,7 +184,7 @@ function print_found_users($users){
  global $glob_userdata;
 if (count($users) == 0) return "";
 
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("main" => "users.html"));
 $str = "";
 foreach($users['results'] as $user)
@@ -206,7 +206,7 @@ return $tpl->get("main");
 function print_one_found_user($user){
 global $sess;
 
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("user" => "user.html"));
 $tpl->set_var("USERURL", $sess->url('/Experts/'.rawurlencode(trim($user['username']))));
 $tpl->set_var("USERNAME", trim($user['username']));

@@ -78,7 +78,7 @@ if (!defined("COMMON_USER_INC"))
   $sortselect['DATE'] = true;
  }
  include("template.inc");
- $tpl = new Template("/home/linktrai/templates/mypage", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
  $tpl->set_file(array("main" => "mypage.html"));
  $pl  = build_pathlist($kat, false);
  $plf = build_pathlist($kat, true);

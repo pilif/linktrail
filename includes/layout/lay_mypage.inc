@@ -21,7 +21,7 @@ if (!defined("PERMISSIONS_INC"))
  include("dbapi/permissions.inc"); 
 
 function print_exp_error($expert){
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("error" => "err_noexp.html"));
  $tpl->set_var("EXPERT", $expert);
  $tpl->parse("main", "error");
@@ -35,7 +35,7 @@ function print_mypage_trail($nodeinfo, $expert, $color=BACK_COLOR1, $itsme=false
  $dh = friendlydate($nodeinfo['adddate']);
  $date = $dh['month'].'/'.$dh['day'].'/'.$dh['year']; 
 
- $tpl = new Template("/home/linktrai/templates/mypage", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
 
  if ($nodeinfo['suggested_from'] == ""){
 //  die("Test: ".$nodeinfo['suggested_from']);
@@ -98,7 +98,7 @@ function print_friendlist_awaiting($friends, $uid, $expert_data){
  
  if (!is_array($friends))
   return "";
- $tpl = new Template("/home/linktrai/templates/mypage/friendlist", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/friendlist", "keep");
  $tpl->set_file(array("awaiting" => "awaiting.html"));
 
  $tpl->set_block("awaiting", "waitingfriend", "waitingfriends");
@@ -120,7 +120,7 @@ function print_friendlist_awaited($friends, $myuid, $expert_data){
  if (!is_array($friends))
   return "";
 
- $tpl = new Template("/home/linktrai/templates/mypage/friendlist", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/friendlist", "keep");
  $tpl->set_file(array("awaited" => "awaited.html"));
 
  $tpl->set_block("awaited", "afriend", "awaitedfriends");
@@ -140,7 +140,7 @@ function print_friendlist_all($friends, $myuid, $myfriends, $expert_data){
  if (!is_array($friends))
   return "";
 
- $tpl = new Template("/home/linktrai/templates/mypage/friendlist", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/friendlist", "keep");
  if ($myfriends)
   $tpl->set_file(array("all" => "my_friends.html"));
  else
@@ -166,7 +166,7 @@ function print_friendlist_all($friends, $myuid, $myfriends, $expert_data){
 
 function print_mypage_friendlist($userid, $expert_data, $itsme){
  global $sess;
- $tpl = new Template("/home/linktrai/templates/mypage", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
  
  $tpl->set_file(array("friendlist" => "friendlist.html"));
  if($itsme){
@@ -188,7 +188,7 @@ function print_mypage_friendlist($userid, $expert_data, $itsme){
 function print_flag_subscribed($path, $itsme){
  global $sess, $randval, $glob_userdata;
  
- $tpl = new Template("/home/linktrai/templates/mypage", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
  if ($itsme){
   $tpl->set_file(array("flag" => "flag_subscribed_my.html"));
   $tpl->set_var("SUBSCRIBEDURL",$sess->url( "/trailedit/editsubs.php".build_good_url($path)."?reload_parent=1"));
@@ -203,7 +203,7 @@ function print_flag_subscribed($path, $itsme){
 }
 
 function print_mypage_name($first, $last){
- $tpl = new Template("/home/linktrai/templates/mypage/profile", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/profile", "keep");
  $tpl->set_file(array("name" => "name.html"));
  $tpl->set_var("FIRSTNAME", $first);
  $tpl->set_var("LASTNAME", $last);
@@ -212,7 +212,7 @@ function print_mypage_name($first, $last){
 }
 
 /*function print_mypage_msn($name, $provider){
- $tpl = new Template("/home/linktrai/templates/mypage/profile", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/profile", "keep");
  $tpl->set_file(array("msn" => "msn.html"));
  $tpl->set_var("MSN_ID", $name);
  $tpl->set_var("MSN_SERVICE", $provider);
@@ -222,7 +222,7 @@ function print_mypage_name($first, $last){
 
 function print_mypage_gender($gender){
  global $ltrstr;
- $tpl = new Template("/home/linktrai/templates/mypage/profile", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/profile", "keep");
  $tpl->set_file(array("gender" => "gender.html"));
  $tpl->set_var("GENDER", $ltrstr["gender_".$gender]);
  $tpl->parse("main", "gender");
@@ -230,7 +230,7 @@ function print_mypage_gender($gender){
 }
 
 function print_mypage_common($filename, $template_name, $content){
- $tpl = new Template("/home/linktrai/templates/mypage/profile", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/profile", "keep");
  $tpl->set_file(array("common" => "$filename"));
  $tpl->set_var($template_name, $content);
  $tpl->parse("main", "common");
@@ -238,7 +238,7 @@ function print_mypage_common($filename, $template_name, $content){
 }
 
 /*function print_mypage_favourites($url_array){
- $tpl = new Template("/home/linktrai/templates/mypage/profile", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/profile", "keep");
  $tpl->set_file(array("favourites" => "favourites.html"));
  $str = "";
  foreach($url_array as $url)
@@ -252,7 +252,7 @@ function print_mypage_common($filename, $template_name, $content){
 /*function print_iwantto_changeprofile($expert){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => "edit_profile.html"));
 
  $tpl->set_var("ACTIONURL", $sess->url("/Experts/".rawurlencode($expert)."/Change_Profile"));
@@ -264,7 +264,7 @@ function print_mypage_common($filename, $template_name, $content){
 function print_iwantto_contactauthor($expert){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => "contact_author.html"));
 
  $tpl->set_var("ACTIONURL", $sess->url("/Experts/".rawurlencode($expert)."/Send_Message"));
@@ -276,7 +276,7 @@ function print_iwantto_contactauthor($expert){
 
 /*function print_iwantto_changepwd($expert){
  global $sess;
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => "edit_pass.html"));
 
  $tpl->set_var("ACTIONURL", $sess->url("/Experts/".rawurlencode($expert)."/Change_Security"));
@@ -287,7 +287,7 @@ function print_iwantto_contactauthor($expert){
 
 function print_iwantto_changeprefs($expert){
  global $sess;
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => "edit_prefs.html"));
 
  $tpl->set_var("ACTIONURL", $sess->url("/Experts/".rawurlencode($expert)."/Settings/"));
@@ -300,7 +300,7 @@ function print_iwantto_changeprefs($expert){
 function print_iwantto_friendstuff($target_user, $target_uid, $type){
  global $auth, $sess;
  
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => $type."_friendship.html"));
  $tpl->set_var("USERNAME", $target_user);
  if ($type == "make")
@@ -316,7 +316,7 @@ function print_iwantto_friendstuff($target_user, $target_uid, $type){
 /*
 function print_iwantto_make_friendship($uid, $expert){
  global $auth, $sess;
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => "make_friendship.html"));
  $tpl->set_var("ACTIONURL", $sess->url(build_good_url("/Experts/$expert/Make_friendship")));
  $tpl->parse("iwantto", "iwantto");
@@ -325,7 +325,7 @@ function print_iwantto_make_friendship($uid, $expert){
 
 function print_iwantto_quit_friendship($uid, $expert){
  global $auth, $sess;
- $tpl = new Template("/home/linktrai/templates/mypage/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/iwantto", "keep");
  $tpl->set_file(array("iwantto" => "quit_friendship.html"));
  $actionstring = sprintf("uid1=%s&uid2=%s&expert=%s&action=delete", $auth->auth['uid'], $uid, $expert);
  $actionstring = base64_encode($actionstring);
@@ -342,7 +342,7 @@ function print_mypage_iwantto($capabilities, &$expert_data){
  
  $expert = $expert_data['Username'];
  
- $tpl = new Template("/home/linktrai/templates/mypage", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
  $tpl->set_file(array("iwantto" => "iwantto.html"));
 
 

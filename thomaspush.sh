@@ -1,5 +1,13 @@
 #!/bin/sh
 
+
+
+
+
+
+
+
+
 echo "Removing cached files..."
 rm -f /thomas_linktrail/html/img/slots/*
 rm -f /thomas_linktrail/cache/directory/subnodes/*

@@ -77,7 +77,7 @@ class ltrStdMessageMsg extends ltrMessage{
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
 
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "general_notifications.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
@@ -158,7 +158,7 @@ class ltrStdMessageUserMsg extends ltrMessage{
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
 
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "general_notifications_user.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
@@ -213,7 +213,7 @@ class ltrAdminModificationMsg extends ltrMessage{
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
 
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "admin_cn.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
@@ -247,7 +247,7 @@ class ltrAdminModificationMsg extends ltrMessage{
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
 
-   $tpl = new Template("/home/linktrai/templates/messages/long", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("extended" => "admin_cn.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
@@ -301,7 +301,7 @@ class ltrUserModificationMsg extends ltrMessage{
    global $PHP_SELF, $glob_userdata;
    
 //  die($this->test);
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "user_cn.html"));
    $trailpath = id2path($this->data['Trail']);
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
@@ -332,7 +332,7 @@ class ltrUserModificationMsg extends ltrMessage{
 
    $this->set_read();
 
-   $tpl = new Template("/home/linktrai/templates/messages/long", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("extended" => "user_cn.html"));
    $trailpath = id2path($this->data['Trail']);
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
@@ -401,7 +401,7 @@ class ltrSuggestionMsg extends ltrMessage{
 
    $this->nodeinfo = get_node_info($this->data['Trail']);
    
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "recommendation.html"));
    $trailpath = $this->nodeinfo['path'];
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
@@ -442,7 +442,7 @@ class ltrSuggestionMsg extends ltrMessage{
    
    $this->set_read();
 
-   $tpl = new Template("/home/linktrai/templates/messages/long", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("extended" => "recommendation.html"));
    $trailpath = id2path($this->data['Trail']);
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
@@ -534,7 +534,7 @@ class ltrLMSMessageMsg extends ltrMessage{
    
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "user_message.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
@@ -564,7 +564,7 @@ class ltrLMSMessageMsg extends ltrMessage{
    
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-   $tpl = new Template("/home/linktrai/templates/messages/long", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("long" => "user_message.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
@@ -644,7 +644,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
    
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-   $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "friendship_request.html"));
    
    
@@ -676,7 +676,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
    
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-   $tpl = new Template("/home/linktrai/templates/messages/long", "keep");
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("simple" => "friendship_request.html"));
    
    

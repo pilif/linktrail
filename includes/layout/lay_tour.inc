@@ -14,7 +14,7 @@ if (!defined("COMUTILS_INC"))
 function print_next_link($nr){
  global $tour_steps;
 
- $tpl  = new Template("/home/linktrai/templates/tour/nav", "keep");
+ $tpl  = new Template(APPLICATION_HOME."/templates/tour/nav", "keep");
  if ($nr < count($tour_steps)){
   $tpl->set_file(array("main" => "next_page.html")); 
   $tpl->set_var("NEXTURL", '/Tour/'.$tour_steps[$nr][0]);
@@ -28,7 +28,7 @@ function print_next_link($nr){
 function print_prev_link($nr){
  global $tour_steps;
 
- $tpl  = new Template("/home/linktrai/templates/tour/nav", "keep");
+ $tpl  = new Template(APPLICATION_HOME."/templates/tour/nav", "keep");
  if ($nr > 1){
   $tpl->set_file(array("main" => "previous_page.html")); 
   $tpl->set_var("PREVURL", '/Tour/'.$tour_steps[$nr-2][0]);
@@ -50,15 +50,15 @@ function print_nav_links($page_id){
 }
 
 function print_tour_content($step){
- if (file_exists("/home/linktrai/includes/tour-replacement/".$step.".inc")){
-  $tpl  = new Template("/home/linktrai/static_pages/tour", "keep");
+ if (file_exists(APPLICATION_HOME."/includes/tour-replacement/".$step.".inc")){
+  $tpl  = new Template(APPLICATION_HOME."/static_pages/tour", "keep");
   $tpl->set_file(array("main" => "$step.html"));  
-  include("/home/linktrai/includes/tour-replacement/".$step.".inc");
+  include(APPLICATION_HOME."/includes/tour-replacement/".$step.".inc");
   $tpl->parse("main", "main");
   return $tpl->get("main");
  }else{
-  if (file_exists("/home/linktrai/static_pages/tour/".$step.".html"))
-   return implode("\n", file("/home/linktrai/static_pages/tour/".$step.".html"));
+  if (file_exists(APPLICATION_HOME."/static_pages/tour/".$step.".html"))
+   return implode("\n", file(APPLICATION_HOME."/static_pages/tour/".$step.".html"));
   else
    return "Media file $step.html could not be found on the server";
  }  
@@ -66,7 +66,7 @@ function print_tour_content($step){
 
 
 function print_one_tour_link($active, $title, $url){
- $tpl  = new Template("/home/linktrai/templates/tour", "keep");
+ $tpl  = new Template(APPLICATION_HOME."/templates/tour", "keep");
  if ($active)
   $tpl->set_file(array("main" => "link_active.html")); 
  else
@@ -79,7 +79,7 @@ function print_one_tour_link($active, $title, $url){
 
 function print_register_link(){
  global $ltrstr, $sess;
- $tpl  = new Template("/home/linktrai/templates/tour", "keep");
+ $tpl  = new Template(APPLICATION_HOME."/templates/tour", "keep");
  $tpl->set_file(array("main" => "link_active.html")); 
  $tpl->set_var("URL", $sess->url('/Experts/New_User?dologout=1'));
  $tpl->set_var("TEXT", $ltrstr['Register now']);
@@ -89,7 +89,7 @@ function print_register_link(){
 
 function empty_line(){
  global $glob_language_name;
- return implode("\n", file("/home/linktrai/templates/$glob_language_name/tour/empty_line.html"));
+ return implode("\n", file(APPLICATION_HOME."/templates/$glob_language_name/tour/empty_line.html"));
 }
 
 function print_tour_navigation($active_id){

@@ -43,7 +43,7 @@ if (!defined("LAY_SLOTS_INC"))
  
 function print_announcebox($id, $boxonly=false){
  $str = ($boxonly) ? "boxes" : "onlyboxes";
- $tpl = new Template("/home/linktrai/templates/directory/$str", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/$str", "keep");
  $tpl->set_file(array("box" => "$id.html"));
  $tpl->parse("main", "box");
 
@@ -56,7 +56,7 @@ function print_limit_nav($type, $active, $current_index, $max_trail, $objectname
  
  if ($objectname == "trails") $urlextra = "#trails";
  
- $tpl = new Template("/home/linktrai/templates/directory/limitbox", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/limitbox", "keep");
  $str = ($active) ? "active" : "inactive";
   switch ($type) {
      case 0: //back
@@ -106,7 +106,7 @@ function print_limitbox($currentindex, $maxtrail, $objectname="trails", $urlextr
   $value['previous'] = print_limit_nav(0, false, $currentindex, $maxtrail, $objectname, $urlextra);;
   $value['next']     = print_limit_nav(2, false, $currentindex, $maxtrail, $objectname, $urlextra);
  }
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("main" => "limitbox.html"));
  $tpl->set_var("LOWTRAIL", $lotrail);
  $tpl->set_var("HITRAIL", $hitrail);
@@ -126,7 +126,7 @@ function print_autotrail($trail){
   $sess->register("current_autotrail");
   $ok = false;
  
-  $tpl = new Template("/home/linktrai/templates/directory", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
   $tpl->set_file(array("main" => "autotrail.html"));
   $tpl->set_var("TRAILURL", $sess->url($trail."?noopen=1"));
   $tpl->parse("main", "main");
@@ -145,7 +145,7 @@ function has_fitting($array, $startlen, $maxlen, $startindex, $test=""){
 
 function print_one_subnode($nodeobj, $may_click=true){
  global $sess;
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  if (is_array($nodeobj['subs']) and (count($nodeobj['subs']) > 0)){
  $ci = 0;
  $cc = 0;
@@ -200,7 +200,7 @@ function print_subnodes($kat, $subnodes, $caps){
  if (file_exists($filename))
   return implode("\n", file($filename));
  
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("nodes" => "subnodes.html"));
  
  $tpl->set_var("THISNODE", friendlyname($kat)); 
@@ -255,7 +255,7 @@ function print_trail_move_link($trail_id){
    $url = str_replace('movetrail='.$HTTP_GET_VARS['movetrail'], 'movetrail='.$trail_id, $url);
   else
    $url .= 'movetrail='.$trail_id;
-  $tpl = new Template("/home/linktrai/templates/directory/trails", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
   $tpl->set_file(array("main" => "trailmove.html"));
   $tpl->set_var("MOVEURL", $sess->url($url));
   $tpl->parse("main", "main");
@@ -265,7 +265,7 @@ function print_trail_move_link($trail_id){
 function print_climbed($path){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/trails", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
  $tpl->set_file(array("sub" => "uptrail-sign.html"));
  $tpl->set_var("FROMURL", $sess->url(build_good_url($path)));
  $tpl->set_var("FROMNAME", friendlyname($path));
@@ -276,7 +276,7 @@ function print_climbed($path){
 function print_trail($data, $caps, $node_id){
      global $sess, $auth, $HTTP_GET_VARS, $movetrail, $glob_userdata, $ltrstr, $randval;
 
- $tpl = new Template("/home/linktrai/templates/directory/trails", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
  $dh = friendlydate($data['changedate']);
  $date = $dh['month'].'/'.$dh['day'].'/'.$dh['year']; 
  $permmission = relevant_perms($data, $auth->auth['uid'], $caps);
@@ -317,7 +317,7 @@ function print_trail($data, $caps, $node_id){
 function print_add_slot($kat){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("addslot" => "addslot.html"));
  $tpl->set_var("URL", $sess->url($kat.'Slots/Add_Slot'));
  $tpl->parse("addslot", "addslot");
@@ -325,7 +325,7 @@ function print_add_slot($kat){
 }
 
 function print_trailtitle($name){
- $tpl = new Template("/home/linktrai/templates/directory/trails", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
  $tpl->set_file(array("title" => "trailtitle.html"));
  $tpl->set_var("THISNODE", $name); 
  $tpl->parse("title", "title");
@@ -335,7 +335,7 @@ function print_trailtitle($name){
 function print_int_link($id){
  global $language_host;
  
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("link" => "intlink.html"));
  $tpl->set_var("URL", 'http://'.$language_host[1].build_good_url(id2path($id)));
  $tpl->parse("link", "link");
@@ -343,7 +343,7 @@ function print_int_link($id){
 }
 
 function print_bottomline($print_icon, &$nodeinfo){
- $tpl = new Template("/home/linktrai/templates/directory/trails", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
  $tpl->set_file(array("bottom" => "bottomline.html"));
  if ($nodeinfo['intnode'] != "")
   $tpl->set_var("INTNODE", print_int_link($nodeinfo['intnode']));
@@ -360,8 +360,6 @@ function print_trailgroup(&$nodeinfo, $caps=0, $current_index=0){
  $kat = $nodeinfo['path'];
  $id  = $nodeinfo['id'];
 
-// $tpl = new Template("/home/linktrai/templates/directory", "keep");
-// $tpl->set_file(array("trails" => "trails.html"));
  include("directory/trails/1.html");
  print(print_trailtitle(friendlyname($kat)));
  include("directory/trails/2.html");
@@ -373,11 +371,11 @@ function print_trailgroup(&$nodeinfo, $caps=0, $current_index=0){
   print(print_slots($slots, has_caps($caps, CAP_EDIT_SLOTS)));
   $boxtype= 1;
  }
- if (file_exists('/home/linktrai/templates/directory/onlyboxes/'.$id.'.html') ){
+ if (file_exists(APPLICATION_HOME.'/templates/directory/onlyboxes/'.$id.'.html') ){
   print(print_announcebox($id));
   $boxtype=2;
  }
- if (file_exists('/home/linktrai/templates/directory/boxes/'.$id.'.html') ){
+ if (file_exists(APPLICATION_HOME.'/templates/directory/boxes/'.$id.'.html') ){
   print(print_announcebox($id));
   $boxtype=1;
  }
@@ -409,7 +407,7 @@ function print_trailgroup(&$nodeinfo, $caps=0, $current_index=0){
 }
 
 function print_kat_error($kat){
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("error" => "err_nokat.html"));
  $tpl->set_var("KAT", build_pathlist($kat, false));
  $tpl->parse("main", "error");
@@ -419,8 +417,8 @@ function print_kat_error($kat){
 
 function print_didyouknow($id){
  $count = 0;
- if(file_exists('/home/linktrai/templates/directory/didyouknow/'.$id)){
-  $d = dir('/home/linktrai/templates/directory/didyouknow/'.$id);
+ if(file_exists(APPLICATION_HOME.'/templates/directory/didyouknow/'.$id)){
+  $d = dir(APPLICATION_HOME.'/templates/directory/didyouknow/'.$id);
   while($entry=$d->read()) {
     if(preg_match('/([0-9]+)\.html/', $entry, $idx)) {
      $files[$count] = $idx[1];
@@ -432,10 +430,10 @@ function print_didyouknow($id){
  if ($count == 0) return "";
  srand ((double)microtime()*1000000);
  $randval = ($count>1) ? rand(0, $count-1): 0;
- if (file_exists('/home/linktrai/templates/directory/didyouknow/'.$id.'/'.$files[$randval].'.html')){
-  $tpl = new Template('/home/linktrai/templates/directory/', "keep");
+ if (file_exists(APPLICATION_HOME.'/templates/directory/didyouknow/'.$id.'/'.$files[$randval].'.html')){
+  $tpl = new Template(APPLICATION_HOME.'/templates/directory/', "keep");
   $tpl->set_file(array("featured" => 'didyouknow.html'));
-  $tpl->set_var("TEXT", implode("\n", file('/home/linktrai/templates/directory/didyouknow/'.$id.'/'.$files[$randval].'.html')));
+  $tpl->set_var("TEXT", implode("\n", file(APPLICATION_HOME.'/templates/directory/didyouknow/'.$id.'/'.$files[$randval].'.html')));
   $tpl->parse("featured", "featured");
   return $tpl->get("featured");
  }else
@@ -445,7 +443,7 @@ function print_didyouknow($id){
 function print_fexpertdata($exp){
  global $sess, $ltrstr;
  if ($exp['Name'] == "") return "";
- $tpl = new Template("/home/linktrai/templates/directory/featured", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/featured", "keep");
  $tpl->set_file(array("featured" => "expert.html"));
  $tpl->set_var("EXPURL", $sess->url( build_good_url('/Experts/'.$exp['Name']) ));
  $tpl->set_var("EXPNAME", $exp['Name']);
@@ -461,7 +459,7 @@ function print_fexpeditlink(){
  
  $url = alter_url($REQUEST_URI, 'defexp', '1');
  
- $tpl = new Template("/home/linktrai/templates/directory/featured", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/featured", "keep");
  $tpl->set_file(array("featured" => "editlink.html"));
  $tpl->set_var("EDITURL", $url);
  $tpl->parse("featured", "featured");
@@ -475,7 +473,7 @@ function print_featured($kat, $caps=0){
  
  $exp = $top_experts->get_featured();
  if (($exp['Name'] != "") or (has_caps($caps, CAP_EDIT_EXPERTS))){
-  $tpl = new Template("/home/linktrai/templates/directory", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
   $tpl->set_file(array("featured" => "featured.html"));
   $tpl->set_var("FEATURED", print_fexpertdata($exp));
   if (has_caps($caps, CAP_EDIT_EXPERTS))
@@ -492,7 +490,7 @@ function print_featured($kat, $caps=0){
 function print_one_expert($name){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/topex", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/topex", "keep");
  $tpl->set_file(array("featured" => "one_expert.html"));
  $tpl->set_var("EXPURL", $sess->url(build_good_url('/Experts/'.$name)));
  $tpl->set_var("EXPNAME", $name);
@@ -511,7 +509,7 @@ function print_topex($kat){
   for($x = 0; $x < count($experts); $x++){
    $str .= print_one_expert($experts[$x]);
   }
-  $tpl = new Template("/home/linktrai/templates/directory", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
   $tpl->set_file(array("featured" => "topex.html"));
   $tpl->set_var("TOPEX", $str);
   $tpl->parse("featured", "featured");
@@ -524,7 +522,7 @@ function print_topex($kat){
 function print_iwantto_mypage(){
  global $auth, $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "iw_mypage.html"));
  $tpl->set_var("ACTIONURL", $sess->url("/Experts/".rawurlencode($auth->auth['uname'])));
  $tpl->parse("main", "main");
@@ -535,7 +533,7 @@ function print_iwantto_mypage(){
 function print_iwantto_report_bug(){
  global $auth, $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "iw_bugreport.html"));
  $tpl->set_var("ACTIONURL", $sess->url("/Help/Report_a_bug"));
  $tpl->parse("main", "main");
@@ -549,7 +547,7 @@ function print_iwantto_readmsgs(){
  
  if (!defined("MESSAGES_INC"))
   include("dbapi/messages.inc");
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "iw_readmsgs.html"));
  $tpl->set_var("ACTIONURL", $sess->url(build_good_url("/Experts/".$auth->auth['uname']."/Messages")));
  if ($glob_userdata['LastReadStamp'] == "")
@@ -563,7 +561,7 @@ function print_iwantto_readmsgs(){
 
 function print_iwantto_subcategory(){
  global $REQUEST_URI, $editmode, $PHP_SELF;
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "subcategory.html"));
  if ($editmode)
   $url = $PHP_SELF;
@@ -582,7 +580,7 @@ function print_iwantto_subcategory(){
 
 function print_iwantto_trailadd($kat){
  global $sess, $glob_userdata;
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "trailadd.html"));
  $tpl->set_var("ADDURL", $sess->url("/diredit/edittrail.php".build_good_url($kat)."?action=addform"));
  $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
@@ -594,7 +592,7 @@ function print_iwantto_trailadd($kat){
 
 function print_iwantto_traildrop($trailid){
  global $sess, $PHP_SELF;
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "movetrail.html"));
  $test = id2path($trailid);
 // die("Test: ".$test);
@@ -607,7 +605,7 @@ function print_iwantto_traildrop($trailid){
 
 function print_iwantto_catdrop($nodeid, $nodename){
  global $sess, $PHP_SELF;
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "movenode.html"));
  $tpl->set_var("DROPURL", $PHP_SELF.'?nodedrop=1');
  $tpl->set_var("NODENAME", str_replace("_", " ", friendlyname($nodename)));
@@ -618,7 +616,7 @@ function print_iwantto_catdrop($nodeid, $nodename){
 
 function print_iwantto_linkdrop($nodeid, $nodename){
  global $sess, $PHP_SELF;
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "linknode.html"));
  $tpl->set_var("DROPURL", $PHP_SELF.'?linkdrop=1');
  $tpl->set_var("NODENAME", str_replace("_", " ", friendlyname($nodename)));
@@ -630,7 +628,7 @@ function print_iwantto_linkdrop($nodeid, $nodename){
 function print_iwantto_member(){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "nobody_member.html"));
  $tpl->set_var("ACTIONURL", $sess->url("/Experts/New_User"));
  $tpl->parse("main", "main");
@@ -640,7 +638,7 @@ function print_iwantto_member(){
 function print_iwantto_login(){
  global $PHP_SELF;
  
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "nobody_login.html"));
  $tpl->set_var("ACTIONURL", $PHP_SELF."?dologin=1");
  $tpl->parse("main", "main");
@@ -650,7 +648,7 @@ function print_iwantto_login(){
 function print_iwantto_logout(){
  global $PHP_SELF;
  
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "logout.html"));
  $tpl->set_var("ACTIONURL", $PHP_SELF."?dologout=1");
  $tpl->parse("main", "main");
@@ -660,7 +658,7 @@ function print_iwantto_logout(){
 function print_iwantto_tour(){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/iwantto", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "nobody_tour.html"));
  $tpl->set_var("TOURURL", $sess->url("/Tour/"));
  $tpl->parse("main", "main");
@@ -718,7 +716,7 @@ if (has_caps($capabilities, CAP_ADMIN_DIRECTORY) and ($linknode != "")){
    $capsgui['bugreport'] = print_iwantto_report_bug();  
 
 
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("featured" => "iwantto.html"));
   
  $tpl->set_block("featured", "iwanttoitem", "iwanttos");
@@ -736,7 +734,7 @@ if (has_caps($capabilities, CAP_ADMIN_DIRECTORY) and ($linknode != "")){
 function print_one_new_trail($nodeinfo){
  global $glob_userdata, $ltrstr, $sess, $randval;
 
- $tpl = new Template("/home/linktrai/templates/directory/newtrail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/newtrail", "keep");
  $tpl->set_file(array("featured" => "newtrail.html"));
 
  $cdate = unixdate(friendlydate($nodeinfo['changedate']));
@@ -766,7 +764,7 @@ function print_newtrails(&$nodeinfo){
  if ($trails == -1)
   return "";
  
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("featured" => "newtrails.html"));
  $trailstr = "";
  for ($x=0; $x < count($trails); $x++){
@@ -779,7 +777,7 @@ function print_newtrails(&$nodeinfo){
 }
 
 function trail_addhead($path){
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("main" => "addhead.html"));
   $tpl->set_var("NODEURL", build_good_url($path));
   $tpl->set_var("NODENAME", friendlyname($path));
@@ -790,12 +788,12 @@ function trail_addhead($path){
 function print_trail_addform($kat, $predef, $errfile=""){
  global $PHP_SELF, $ltrstr, $glob_language_name;
  
- if ((file_exists("/home/linktrai/templates/".$glob_language_name."/trail/edit/$errfile")) and ($errfile != "")){
-  $str = implode("\n", file("/home/linktrai/templates/".$glob_language_name."/trail/edit/$errfile"));
+ if ((file_exists(APPLICATION_HOME."/templates/".$glob_language_name."/trail/edit/$errfile")) and ($errfile != "")){
+  $str = implode("\n", file(APPLICATION_HOME."/templates/".$glob_language_name."/trail/edit/$errfile"));
  }else{
   $str = "";
  }
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("add" => "trailadd.html"));
  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
  $tpl->set_var("ERRORSTR", $str);
@@ -807,7 +805,7 @@ function print_trail_addform($kat, $predef, $errfile=""){
  $tpl->set_var("FOOTTEXT", "");
  $tpl->set_var("TRAIL_TITLE", $ltrstr['Add Trail title']);
  $tpl->set_var("TRAIL_DESCRIPTION", $ltrstr['Add Trail description']);
- $tpl->set_var("FOOTTEXT", implode("\n", file("/home/linktrai/templates/".$glob_language_name."/directory/edit/addfoot.html")));
+ $tpl->set_var("FOOTTEXT", implode("\n", file(APPLICATION_HOME."/templates/".$glob_language_name."/directory/edit/addfoot.html")));
  $tpl->set_var("DO_AS_ADMIN", "");
  $tpl->set_var("BUTTONS", '<input type="submit" name="create" value="'.$ltrstr['Create this Trail'].'">');
  $tpl->parse("add", "add");
@@ -818,13 +816,13 @@ function print_trail_addform($kat, $predef, $errfile=""){
 function print_trail_editform($trail, $predef, $is_superuser=false, $errfile=""){
  global $PHP_SELF, $ltrstr, $auth, $glob_language_name;
  
- if ((file_exists("/home/linktrai/templates/".$glob_language_name."/trail/edit/$errfile")) and ($errfile != "")){
-  $str = implode("\n", file("/home/linktrai/templates/".$glob_language_name."/trail/edit/$errfile"));
+ if ((file_exists(APPLICATION_HOME."/templates/".$glob_language_name."/trail/edit/$errfile")) and ($errfile != "")){
+  $str = implode("\n", file(APPLICATION_HOME."/templates/".$glob_language_name."/trail/edit/$errfile"));
  }else{
   $str = "";
  }
 
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("add" => "trailadd.html"));
  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
  $tpl->set_var("ERRORSTR", $str);
@@ -839,7 +837,7 @@ function print_trail_editform($trail, $predef, $is_superuser=false, $errfile="")
  $str = ($is_superuser) ? print_trail_adminform() : "";
  $tpl->set_var("DO_AS_ADMIN", $str);
  $tpl->set_var("BUTTONS", print_trail_editbuttons());
- $tpl->set_var("HEADTEXT", implode("\n", file("/home/linktrai/templates/".$glob_language_name."/directory/edit/edithead.html")));
+ $tpl->set_var("HEADTEXT", implode("\n", file(APPLICATION_HOME."/templates/".$glob_language_name."/directory/edit/edithead.html")));
  $tpl->set_var("FOOTTEXT", "");
  $tpl->set_var("TRAIL_TITLE", $ltrstr['Edit Trail title']);
  $tpl->set_var("TRAIL_DESCRIPTION", $ltrstr['Edit Trail description']);
@@ -852,7 +850,7 @@ function print_trail_editform($trail, $predef, $is_superuser=false, $errfile="")
 function print_badlang($trailinfo){
  global $PHP_SELF;
  
- $tpl = new Template("/home/linktrai/templates/trail/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail/edit", "keep");
  $tpl->set_file(array("view" => "err_badlang.html"));
  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
  $tpl->set_var("HIDDENS", '<input type="hidden" name="action" value="langanswer"><input type="hidden" name="trailinfo" value="'.$trailinfo.'">');
@@ -863,7 +861,7 @@ function print_badlang($trailinfo){
 
 function print_trail_delform(){
  
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("del" => "traildel.html"));
 // $tpl->set_var("DELBUTTON", get_button(0, "", "middle", "", 'onClick="if (confirm(\'You are deleting this trail and all the links it is contining!\nProceed?\')) document.editform.submit(); else return false;"') );
  $tpl->parse("del", "del");
@@ -873,12 +871,12 @@ function print_trail_delform(){
 function print_trail_adminform(){
  global $glob_language_name;
  
- return implode("\n", file("/home/linktrai/templates/$glob_language_name/directory/edit/do_admin.html"));
+ return implode("\n", file(APPLICATION_HOME."/templates/$glob_language_name/directory/edit/do_admin.html"));
 }
 
 
 function print_trail_editbuttons($formname="editform"){
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("eb" => "editbuttons.html"));
  $tpl->set_var("FORMNAME", $formname);
  $tpl->parse("eb", "eb");

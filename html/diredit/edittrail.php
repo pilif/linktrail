@@ -2,7 +2,7 @@
 
 function addform($predef="", $errfile=""){
  global $sess, $nodeinfo, $HTTP_GET_VARS, $kat;
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("simpleframe" => "simpleframe.html"));
  $tpl->set_var("CONTENT", print_trail_addform($kat, $predef, $errfile));
  $tpl->parse("simpleframe", "simpleframe");
@@ -16,7 +16,7 @@ function editform($predef="", $errfile=""){
  //$mytrail is a complete nodeinfo-structure that comes from
  //trail.php
  
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("simpleframe" => "simpleframe.html"));
  $tpl->set_var("CONTENT", print_trail_editform($mytrail, $predef, has_caps($capabilities,CAP_SUPERUSER), $errfile));
  
@@ -100,7 +100,7 @@ function lang_query($kat, $title, $description, $trail_id=-1, $act_as_admin=fals
  
  $str = base64_encode(serialize($errtrail));
  
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("simpleframe" => "simpleframe.html"));
  $tpl->set_var("CONTENT",  print_badlang($str));
  $tpl->parse("simpleframe", "simpleframe");

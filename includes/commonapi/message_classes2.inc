@@ -71,7 +71,7 @@ class ltrUserModificationMsg extends ltrMessage{
   }
   
  function print_simple(){
-  $tpl = new Template("/home/linktrai/templates/messages/short", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
   $tpl->set_file(array("simple" => "user_cn.html"));
   
   $trailpath = id2path($this->data['Trail']);

@@ -73,7 +73,7 @@ function print_page_end(){
 function add_slot_form(){
  global $kat, $capabilities, $nodeinfo;
 print_page_begin();
-$tpl = new Template("/home/linktrai/templates/directory", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
 $tpl->set_file(array("main" => "main.html"));
 
 $tpl->set_var("SUBNODES", print_slot_form($nodeinfo));
@@ -137,16 +137,16 @@ function copy_file($slot_id){
   $ext = $exts[$arr[2]-1];
  }
  remove_file($slot_id); //or else extension-changes would not get notified..
- copy ($field_image_file, "/home/linktrai/html/img/slots/$slot_id".$ext);
+ copy ($field_image_file, APPLICATION_HOME."/html/img/slots/$slot_id".$ext);
 }
 
 function remove_file($id){
  $file = "";
  $valid_exts=Array(".gif", ".jpg", ".png", "");
  foreach($valid_exts as $ext){
-  $probe = '/home/linktrai/html/img/slots/'.$id.$ext;
+  $probe = APPLICATION_HOME.'/html/img/slots/'.$id.$ext;
   if (file_exists($probe)){
-   $file = '/home/linktrai/html/img/slots/'.$id.$ext;
+   $file = APPLICATION_HOME.'/html/img/slots/'.$id.$ext;
    break;
   }
  }
@@ -185,7 +185,7 @@ function go_back(){
 function edit_slot_form(){
  global $kat, $capabilities, $nodeinfo, $id;
  print_page_begin();
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("main" => "main.html"));
 
  $tpl->set_var("SUBNODES", print_slot_form($nodeinfo, $id));
@@ -280,7 +280,7 @@ function slot_edit_error($errors){
  $errstrs .= "</ul></font>"; 
 
  print_page_begin();
- $tpl = new Template("/home/linktrai/templates/directory", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
  $tpl->set_file(array("main" => "main.html"));
 
  $tpl->set_var("SUBNODES", print_slot_form($nodeinfo, $slot, $errstrs));

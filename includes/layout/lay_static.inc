@@ -18,7 +18,7 @@ if (!defined("FORMS_INC"))
  
 function print_one_side_link($text, $url=""){
   global $sess;
-  $tpl = new Template("/home/linktrai/templates/static", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/static", "keep");
   if ($url == "")
    $tpl->set_file(array("link" => "link_inactive.html"));
   else{
@@ -52,7 +52,7 @@ function print_sidebar($rubrik, $active_url){
   include("commonapi/common_permissions.inc");
  $capabilities = get_caps($perm, '/'); // this is used at many places
 
- $tpl = new Template("/home/linktrai/templates/static/sidebars", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/static/sidebars", "keep");
  $tpl->set_file(array("main" => "$rubrik.html"));
 
  $var = "static_$rubrik";
@@ -68,7 +68,7 @@ function print_sidebar($rubrik, $active_url){
 function print_static_page($path, $errors=false){
 global $HTTP_POST_VARS, $PHP_SELF, $glob_userdata, $ltrstr;
 
-$tpl = new Template("/home/linktrai/static_pages".dirname($path), "keep");
+$tpl = new Template(APPLICATION_HOME."/static_pages".dirname($path), "keep");
 $tpl->set_file(array("main" => basename($path).".html"));
 if ($errors == false){
  $errors = array();
@@ -79,8 +79,8 @@ if ($errors == false){
 /* Before we begin parsing some form-vars, We can define
    template-Markers using a filler-template (that is 100% PHP-Code)
 */
-if (file_exists('/home/linktrai/includes/static-replacement/'.str_replace('/', '_', $path).'.inc'))
- include('/home/linktrai/includes/static-replacement/'.str_replace('/', '_', $path).'.inc');
+if (file_exists(APPLICATION_HOME.'/includes/static-replacement/'.str_replace('/', '_', $path).'.inc'))
+ include(APPLICATION_HOME.'/includes/static-replacement/'.str_replace('/', '_', $path).'.inc');
 $fields = $tpl->get_undefined("main");
 if (is_array($fields)){
  if (in_array('ACTION', $fields))

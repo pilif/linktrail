@@ -28,7 +28,7 @@ if (!defined("DEFEXP_INC"))
 function print_editform_add($node){
  global $sess, $PHP_SELF, $thisnode, $glob_language;
  
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  if ($thisnode['language'] == 1){
   $tpl->set_file(array("main" => "nodeedit_add.html"));
  }else{
@@ -71,7 +71,7 @@ function create_cat_move_url($id){
 function print_one_symlink($mininode){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("main" => "edit_symlink.html"));
  $tpl->set_var('SOURCE_NODE_URL', $sess->url(parent_path($mininode['path'])));
  $tpl->set_var('SOURCE_NODE_NAME', friendlyname(parent_path($mininode['path'])));
@@ -89,7 +89,7 @@ $symlinks = get_symlinks_to($kat);
   return "";
 
  
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("main" => "nodeedit_symlinks.html"));
  $tpl->set_var("THISNODE", friendlyname($kat)); 
  $tpl->set_var("ACTION_SYMLINK", $sess->url("/diredit/editdir.php"));
@@ -108,7 +108,7 @@ $symlinks = get_symlinks_to($kat);
 function print_editform_edit($kat){
  global $sess, $PHP_SELF, $thisnode, $REQUEST_URI;
 
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  if ($thisnode['language'] == 1){
   $tpl->set_file(array("main" => "nodeedit_edit.html"));
  }else{
@@ -165,7 +165,7 @@ function print_defexp_form($nodeinfo, $exp_error=""){
   $errorstr = $exp_error['errorstr'];
  }
 
- $tpl = new Template("/home/linktrai/templates/directory/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/edit", "keep");
  $tpl->set_file(array("main" => "edit_defexp.html"));
  $tpl->set_var("THISNODE", friendlyname($nodeinfo['path']));
  $tpl->set_var("ACTION", $sess->url("/diredit/edit_expert.php".build_good_url($nodeinfo['path'])));

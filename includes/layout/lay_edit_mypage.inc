@@ -50,7 +50,7 @@ $tpl->set_var("FIELD_{$fieldname}_NOBODY_CHECKED", $checked['nobody']);
 function print_profile_form($userdata){
 global $sess, $PHP_SELF, $ltrstr;
  
-$tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
 $tpl->set_file(array("edit" => "profile.html"));
 $tpl->set_var("ACTION", build_good_url($PHP_SELF));
 
@@ -178,7 +178,7 @@ print_profile_sub($tpl, 'PIC', "PhotoUrl", $userdata);
 
 
 function print_pwquery_error($text){
- $tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
  $tpl->set_file(array("edit" => "error_pwchange.html"));
  $tpl->set_var("TEXT", $text);
  $tpl->parse("edit", "edit");
@@ -188,7 +188,7 @@ function print_pwquery_error($text){
 function print_security_form($userdata, $nomatch=false){
 global $sess, $PHP_SELF, $ltrstr;
  
-$tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
 $tpl->set_file(array("edit" => "password.html"));
 $tpl->set_var("ACTION", build_good_url($PHP_SELF));
 $tpl->set_var("PAGENAME", $ltrstr['Security Preferences']);
@@ -241,7 +241,7 @@ $tpl->set_var("FIELD_PASSWORD2", "field_password2");
 function print_preferences_form($userdata, $nomatch=false){
 global $sess, $PHP_SELF, $ltrstr;
  
-$tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
 $tpl->set_file(array("edit" => "preferences.html"));
 $tpl->set_var("USERNAME", $userdata['Username']);
 $tpl->set_var("MYPAGEURL", $sess->url("/Experts/".$userdata['Username']));
@@ -397,7 +397,7 @@ $tpl->set_var("VACATION_MODE_CHECKED", $checked);
 
 
 function print_msg_frame($counter, $str){
-$tpl = new Template("/home/linktrai/templates/mypage/msc", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage/msc", "keep");
 $tpl->set_file(array("msc" => "msg_frame.html"));
 $color = ($counter % 2 == 0) ? BACK_COLOR1 : BACK_COLOR2;
 $tpl->set_var("COLOR", $color);
@@ -407,7 +407,7 @@ return $tpl->get("main");
 }
 
 function print_msg_error_string($str){
-$tpl = new Template("/home/linktrai/templates/mypage/msc", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage/msc", "keep");
 $tpl->set_file(array("mses" => "msg_error.html"));
 
 $tpl->set_var("ERRORSTR", $str);
@@ -440,7 +440,7 @@ switch ($order_by) {
         $bytext              = "Date";
 }
 
-$tpl = new Template("/home/linktrai/templates/mypage", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
 $tpl->set_file(array("msc" => "msg_center.html"));
 $tpl->set_var("USERNAME", $userdata['Username']);
 $tpl->set_var("ACTION", build_good_url($PHP_SELF));
@@ -520,7 +520,7 @@ return $tpl->get("main");
 function print_message_send_form($expert, $error=false){
  global $ltrstr, $sess, $PHP_SELF;
  
-$tpl = new Template("/home/linktrai/templates/mypage", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
 $tpl->set_file(array("msc" => "send_message.html"));
 $tpl->set_var("ACTION", build_good_url($PHP_SELF));
 $tpl->set_var("USERNAME", $expert);
@@ -539,7 +539,7 @@ return $tpl->get("main");
 function print_make_friendship($expert){
  global $PHP_SELF, $sess;
  
-$tpl = new Template("/home/linktrai/templates/mypage", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
 $tpl->set_file(array("msc" => "make_friendship.html"));
 $tpl->set_var("USERNAME", $expert);
 $tpl->set_var("ACTION", build_good_url($PHP_SELF));
@@ -552,21 +552,21 @@ return $tpl->get("main");
 function print_all_settings_form($ext, $userdata, $passerror, $posconf){
  global $glob_language_name;
 
- $tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
  $tpl->set_file(array("settings" => "settings_top.html"));
  $tpl->set_var("USERNAME", $userdata['Username']);
  $tpl->parse("main", "settings");
  $str = $tpl->get("main");
  $extl = strtolower($ext);
- if (file_exists("/home/linktrai/templates/$glob_language_name/mypage/edit/$extl.html")){
-  $tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+ if (file_exists(APPLICATION_HOME."/templates/$glob_language_name/mypage/edit/$extl.html")){
+  $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
   $tpl->set_file(array("settings" => "$extl.html"));
   eval("fill_".$extl.'_template($userdata, $tpl, $passerror);');
   $tpl->parse("main", "settings");
   $str .='<p>'.$tpl->get("main");
  }
  if ($posconf){
- $tpl = new Template("/home/linktrai/templates/mypage/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
  $tpl->set_file(array("settings" => "settings_bottom.html"));
  $tpl->parse("main", "settings");
  $str .= '<p>'. $tpl->get("main");

@@ -19,6 +19,10 @@ function stop_timer($stellen, $name="default") {
 
 start_timer(); 
 
+$path = $DOCUMENT_ROOT;
+if (substr($path, -1) == "/")
+ $path = substr($path, 0, strlen($path)-1);
+define("APPLICATION_HOME", dirname($path));
 $host_language['prototyp.linktrail.work'] = 1;
 $host_language['prototypde.linktrail.work'] = 2;
 $language_host[1] = 'prototyp.linktrail.work';
@@ -30,11 +34,11 @@ if (!$glob_language)
  $glob_language = 1;
 $glob_language_name = $language_name[$glob_language];
 
-define("TEMPLATE_ROOT", "/home/linktrai/templates/$glob_language_name/");
+define("TEMPLATE_ROOT", APPLICATION_HOME."/templates/$glob_language_name/");
 
 //We are setting a new include-path...
 $inc = ini_get('include_path');
-$inc = str_replace('/home/linktrai/templates/', TEMPLATE_ROOT, $inc);
+$inc = str_replace(APPLICATION_HOME.'/templates/', TEMPLATE_ROOT, $inc);
 ini_set("include_path", $inc);
 //die($inc);
 

@@ -92,7 +92,7 @@ if (!class_exists("Template"))
  include("template.inc");
 
 if (!(isset($HTTP_GET_VARS['viewtype']) and ($HTTP_GET_VARS['viewtype'] == "0"))){
- $tpl = new Template("/home/linktrai/templates/mypage", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
  $tpl->set_file(array("main" => "editall.html"));
 
  include("commonheader2.html");

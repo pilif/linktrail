@@ -83,7 +83,7 @@ if ($query != ""){
  }
 }
 print_page_begin();
-$tpl = new Template("/home/linktrai/templates/search", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
 $tpl->set_file(array("main" => "main.html"));
 $caps = get_caps($perm, '/');
 $tpl->set_var("IWANTTO", print_iwantto('/', $caps));

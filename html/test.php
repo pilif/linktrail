@@ -5,6 +5,7 @@
 
 <body>
 <?
+//phpinfo();
 phpinfo();
 ?> 
 </body>

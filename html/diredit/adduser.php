@@ -98,7 +98,7 @@ $in_login = false;
 
 include("template.inc");
 include("commonheader2.html");
-$tpl = new Template("/home/linktrai/templates/login", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 $tpl->set_file(array("main" => "regdone.html"));
 //$tpl->set_var("IWANTTO", print_mypage_iwantto($caps, $auth->auth['uname']));
 $tpl->set_var("USERNAME", $auth->auth['uname']);

@@ -34,7 +34,7 @@ return $str;
 function print_slot_edit_link($id){
  global $sess;
  
- $tpl = new Template("/home/linktrai/templates/directory/slots", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/slots", "keep");
  $tpl->set_file(array("editlink" => "editlink.html"));
  $tpl->set_var("EDITURL", $sess->url("Slots/Edit_Slot?id=".$id));
  $tpl->parse("main", "editlink");
@@ -56,7 +56,7 @@ function print_slot_form($nodeinfo, $slot_id=-1, $errstr=""){
   $method = "Edit Slot";
   $hiddens = '<input type="hidden" name="id" value="'.$slot_id.'">';
  } 
- $tpl = new Template("/home/linktrai/templates/directory/slots", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/slots", "keep");
  $tpl->set_file(array("form" => "addedit.html"));
  $tpl->set_var("ACTION", $PHP_SELF);
  $tpl->set_var("HIDDENS", $hiddens);
@@ -78,16 +78,16 @@ function print_slot_image($id, $url, $target){
  $file = "";
  $valid_exts=Array(".gif", ".jpg", ".png", "");
  foreach($valid_exts as $ext){
-  $probe = '/home/linktrai/html/img/slots/'.$id.$ext;
+  $probe = APPLICATION_HOME.'/html/img/slots/'.$id.$ext;
   if (file_exists($probe)){
    $file = $id.$ext;
    break;
   }
  }
  if ($file == "") return "";
- $tpl = new Template("/home/linktrai/templates/directory/slots", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/slots", "keep");
  $tpl->set_file(array("image" => "image.html"));
- $arr = getimagesize('/home/linktrai/html/img/slots/'.$file);
+ $arr = getimagesize(APPLICATION_HOME.'/html/img/slots/'.$file);
  $tpl->set_var("LINKURL", $url);
  $tpl->set_var("TARGET", $target);
  $tpl->set_var("IMGURL", '/img/slots/'.$file);
@@ -104,7 +104,7 @@ function print_one_slot($links, $id, $description, $allow_edit=false){
  if (!is_array($links)) return "";
  $rowspan = (count($links) == 2) ? 3 : 2;
  
- $tpl = new Template("/home/linktrai/templates/directory/slots", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/slots", "keep");
  $tpl->set_file(array("slot" => "main.html"));
  $url    = $sess->url(build_good_url($links[0]['url']));
  $target = 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222);
@@ -131,7 +131,7 @@ function print_one_slot($links, $id, $description, $allow_edit=false){
 function print_2nd_link($link){
  global $randval, $sess, $glob_userdata;
  
- $tpl = new Template("/home/linktrai/templates/directory/slots", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/directory/slots", "keep");
  $tpl->set_file(array("slot" => "2ndlink.html"));
  $tpl->set_var("LINKURL", $sess->url(build_good_url($link['url'])));
  $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));

@@ -87,7 +87,7 @@ if (!defined("COMMON_PERMISSIONS_INC"))
  include("commonapi/common_permissions.inc");
  
  $count = 0;
- $d = dir('/home/linktrai/static_pages/tour/');
+ $d = dir(APPLICATION_HOME.'/static_pages/tour/');
  while($entry=$d->read()) {
    if(preg_match('/^([0-9]+)\.html/', $entry, $idx)) {
     $files[$count] = $idx[1];
@@ -116,7 +116,7 @@ $capabilities = get_caps($perm, '/'); // this is used at many places
 //echo($path);
 include("template.inc");
 include("commonheader2.html");
-$tpl = new Template("/home/linktrai/templates/tour", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/tour", "keep");
 $tpl->set_file(array("main" => "main.html"));
 $tpl->set_var("CONTENT", print_tour_content($step));
 $tpl->set_var("IWANTTO", print_iwantto('/', $capabilities));

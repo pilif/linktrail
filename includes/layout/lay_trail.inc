@@ -34,7 +34,7 @@ if (!defined("SHARE_INC"))
  include("dbapi/share.inc");
 
 function print_redirecting($url, $title){
-  $tpl = new Template("/home/linktrai/templates/directory", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/directory", "keep");
   $tpl->set_file(array("main" => "redirecting.html"));
   $tpl->set_var("SITEURL", $url);
   $tpl->set_var("SITENAME", $title);
@@ -53,7 +53,7 @@ function msg_box($title, $text, $current_trail, $backurl="", $reloadparent=0, $b
   if ($backtext == "-1")
    $backtext = "";
 
-  $tpl = new Template("/home/linktrai/templates/trail", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
   $tpl->set_file(array("main" => "msgbox.html"));
   $dh = friendlydate($current_trail['adddate']);
   $date = $dh['month'].'/'.$dh['day'].'/'.$dh['year'];
@@ -79,7 +79,7 @@ function msg_box($title, $text, $current_trail, $backurl="", $reloadparent=0, $b
 
 function ask_delete_trail($trailname, $action){
   global $sess;
-  $tpl = new Template("/home/linktrai/templates/trail", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
   $tpl->set_file(array("main" => "traildeltext.html"));
   $trl = get_node_info($trailname);
   $tpl->set_var("ACTION", $sess->url($action));
@@ -95,7 +95,7 @@ function ask_delete_trail($trailname, $action){
 function print_permission_form($current_friend=12, $current_user=4){
  global $PHP_SELF;
  
- $tpl = new Template("/home/linktrai/templates/trail/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail/edit", "keep");
  $tpl->set_file(array("main" => "edit_perms.html"));
  
  $tpl->set_var("ACTION", $PHP_SELF);
@@ -144,7 +144,7 @@ if (!is_array($friends))
 get_allowed_users($trail_id, $friends);
 if (count($friends) == 0)
  return "";
-$tpl = new Template("/home/linktrai/templates/trail/share", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/trail/share", "keep");
 $tpl->set_file(array("main" => "friendlist.html"));
 $tpl->set_block("main", "friend", "friends");
 foreach($friends as $friend){
@@ -165,7 +165,7 @@ function print_share_nobody(){
 function print_share_form($trail, $current_user){
  global $PHP_SELF, $auth;
  
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("main" => "share_main.html"));
  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
  $tpl->set_var('FRIENDLIST', print_share_friendlist($auth->auth['uname'], $auth->auth['uid'], $trail['id']));
@@ -187,7 +187,7 @@ function print_subscription_form($current_notification, $formtype=SFT_SUBSCRIBE,
 //define("SFT_CHSUBS", 2);
 //define("SFT_CHNOT", 3);
 
- $tpl = new Template("/home/linktrai/templates/trail/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail/edit", "keep");
  
  switch ($formtype) {
      case SFT_SUBSCRIBE:
@@ -208,7 +208,7 @@ function print_subscription_form($current_notification, $formtype=SFT_SUBSCRIBE,
 
 function print_edit_element($type, $linkinfo, $permission, $postext="", $is_superuser=false){
  global $sess, $auth;
- $tpl = new Template("/home/linktrai/templates/trail/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail/edit", "keep");
  $do_parse=false;
  switch ($type) {
      case 0:
@@ -263,7 +263,7 @@ function print_edit_element($type, $linkinfo, $permission, $postext="", $is_supe
 }
 
 function print_link_devider(){
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("main" => "linkdevider.html"));
  $tpl->parse("main", "main");
  return $tpl->get("main"); 
@@ -271,7 +271,7 @@ function print_link_devider(){
 
 function print_link($link, $editmode=false, $nodeinfo="", $hilight_words="", $superuser=false){
   global $PHP_SELF, $trailperms, $glob_userdata, $ltrstr, $sess, $auth;
-  $tpl = new Template("/home/linktrai/templates/trail", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
    
   if ($editmode){
    $tpl->set_file(array("main" => "linkedit.html"));
@@ -384,7 +384,7 @@ include("trail/view/7.html");
 function print_addform($hiddens, $trailpath, $predef=""){
   global $sess;
 
-  $tpl = new Template("/home/linktrai/templates/trail", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
   $tpl->set_file(array("main" => "addform.html"));
   $tpl->set_var("ACTIONURL", $sess->url("/trailedit/editlink.php".build_good_url($trailpath)));
   $tpl->set_var("HIDDENS", $hiddens);
@@ -397,7 +397,7 @@ function print_addform($hiddens, $trailpath, $predef=""){
 }                                        
 
 function print_position($url, $trail="", $link=""){
-  $tpl = new Template("/home/linktrai/templates/trail", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
   if ("" == $trail){
     $tpl->set_file(array("main" => "postext.html"));
     $tpl->set_var("URL", $url);
@@ -417,7 +417,7 @@ function print_position($url, $trail="", $link=""){
 function script_fork($path, $parent_path){
  global $glob_userdata, $sess, $randval;
  
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("fork" => "script_fork.html"));
  $tpl->set_var("TRAILURL", $sess->url(addslashes($path)));
  $tpl->set_var("WINDOWNAME", "trail".($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
@@ -429,7 +429,7 @@ function script_fork($path, $parent_path){
 }
 
 function print_reload_parent_script(){
-$tpl = new Template("/home/linktrai/templates/trail", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
 $tpl->set_file(array("reload" => "reload_parent.html"));
 $tpl->parse("main", "reload");
 $tpl->p("main");
@@ -438,7 +438,7 @@ $tpl->p("main");
 function print_traildata($nodeinfo){
  global $auth, $caps, $sess;
  
-$tpl = new Template("/home/linktrai/templates/trail/view", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/trail/view", "keep");
 $tpl->set_file(array("view" => "traildata.html"));
 if ( ($auth->auth['uname'] == $nodeinfo['username']) or (has_caps($caps, CAP_SUPERUSER)) ) 
  $tpl->set_var("TEDITBUTTON", '['.get_button(7, "/diredit/edittrail.php".build_good_url($nodeinfo['path']), $align="right", $target="_self").']');
@@ -460,7 +460,7 @@ return $tpl->get("main");
 function print_linkstitle($nodeinfo){
  global $auth, $caps;
  
-$tpl = new Template("/home/linktrai/templates/trail/view", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/trail/view", "keep");
 $tpl->set_file(array("view" => "linkstitlebar.html"));
 
 $dh = friendlydate($nodeinfo['changedate']);
@@ -485,7 +485,7 @@ global $reloadparent, $trailperms, $auth, $sess, $caps;
 
 
 
-$tpl = new Template("/home/linktrai/templates/trail", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
 if ($content != "") 
  $tpl->set_file(array("view" => "view.html"));
 else
@@ -544,7 +544,7 @@ $tpl->p("main");
 function print_badlang_link($linkdata){
  global $PHP_SELF;
  
- $tpl = new Template("/home/linktrai/templates/trail/edit", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail/edit", "keep");
  $tpl->set_file(array("view" => "err_badlang_link.html"));
  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
  $tpl->set_var("HIDDENS", '<input type="hidden" name="action" value="langanswer"><input type="hidden" name="linkdata" value="'.$linkdata.'">');
@@ -555,7 +555,7 @@ function print_badlang_link($linkdata){
 function print_send_message_form($error){
  global $PHP_SELF, $ltrstr;
  
- $tpl = new Template("/home/linktrai/templates/trail", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/trail", "keep");
  $tpl->set_file(array("view" => "send_message.html"));
  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
  if ($error){

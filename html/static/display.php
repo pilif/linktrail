@@ -43,8 +43,7 @@ if (($method != "about") and ($method != "help"))
  error('Method not valid', "The requested method ($method) is not valid", __LINE__, __FILE__);
 
 $path = strtolower($PATH_INFO);
-if ( (substr($path, -1) != "/" ) and (!file_exists('/home/linktrai/static_pages'.$path.'.html')) ){
-//   echo("file <tt>".'/home/linktrai/static_pages'.$path.'.html'."</tt> existiert nicht");
+if ( (substr($path, -1) != "/" ) and (!file_exists(APPLICATION_HOME.'/static_pages'.$path.'.html')) ){
    page_close();
    Header("Location: ".$sess->url($PATH_INFO.'/'));
    exit;
@@ -52,11 +51,6 @@ if ( (substr($path, -1) != "/" ) and (!file_exists('/home/linktrai/static_pages'
  
 if (ereg('/$', $path)){
  $path .= "index";
- /*if (!file_exists('/home/linktrai/static_pages'.$path.'.html')){
-   page_close();
-   Header("Location: ".$sess->url(substr($PATH_INFO, 0 , strlen($PATH_INFO)-1)));
-   exit;
- }*/
 }
 
 $title = $alle[count($alle)-1];
@@ -72,7 +66,7 @@ $in_login = false;
 include("template.inc");
 include("commonheader2.html");
 
-$tpl = new Template("/home/linktrai/templates/static", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/static", "keep");
 $tpl->set_file(array("main" => "main.html"));
 $tpl->set_var("SIDEBAR", print_sidebar($method, $PATH_INFO));
 $tpl->set_var("TITLE", get_static_title($PATH_INFO, $method));

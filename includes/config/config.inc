@@ -9,7 +9,7 @@ define("DB_PASS",     "oelberg");
 define("SEARCH_HOST", "troll.linktrail.work");
 define("SEARCH_PORT", 7777);
 
-define("CACHE_DIR", '/home/linktrai/cache');
+define("CACHE_DIR", APPLICATION_HOME.'/cache');
 
 define("DFLAG_FORMAT", ' <font face="Verdana, Arial, Helvetica, sans-serif" size="1" color="red">[FLAG]</font>');
 

@@ -13,7 +13,7 @@ function print_loginform_trail($action_login, $current_user, $logintext, $failed
  
  if (!class_exists("Template"))
   include("template.inc");
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "login_trail.html"));
  
  if ($failed)
@@ -37,7 +37,7 @@ function print_loginform_trail($action_login, $current_user, $logintext, $failed
 function print_password_request_form(){
  global $PHP_SELF, $kat, $capabilities;
 
-$tpl = new Template("/home/linktrai/templates/login", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 $tpl->set_file(array("main" => "password_query_form.html"));
 $tpl->set_var("ACTION", $PHP_SELF);
 $tpl->parse("main", "main");
@@ -48,14 +48,14 @@ return $tpl->get("main");
 function print_password_request_answer(){
  global $PHP_SELF;
  
-$tpl = new Template("/home/linktrai/templates/login", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 $tpl->set_file(array("main" => "password_query_answer.html"));
 $tpl->parse("main", "main");
 return $tpl->get("main");
 }
 
 function print_password_request($done = false, $kat="", $capabilities=0){
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
   $tpl->set_file(array("main" => "login_main.html"));
 
  if ($done)
@@ -76,7 +76,7 @@ function print_password_request($done = false, $kat="", $capabilities=0){
 
 function print_login_main($type, $action_login, $action_register, $current_user="", $failed=false, $error=0, $suggestions="", $email="", $username=""){
  global $perm;
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 
  if ($type == 1){
   $tpl->set_file(array("main" => "login_main.html"));
@@ -117,7 +117,7 @@ function print_login_main($type, $action_login, $action_register, $current_user=
 function print_register_link(){
  global $sess; 
  
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "register_link.html"));
  $tpl->set_var("JOINURL", $sess->url("/Experts/New_User"));
  $tpl->parse("main", "main");
@@ -125,7 +125,7 @@ function print_register_link(){
 }
 
 function print_error_string_login($errmsg){
-$tpl = new Template("/home/linktrai/templates/login", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 $tpl->set_file(array("main" => "error_login.html"));
 $tpl->set_var("ERROR", $errmsg);
 $tpl->parse("main", "main");
@@ -135,7 +135,7 @@ return $tpl->get("main");
 function print_login_form_main($action_url, $current_user="", $failed=false, $backlink=true){
  global $ltrstr, $PHP_SELF, $sess;
  
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  if ($backlink)
   $tpl->set_file(array("main" => "existing_user.html"));
  else
@@ -162,7 +162,7 @@ function print_login_form_main($action_url, $current_user="", $failed=false, $ba
 function print_errors($errarr){
  if (!is_array($errarr))
   return "";
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "new_error.html"));
  
   $tpl->set_block("main", "error", "errors");
@@ -176,7 +176,7 @@ function print_errors($errarr){
 }
 
 function print_username_fields($suggestions, $predef_uname){
-$tpl = new Template("/home/linktrai/templates/login", "keep");
+$tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 if (is_array($suggestions)){
  $tpl->set_file(array("main" => "new_username_exist.html"));
  $tpl->set_var("SUGGESTION_COUNT", count($suggestions));
@@ -201,7 +201,7 @@ if (is_array($suggestions)){
 
 function print_register_form_main($action_url, $errors="", $suggestions="", $predef_email="", $predef_username=""){
  global $ltrstr, $PHP_SELF, $sess;
- $tpl = new Template("/home/linktrai/templates/login", "keep");
+ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "new_user.html"));
   if ( ($errors & ERR_PASSWORDMATCH) != 0)
   $errarr[] .= $ltrstr['Pass_Nomatch'];
