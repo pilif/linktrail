@@ -1,23 +1,45 @@
 <style TYPE="text/css">
+
 <!--
+
 A:link {color: mediumblue;}
+
 A:visited {color: purple;}
+
 A:active {color: gray;}
-A:hover  {color: red;}
+
+A:hover  {color: red;text-decoration:none;}
+
+
 
 A.in:link    {color: mediumblue;}
+
 A.in:visited {color: purple;}
+
 A.in:active	 {color: gray;}
+
 A.in:hover 	 {color: red;}
 
+
+
 A.stat:link 	{color: blue;}
+
 A.stat:visited 	{color: blue;}
+
 A.stat:active	{color: gray;}
+
 A.stat:hover 	{color: red;}
 
+
+
 A.hi:link 	{color: blue;}
+
 A.hi:visited 	{color: purple;}
+
 A.hi:active	{color: gray;}
+
 A.hi:hover 	{color: red;}
+
 -->
+
 </style>
