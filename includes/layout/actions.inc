@@ -66,7 +66,7 @@ function build_action_list($nodeinfo, $perms, $username){
   }
   $friends = get_friends($auth->auth['uid'], FT_ALL);
   if (is_array($friends))
-   get_allowed_users($trail_id, $friends);
+   get_allowed_users($nodeinfo['id'], $friends);
   else
    $friends = Array();
   if(count($friends) > 0)

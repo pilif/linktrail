@@ -34,6 +34,7 @@ if (!defined("COMMON_PERMISSIONS_INC"))
 
 $trail = $PATH_INFO;
 //$sqltrail = addslashes($trail);
+//echo($trail);
 $nodeinfo = get_node_info($trail);
 if ($nodeinfo == -1){
  $nodeinfo = get_node_info($trail.'?');
