@@ -28,9 +28,11 @@ $ltrstr['Trail_Login_Req'] 	      = 'Please enter your username and password.';
 $ltrstr['Edit Permissions']		  = 'SET PERMISSIONS';
 $ltrstr["Share this trail"]		  = "Recommend this trail";
 
-$ltrstr['Profile']				  = "profile";
-$ltrstr['Security Preferences']	  = "security preferences";
-$ltrstr['Preferences']	  		  = "preferences";
+$ltrstr['Profile']				  = "Change profile";
+$ltrstr['Security Preferences']	  = "Change password";
+$ltrstr['Preferences']	  		  = "Customize linktrail";
+$ltrstr['Settings']	  		      = "Settings";
+
 
 $ltrstr['Pass_Nomatch']			  = "Your passwords did not match.";
 $ltrstr['Passnote']				  = "";

@@ -132,7 +132,26 @@ switch ($method) {
          break;
      case "Settings":
          //die("Ext: ".$extension);
+         $subnav = Array();
+         $subnav[0] = array( "title" => $ltrstr['Profile'], "url" => "Profile" );
+         $subnav[1] = array( "title" => $ltrstr['Security Preferences'], "url" => "Password" );
+         $subnav[2] = array( "title" => $ltrstr['Preferences'], "url" => "Preferences" );
+         switch ($extension) {
+            case "Profile":
+                $idx=0;
+                break;
+            case "Password":
+                $idx=1;
+                break;
+            case "Preferences":
+                $idx=2;
+                break;
+            default: 
+                $idx=-1;    
+         }
+         
          $tpl->set_var("EDITFORM", print_all_settings_form($extension, $userdata, $passerror, $posconf));
+         $tpl->set_var("SUBNAV", print_mypage_subnav($ltrstr['Settings'], $subnav, $idx));
          break;
  }
       

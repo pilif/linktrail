@@ -573,4 +573,20 @@ function print_all_settings_form($ext, $userdata, $passerror, $posconf){
  }
  return $str;
 }
+
+function print_mypage_subnav($title, $items, $active_index){
+ if (!is_array($items)) return "";
+ if (!defined("LAY_TOUR_INC"))
+  include("layout/lay_tour.inc");
+  
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/", "keep");
+ $tpl->set_file(array("nav" => "edit_subnav.html"));
+  $str = "";
+  $tpl->set_var("TITLE", $title);
+  for($x=0; $x < count($items); $x++)
+   $str .= print_one_tour_link($x != $active_index, $items[$x]['title'], $items[$x]['url']);
+ $tpl->set_var("NAVIGATION", $str); 
+ $tpl->parse("main", "nav");
+ return $tpl->get("main");
+}
 ?>

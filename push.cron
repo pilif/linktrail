@@ -1,2 +1,0 @@
-MAILTO=""
-0,30 * * * * /home/linktrai/thomaspush.sh >& /dev/null
