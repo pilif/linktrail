@@ -260,7 +260,9 @@ function delete_friendship_request($my, $he){
   $str .= $myDB->f("Message_ID");
   $str .= ($x == $myDB->num_rows()) ? "" : ', ';
  }
- $query = FormatSQL(SQL_DEL_REQUESTS, array($str));
- $myDB->query($query);
+ if ($str != ""){
+  $query = FormatSQL(SQL_DEL_REQUESTS, array($str));
+  $myDB->query($query);
+ }
 }
 ?>
