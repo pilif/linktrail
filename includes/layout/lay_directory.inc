@@ -247,7 +247,7 @@ function print_subnodes($kat, $subnodes, $caps){
  return $contents;
 }
 
-function print_trail_move_link(&$trail){
+function print_trail_move_link(&$trail, $climbed){
   global $REQUEST_URI, $HTTP_GET_VARS, $QUERY_STRING, $sess, $glob_userdata;
   $url = $REQUEST_URI;
   if ($QUERY_STRING != 'movetrail='.$HTTP_GET_VARS['movetrail'])
@@ -257,7 +257,10 @@ function print_trail_move_link(&$trail){
   else
    $url .= 'movetrail='.$trail['id'];
   $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
-  $tpl->set_file(array("main" => "trailmove.html"));
+  if (!$climbed)
+   $tpl->set_file(array("main" => "trailmove.html"));
+  else
+   $tpl->set_file(array("main" => "trailmove_no.html"));
   $tpl->set_var("MOVEURL", $sess->url($url));
   $tpl->set_var("EDITURL", $sess->url('/diredit/edittrail.php'.build_good_url($trail['path'])));
   $tpl->set_var("DELURL", $sess->url('/diredit/edittrail.php'.build_good_url($trail['path']).'?action=quickdelete'));
@@ -305,13 +308,16 @@ function print_trail($data, $caps, $node_id){
    $str = str_replace('[FLAG]', $str, DFLAG_FORMAT);
  }
  $tpl->set_var("UPDATED", $str); 
+ 
+ $climbed = ($data['from'] != $node_id);
+ 
  if ( (has_caps($permmission, PERM_MOVE_TRAIL)) and ($HTTP_GET_VARS['movetrail'] != $data['id']) and ($movetrail != $data['id']))
-   $tpl->set_var("MOVE", print_trail_move_link($data));
+   $tpl->set_var("MOVE", print_trail_move_link($data, $climbed));
  else 
    $tpl->set_var("MOVE", "");
  $tpl->set_var("DATE", $date);
  $tpl->set_var("TRAILIMG", $test);
- $str = ($data['from'] != $node_id) ? print_climbed( parent_path($data['path']) ) : "";
+ $str = ($climbed) ? print_climbed( parent_path($data['path']) ) : "";
  $tpl->set_var("UPSIGN", $str); 
  $tpl->parse("trails", "trails");
 

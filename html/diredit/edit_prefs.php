@@ -381,7 +381,7 @@ function do_mor($userdata, &$http_vars, $in){
 // echo("aa");
 header("Location: ".$str);
 // die("Str: $str");
- echo("a");
+// echo("a");
  exit;
 }
 
