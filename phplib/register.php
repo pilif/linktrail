@@ -29,7 +29,5 @@ global $username, $ltrstr, $PHP_SELF;
 $failed = isset($username); 
 print(print_login_main(1, $PHP_SELF, "", $username, $failed));
 include("commonfooter2.html"); 
-foreach ($auth->auth as $key => $value)
- echo("$key = $value");
 ?>                            
 
