@@ -43,22 +43,22 @@ switch ($HTTP_GET_VARS['action']) {
         delete_friendship_request($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         create_friendship($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         friendship_notification($uname, $HTTP_GET_VARS['target'], "accepted");
-        friendship_notification($uname, $HTTP_GET_VARS['expert'], "accepted_self", $hisname);
+        friendship_notification($uname, $HTTP_GET_VARS['target'], "accepted_self", $hisname);
         break;
     case "decline":
         delete_friendship_request($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         friendship_notification($uname, $HTTP_GET_VARS['target'], "ignore");
-        friendship_notification($uname, $HTTP_GET_VARS['expert'], "ignore_self", $hisname);
+        friendship_notification($uname, $HTTP_GET_VARS['target'], "ignore_self", $hisname);
         break;
     case "quit":
         remove_friendship($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         friendship_notification($uname, $HTTP_GET_VARS['target'], "term");
-        friendship_notification($uname, $HTTP_GET_VARS['expert'], "term_self", $hisname);
+        friendship_notification($uname, $HTTP_GET_VARS['target'], "term_self", $hisname);
         break;
     case "cancel":
         delete_friendship_request($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         friendship_notification($uname, $HTTP_GET_VARS['target'], "cancel");
-        friendship_notification($uname, $HTTP_GET_VARS['expert'], "cancel_self", $hisname);
+        friendship_notification($uname, $HTTP_GET_VARS['target'], "cancel_self", $hisname);
         break;
 }
 

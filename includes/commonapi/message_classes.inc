@@ -147,6 +147,7 @@ class ltrStdMessageUserMsg extends ltrMessage{
             $str = sprintf($ltrstr['canceled self'], $sess->url(build_good_url("/Experts/".$this->data['ExtraName'])), $this->data['ExtraName']);
             break;
        }
+
    }elseif($this->type == LTMSG_SUBNOTI){
        $path = id2path($this->data['Trail']);
        $target = 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222);
@@ -168,14 +169,14 @@ class ltrStdMessageUserMsg extends ltrMessage{
    }
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-
+   $user = ($this->is_inbox) ? $this->sender : $this->to_name;
    $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    $tpl->set_file(array("simple" => "general_notifications_user.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
    $tpl->set_var("TEXT", $str);
-   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$this->sender)));
-   $tpl->set_var("USERNAME", $this->sender);
+   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$user)));
+   $tpl->set_var("USERNAME", $user);
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
    $tpl->set_var("READURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1");
    $tpl->set_var("DATE", $d);
@@ -637,7 +638,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
      $user = get_user_from_name($this->sender);
      $user = $user['User_ID']; 
      friendship_notification($auth->auth['uname'], $user, "ignore");
-     friendship_notification($auth->auth['uname'], $auth->auth['uid'], "ignore_self", $this->sender);
+     friendship_notification($auth->auth['uname'], $user, "ignore_self", $this->sender);
      if (!$this->is_read)
       $this->set_read();
      return build_good_url($PHP_SELF).'?ctype=4'; 
@@ -653,7 +654,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
     $user = $user['User_ID']; 
     create_friendship($user, $this->target);
     friendship_notification($auth->auth['uname'], $user, "accepted");
-    friendship_notification($auth->auth['uname'], $auth->auth['uid'], "accepted_self", $this->sender);
+    friendship_notification($auth->auth['uname'], $user, "accepted_self", $this->sender);
     if (!$this->is_read)
      $this->set_read();
     $this->self_destruct();
