@@ -219,13 +219,13 @@ $ltrstr['cancel_friendship']        = 'Quit my friendship request to %s';
 $ltrstr['make_friendship']        = 'Request a friendship with %s';
 $ltrstr['iw_editmode']            = 'Admin: Edit this node';
 $ltrstr['iw_tour']                = 'Tour';
-$ltrstr['msg_bnc']["bounce"]   = 'Mail-Message bounced';
+$ltrstr['msg_bnc']["bounce"]   = 'Email report undeliverable';
 $ltrstr['msg_bnc']["bounce_test"]  = $ltrstr['msg_bnc']["bounce"];
-$ltrstr['msg_bnc']["fail"]   = 'Mail delivery failed for the second time.';
+$ltrstr['msg_bnc']["fail"]   = '2nd Email Report undeliverable';
 
-$ltrstr['msg_bnc_l']["bounce"] = 'We sent you an Email-Report that could not be delivered to you and was returned to us. Please recheck your Email-Address in your <a href="%s">profile</a>.';
+$ltrstr['msg_bnc_l']["bounce"] = 'The Email report you requested could not be delivered to <b>%s</b>. Please check your <a href="%s">profile</a> if the Email address you have entered is correct. If your Email address should be correct, there might be a temporary delivery problem. Another atempt will be started with the next report.';
 $ltrstr['msg_bnc_l']["bounce_test"]= $ltrstr['msg_bnc_l']["bounce"];
-$ltrstr['msg_bnc_l']["fail"] = 'We sent you an Email-Report that was returned to us for the second time. We will not send any further messages to you. Please enter a valid email-address in your <a href="%s">profile</a>';
+$ltrstr['msg_bnc_l']["fail"] = 'The Email report you requested could not be delivered(or sent) to <b>%s</b> for the second time. Please check your <a href="%s">profile</a> if the Email address you have entered is correct.<br>We will not send any further Email reports to you until you have changed your Email address.';
 
 
 ?>
