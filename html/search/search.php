@@ -23,16 +23,18 @@ if ($dologin=="1"){
 
 include("dbapi/comutils.inc");
 //die("b");
-
 if (isset($sq))
- print(print_simple_results($sq));
+ print(print_results($sq));
+elseif (isset($aq))
+ print(print_results($aq, true));
 else
  echo("Advanced form not implemneted yet");
 
 page_close();
 
-function print_simple_results($query){
- global $perm, $sess, $HTTP_GET_VARS, $glob_userdata;
+function print_results($query, $advanced=false){
+ global $perm, $sess, $HTTP_GET_VARS, $glob_userdata, $glob_search_words;
+ $glob_search_words = Array();
  if (!defined("SEARCH_INC"))
   include("search/search2.inc");
 
@@ -55,20 +57,21 @@ $restriction = $HTTP_GET_VARS['restriction'];
 
 if ($query != ""){
  $err = "";
- $query_hash   = format_query($query);
- $query = $query_hash['query'];
- global $glob_search_words;
- $glob_search_words = $query_hash['words'];
- foreach($glob_search_words as $key => $value)
-  $glob_search_words[$key] = str_replace('"', "", $value);
+ if ($advanced == false){ 
+  $query   = format_query($query);
+ }else{
+  $query   = format_query_simple($query);
+ }
+// echo("freag: $query<p>");
   
  $users = Array();
  if (!ereg('^/Experts', $restriction) ){
   $cats    = execute_query($query, $sess->id, $cic, "c", $restriction, $glob_userdata['ResPerPage']);
   
-  if ( !isset($cats['error']) )
+  if ( !isset($cats['error']) ){
    $trails  = execute_query($query, $sess->id, $cit, "t", $restriction, $glob_userdata['ResPerPage']);
-  else
+   $glob_search_words = $cats['resinfo']['words'];
+  }else
    $err = $cats['error'];
    
   if ( !is_array($err) )
@@ -79,6 +82,7 @@ if ($query != ""){
   
  }else{
   $users  = execute_query($query, $sess->id, $ciu, "t", $restriction, $glob_userdata['ResPerPage']);
+  $glob_search_words = $cats['words'];
 //  die($users['resinfo']['rescount']);
   if (isset($users['error']))
    $err = $users['error']; 
