@@ -25,7 +25,11 @@ global $myDB;
 define("AD_SUBSCRIBED", 1);
 define("AD_UNSUBSCRIBED", 2);
 
- 
+define("AD_ACCEPTED", 11);
+define("AD_DECLINED", 12);
+define("AD_PENDING", 13);
+
+
 $message_functions[LTMSG_TRAILDEL] = "admin_modification";
 $message_functions[LTMSG_TRAILMOV] = "admin_modification";
 $message_functions[LTMSG_TRAILCHG] = "admin_modification";
@@ -47,6 +51,7 @@ $message_functions[LTMSG_FEELECT]  = "std_message";
 $message_functions[LTMSG_FETERMN]  = "std_message";
 $message_functions[LTMSG_REPORTSN] = "std_message";
 $message_functions[LTMSG_SUBNOTI]  = "std_user_message";
+$message_functions[LTMSG_SUBCAST]  = "recommendation_broadcast";
 
 class ltrStdMessageMsg extends ltrMessage{
   function ltrStdMessageMsg($dataset){
@@ -184,26 +189,6 @@ class ltrStdMessageUserMsg extends ltrMessage{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class ltrAdminModificationMsg extends ltrMessage{
   function ltrAdminModificationMsg($dataset){
    $this->ltrMessage($dataset);
@@ -308,21 +293,15 @@ class ltrSuggestionMsg extends ltrMessage{
 
    $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    
-   if ($this->is_inbox){
-    $tpl->set_file(array("simple" => "recommendation.html"));
-    $user = $this->sender;
-    $verb = $ltrstr['recommends'];
-    $tpl->set_var("VERB", $verb);
-    $b['begin'] = (!$this->is_read) ? '<b>'  : "";
-    $b['end']   = (!$this->is_read) ? '</b>' : "";
-    $tpl->set_var("BOLD_BEGIN", $b['begin']);
-    $tpl->set_var("BOLD_END",   $b['end']);
-    $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], false, true));
-   }else{
-    $tpl->set_file(array("simple" => "recommendation_out.html"));
-    $user = $this->to_name;
-    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
-   }
+   $tpl->set_file(array("simple" => "recommendation.html"));
+   $user = $this->sender;
+   $verb = $ltrstr['recommends'];
+   $tpl->set_var("VERB", $verb);
+   $b['begin'] = (!$this->is_read) ? '<b>'  : "";
+   $b['end']   = (!$this->is_read) ? '</b>' : "";
+   $tpl->set_var("BOLD_BEGIN", $b['begin']);
+   $tpl->set_var("BOLD_END",   $b['end']);
+   $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], false, true));
    
    $tpl->set_var("COLOR", $color);
    $tpl->set_var("MYID", $this->id);
@@ -671,6 +650,31 @@ class ltrFriendshipRequestMsg extends ltrMessage{
    }
   }
   
+  function check_message_state(){
+   if (!defined("PERMISSIONS_INC"))
+    include("dbapi/permissions.inc");
+ 
+   if ($this->data['action_done'] == "") $this->data['action_done'] = AD_PENDING;
+   $old = $this->data['action_done'];
+   $user = get_user_from_name($this->sender);
+   $user = $user['User_ID'];
+   $res  = is_friendship($user, $this->target);
+   if (!is_array($res)){
+    if($res){
+     $this->data['action_done'] = AD_ACCEPTED;
+    }else{
+     $this->data['action_done'] = AD_DECLINED;
+    }
+  }else{
+   //do not set action_done to AD_PENDING. Once the state is set to something different
+   //than pending, do not reset it. This allows us to have more than one FR in an Inbox,
+   //but gives us also much more DB-Work to do!
+  }
+  if ($old != $this->data['action_done']){
+   $this->update_data();
+   $this->set_active(false);
+  }
+ } 
 }
 
 class ltrPollStartedMsg extends ltrMessage{
@@ -684,6 +688,70 @@ class ltrPollStartedMsg extends ltrMessage{
   }
 }
 
+class ltrRecommendationBroadcastMsg extends ltrMessage{
+  function ltrPollStartedMsg($dataset){
+   $this->ltrMessage($dataset);
+  }
+  
+  function print_simple($val){
+   global $sess, $PHP_SELF;
+   
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
+   $tpl->set_file(array("simple" => "recommendation_out.html"));
+   $this->nodeinfo = get_node_info($this->data['Trail']);
+   $trailpath = $this->nodeinfo['path'];
+
+   $dh = friendlydate($this->dat);
+   $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
+   $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
+   $tpl->set_var("COLOR", $color);
+   $tpl->set_var("DATE", $d);
+   $tpl->set_var("MYID", $this->id);
+   $tpl->set_var("TRAILURL", $sess->url(build_good_url($trailpath)));
+   $tpl->set_var("TRAILNAME", friendlyname($trailpath));
+   $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
+   $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
+   $tpl->set_var("READURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1");
+   $tpl->parse("main", "simple");
+   return $tpl->get("main");
+  }
+  
+  function print_extended($val){
+   global $PHP_SELF, $sess;
+   
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
+   $tpl->set_file(array("extended" => "recommendation_out.html"));
+   $this->nodeinfo = get_node_info($this->data['Trail']);
+   $trailpath = $this->nodeinfo['path'];
+
+   $dh = friendlydate($this->dat);
+   $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
+   $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
+   $tpl->set_var("COLOR", $color);
+   $tpl->set_var("DATE", $d);
+   $tpl->set_var("MYID", $this->id);
+   $tpl->set_var("TRAILURL", $sess->url(build_good_url($trailpath)));
+   $tpl->set_var("TRAILNAME", friendlyname($trailpath));
+   $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
+   $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
+   $tpl->set_var("CLOSEURL", build_good_url($PHP_SELF));
+
+   $tpl->set_block("extended", "user", "users");
+   foreach($this->data['Users'] as $user){
+    $tpl->set_var("USERURL", $sess->url(build_good_url('/Experts/'.$user)));
+    $tpl->set_var("USER", $user);
+    $tpl->parse("users", "user", true);
+   }
+   $tpl->set_var("MESSAGE", $this->data['message']);
+   $tpl->parse("main", "extended");
+   return $tpl->get("main");
+  }
+  
+  function user_interaction(&$http_vars){
+   if ($http_vars['action'] == "delete")
+    $this->self_destruct();
+  }
+}
 
 function &std_message($dataset){
  return new ltrStdMessageMsg($dataset);
@@ -715,5 +783,9 @@ function &friendship_request($dataset){
 
 function &poll_started($dataset){
  return new ltrPollStartedMsg($dataset);
+}
+
+function &recommendation_broadcast($dataset){
+ return new ltrRecommendationBroadcastMsg($dataset);
 }
 ?>

@@ -445,11 +445,11 @@ $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
 if ($list){
  $inbox = ($extension == "Inbox");
  
- //read_messages_ex($userval, $inbox=true, $current_index=0, $ordertext="Date")
+
  $tpl->set_file(array("msc" => "msg_center.html"));
  
  $objs = read_messages_ex(($inbox) ? $userdata['User_ID'] : $userdata['Username'], $inbox, $ci, $bytext);
-//         read_messages_ex(, $ci, );
+
 
  $str = "";
  if (($viewtype == 1) or ($viewtype == 2)){

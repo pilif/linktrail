@@ -10,11 +10,19 @@
   include("dbapi/comutils.inc");
 
 function suggest_trail($user, $target_id, $trail, $message=""){
-  $data_array['message'] = $message;
-  $data_array['Trail']   = $trail;
-  send_message($user, $target_id, LTMSG_SUGGESTN, $data_array, (RC_IN_INBOX | RC_IN_OUTBOX));
-  add_bonus($trail, BT_SUGGEST);
+  $data_array['message']     = $message;
+  $data_array['Trail']       = $trail['id'];
+  $data_array['Trail_Title'] = friendlyname($trail['path']);
+  send_message($user, $target_id, LTMSG_SUGGESTN, $data_array, (RC_IN_INBOX));
+  add_bonus($trail['id'], BT_SUGGEST);
 }
 
+function sent_suggestion($users, $user, $trail, $message=""){
+  $data_array['message']     = $message;
+  $data_array['Trail']       = $trail['id'];
+  $data_array['Trail_Title'] = friendlyname($trail['path']);
+  $data_array['Users']       = $users;
+  send_message($user, '-1', LTMSG_SUBCAST, $data_array, (RC_IN_OUTBOX));
+}
 
 ?>

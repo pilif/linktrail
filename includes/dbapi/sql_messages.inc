@@ -84,6 +84,8 @@ FROM
  ltrMessages, auth_user
 WHERE
 ( ltrMessages.MessageType = 1011) 
+AND
+ Active = 'y'
 AND ((
   ltrMessages.Target = #S /*myself*/
  AND
@@ -104,4 +106,6 @@ define("SQL_DEL_REQUESTS", "DELETE FROM ltrMessages WHERE Message_ID IN (#I)");
 define("SQL_UPDATE_RC","UPDATE ltrMessages Set ReferenceCount = #I WHERE Message_ID = #I");
 
 define("SQL_UPDATE_DATA", "UPDATE ltrMessages SET Data = #S WHERE Message_ID = #I");
+
+define("SQL_SET_ACTIVE", "UPDATE ltrMessages SET Active = #S WHERE Message_ID = #I");
 ?>

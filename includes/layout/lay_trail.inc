@@ -147,11 +147,13 @@ if (count($friends) == 0)
 $tpl = new Template(APPLICATION_HOME."/templates/trail/share", "keep");
 $tpl->set_file(array("main" => "friendlist.html"));
 $tpl->set_block("main", "friend", "friends");
+$x=0;
 foreach($friends as $friend){
+ $x++;
  $fname = $friend['username'];
  $tpl->set_var("FRIENDNAME", $fname);
- $tpl->set_var("FRIENDID", $friend['userid']);
- $tpl->set_var("FRIENDURL", $sess->url("/Experts/".rawurlencode($fname)));
+ $tpl->set_var("UI", $x);
+ $tpl->set_var("FRIENDID", $friend['userid'].'|'.$fname);
  $tpl->parse("friends", "friend", true);
 }
 $tpl->parse("out", "main");

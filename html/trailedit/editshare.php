@@ -37,10 +37,12 @@ function doit(){
   if (!defined("MSG_SUGGESTIONS_INC"))
    include("messages/suggestions.inc");
   //This stinks a bit since it causes one DB-Query per friend to be notified
-  foreach($HTTP_POST_VARS['friends'] as $friend)
-   suggest_trail($auth->auth['uname'], $friend, $mytrail['id'], $HTTP_POST_VARS['field_friendmsg']);
-   //create_share_suggestion($mytrail['id'], $auth->auth['uname'], $friend);  
-   
+  foreach($HTTP_POST_VARS['friends'] as $friend){
+   list($friend_id, $friend_name) = explode('|', $friend);
+   suggest_trail($auth->auth['uname'], $friend_id, $mytrail, $HTTP_POST_VARS['field_friendmsg']);
+   $users[] = $friend_name;
+  }
+   sent_suggestion($users, $auth->auth['uname'], $mytrail, $HTTP_POST_VARS['field_friendmsg']);
  }
  $HTTP_POST_VARS['field_email_addresses'] = str_replace('\r\n', '\n', $HTTP_POST_VARS['field_email_addresses']); //windows
  $HTTP_POST_VARS['field_email_addresses'] = str_replace('\r', '\n', $HTTP_POST_VARS['field_email_addresses']); //m„k

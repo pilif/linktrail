@@ -43,6 +43,7 @@
  define("LTMSG_FETERMN",  LTMSG_BASE+19);
  define("LTMSG_REPORTSN", LTMSG_BASE+20);  
  define("LTMSG_SUBNOTI",  LTMSG_BASE+21);  
+ define("LTMSG_SUBCAST",  LTMSG_BASE+22);  
 
  define("RC_IN_INBOX", 1);
  define("RC_IN_OUTBOX", 2);
@@ -120,6 +121,14 @@
   function update_data(){
    global $myDB;
    $query = FormatSQL(SQL_UPDATE_DATA, array(addslashes(serialize($this->data)), $this->id));
+//   die("<pre>$query</pre>");
+   $myDB->query($query);
+  }
+
+  function set_active($new_value){
+   global $myDB;
+   $str = ($new_value) ? "y" : "n";
+   $query = FormatSQL(SQL_SET_ACTIVE, array($str, $this->id));
 //   die("<pre>$query</pre>");
    $myDB->query($query);
   }
