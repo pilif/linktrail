@@ -299,7 +299,7 @@ function build_good_url($path){
 }
  
 function build_pathlist($path, $formated=false, $logout=false, $link_all=false, $mark_words=""){
- global $sess;
+ global $sess, $auth;
  $add=0;
  $path = trim($path);
  if (is_trail($path))
@@ -317,7 +317,7 @@ function build_pathlist($path, $formated=false, $logout=false, $link_all=false, 
   $res = '<a href="'.$url.'">Home</a>';
   $old = "/";
   for ($x=1; $x < count($parts)-1; $x++){
-      if ( ($parts[$x] == "Experts") or ($parts[$x] == "Help") )
+      if ( ($parts[$x] == "Experts") or ($parts[$x] == "Help") or ( ($parts[$x] == "Settings") and ($auth->auth['uname'] == "")) )
 	   $res = $res.' &gt; '.$parts[$x].'</a>';
 	  else
 	   $res = $res.' &gt; <a href="'.$sess->url($old.urlencode($parts[$x])).'/'.$logstr.'">'.hilight(str_replace("_", " ", $parts[$x]), $mark_words).'</a>';
