@@ -3,7 +3,22 @@
  
  if (!defined("COMUTILS_INC"))
   include("dbapi/comutils.inc");
-  
+
+
+function format_query_simple($query){
+ $query =str_replace ("*", "%", $query);
+
+ $query =str_replace ("_", "*", $query);
+ $query =str_replace ("?", "_", $query);
+ $query =str_replace ("*", "\_", $query);
+ 
+ $query =str_replace (" + ", " AND ", $query);
+ $query =str_replace (" | ", " OR ", $query);
+ $query =str_replace ("+", " AND ", $query);
+ $query =str_replace ("|", " OR ", $query);
+ 
+ return $query;
+}  
 /*
  Somwhere in a later time, this function is not necessaryx anymore since the server
  is then strong enough to parse the string with all it's errors.
@@ -77,10 +92,7 @@ function format_query($query, $whole_words = false){
 //   printf('<font color="blue">x ist: %d; nopercent ist: %s (substr: %s)<br></font>', $x, $nopercent, substr($tokens[$x], strlen($tokens[$x])-1, 1)); 
    }
   } 
- $hsh['query'] = $query; 
- $hsh['words'] = $words; 
-// die($hsh['query']);
- return $hsh;
+ return $query;
 } 
 
 function make_query($sSearchExpr, $sessid, $table_type="c", $ci=0, $rc=5, $restriction="/") {
@@ -106,6 +118,12 @@ function parse_header($headers){
    $hsh['reqested'] = $req;
    $hsh['max_resl'] = $max;
   }
+
+  if (strstr($header, '|')){
+   $words = explode('|', str_replace('%', '', $header));
+   $hsh['words']    = $words;
+  }
+
  } 
  if (is_array($hsh))
   return $hsh;
@@ -150,7 +168,6 @@ function execute_query($formated_query, $session_id, $current_index, $type="c", 
  if (!$fp)
   error("Connection Error", "Could not connect to search-server<br>\n", __LINE__-1, __FILE__);
  $sFormattedSearch = make_query($formated_query, $sess->id, $type, $current_index, $count, $restriction);
-// echo("Sent: $sFormattedSearch<br>");
  $iResult = fputs ($fp, $sFormattedSearch);
  $header_done = false;
  while (!feof($fp)) {
