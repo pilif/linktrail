@@ -33,7 +33,7 @@ define("SEND_MESSAGE", "
   ltrMessages
   (Target, MessageType, Sender, Date, Done, Data, ReferenceCount)
  VALUES
-  (#S, #I, #S, NOW(), 'n', #S, #I)");
+  (#S, #I, #S, NOW(), #S, #S, #I)");
 
 define("SET_DONE", "
  UPDATE 

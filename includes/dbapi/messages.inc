@@ -198,10 +198,10 @@ function drop_temp($tablename){
 }
 
  
-function send_message($sender, $user, $type, $data_array, $rc){
+function send_message($sender, $user, $type, $data_array, $rc, $done='n'){
   global $myDB;
   $dataser = serialize($data_array); 
-  $query   = FormatSQL(SEND_MESSAGE, array($user, $type, $sender, addslashes($dataser), $rc));
+  $query   = FormatSQL(SEND_MESSAGE, array($user, $type, $sender, $done, addslashes($dataser), $rc));
   //echo("<pre>$query</pre><p>");
   $myDB->query($query);
 }

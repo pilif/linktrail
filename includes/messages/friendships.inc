@@ -27,7 +27,7 @@ function friendship_notification($user, $target_id, $type="term", $extra_name=""
   }
   $data['Type']      = $type;
   $data['ExtraName'] = $extra_name; 
-  send_message($user, $target_id, LTMSG_FSHIPNOT, $data, $st);
+  send_message($user, $target_id, LTMSG_FSHIPNOT, $data, $st, 'y');
 }
 
 
