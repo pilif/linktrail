@@ -98,7 +98,7 @@ function print_permission_form($current_friend=12, $current_user=4){
  $tpl = new Template(APPLICATION_HOME."/templates/trail/edit", "keep");
  $tpl->set_file(array("main" => "edit_perms.html"));
  
- $tpl->set_var("ACTION", $PHP_SELF);
+ $tpl->set_var("ACTION", build_good_url($PHP_SELF));
 
  $friend_checked['add'] = has_caps($current_friend, PERM_ADD)  ? "checked" : "";
  $friend_checked['del'] = has_caps($current_friend, PERM_DEL)  ? "checked" : "";
