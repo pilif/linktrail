@@ -164,6 +164,7 @@ function get_user_from_name($name){
    $hsh['LastOnline']	     = $myDB->f("LastOnline");
    $hsh['NewWindow']	     = $myDB->f("NewWindow") == "y";
    $hsh['LastReadStamp']     = $myDB->f("LastReadMessages");
+   $hsh['BounceFlag']        = $myDB->f("BounceFlag");
    reset($hsh);
    return $hsh;
  }

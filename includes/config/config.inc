@@ -1,6 +1,12 @@
 <?php
 include("languages/en.inc");
 
+define("BOUNCE_OK", 'ok');
+define("BOUNCE_ONCE", "bounce");
+define("BOUNCE_CHECK", "bounce_test");
+define("BOUNCE_FAIL", "fail");
+define("BOUNCE_ERR", -1);
+
 define("DB_SERVER",   "troll.linktrail.work");
 define("DB_DATABASE", "linktrail");
 define("DB_USER",     "root");

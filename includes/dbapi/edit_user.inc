@@ -35,6 +35,7 @@ function set_user_at_name($name, $newuserdata){
  unset($newuserdata['Username']);
  unset($newuserdata['LastOnline']);
  unset($newuserdata['LastReadStamp']);
+ unset($newuserdata['BounceFlag']);
 
  $newuserdata['MypageAfterLogon'] = ($newuserdata['MypageAfterLogon'])  ? "y" : "n";
  $newuserdata['HighlightSearch']  = ($newuserdata['HighlightSearch'])  ? "y" : "n";
