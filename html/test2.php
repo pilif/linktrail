@@ -2,7 +2,7 @@
 page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm" => "Linktrail_Perm"));
 
     // default search server
-    define("DEF_SEARCH_SERVER", "troll");
+    define("DEF_SEARCH_SERVER", "localhost");
     // default sarch port
     define("DEF_SEARCH_PORT", 7777);
     // divisor to bring highest byte down
@@ -18,11 +18,11 @@ page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm
     
     
     
-    function FormatSearchExpr($sSearchExpr, $table_type="c", $ci=0, $rc=5, $restriction="/") {
+    function FormatSearchExpr($sSearchExpr, $table_type="c", $ci=0, $rc=5, $restriction="/", $date="", $language="") {
       global $sess;
       srand ((double)microtime()*1000000);
       $randval = rand(11111,99999);
-      $str = md5(uniqid($randval)).'|'.'A'.'|'.$table_type.'|'.$ci.'|'.$rc.'|'.$restriction.'|'.$sSearchExpr;
+      $str = md5(uniqid($randval)).'|'.'A'.'|'.$table_type.'|'.$language.'|'.$date.'|'.$ci.'|'.$rc.'|'.$restriction.'|'.$sSearchExpr;
       echo("<p>Query: <tt>$str</tt><p>");
       return  $str . chr(0);
     }
@@ -35,14 +35,13 @@ page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm
     echo "SearchExpr   is $txtSearchExpr   <BR>";
     echo "SearchServer is $txtSearchServer <BR>";
     echo "SearchPort   is $txtSearchPort   <BR>";
-
+    $sFormattedSearch = FormatSearchExpr($txtSearchExpr, $lstTableType, $txtCurrentIndex, $txtResultCount, $txtRestriction, $txtDate, $txtLanguage);
     $fp = fsockopen($txtSearchServer, $txtSearchPort);
     if (!$fp) {
         echo "Could not connect to search-server<br>\n";
     } else {
       echo "connected <BR>";
       flush();
-      $sFormattedSearch = FormatSearchExpr($txtSearchExpr, $lstTableType, $txtCurrentIndex, $txtResultCount, $txtRestriction);
       $iResult = fputs ($fp, $sFormattedSearch);
       echo "<br>written $iResult chars<BR>";
       echo("<hr>");
@@ -144,6 +143,23 @@ page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm
     </td>
     <td>
       <INPUT name="txtRestriction" size="20" value="/">
+    </td>
+  </tr>  
+
+  <tr>
+    <td>
+      Date
+    </td>
+    <td>
+     Language
+    </td>
+  </tr>  
+  <tr>
+    <td>
+      <INPUT name="txtDate" value = "&lt;<?php echo(strftime("%Y-%m-%d")); ?>" >
+    </td>
+    <td>
+      <INPUT name="txtLanguage" size="20" value="3">
     </td>
   </tr>  
  
