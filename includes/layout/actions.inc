@@ -64,7 +64,13 @@ function build_action_list($nodeinfo, $perms, $username){
    $str = sprintf(ACTION_CONTACT, $nodeinfo['username']);
    $actions .= str_replace("[URL]", $sess->url("/trailedit/lms_send.php".build_good_url($nodeinfo['path'])), $str);
   }
-  $actions .= str_replace("[URL]",  $sess->url("/trailedit/editshare.php".build_good_url($nodeinfo['path'])), ACTION_SHARE);
+  $friends = get_friends($auth->auth['uid'], FT_ALL);
+  if (is_array($friends))
+   get_allowed_users($trail_id, $friends);
+  else
+   $friends = Array();
+  if(count($friends) > 0)
+   $actions .= str_replace("[URL]",  $sess->url("/trailedit/editshare.php".build_good_url($nodeinfo['path'])), ACTION_SHARE);
  }
  
  $actions .= create_go_action($username, $nodeinfo['username'], build_good_url(parent_path($nodeinfo['path'])));
