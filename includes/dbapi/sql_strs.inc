@@ -331,6 +331,18 @@ AND
   )
 ORDER BY auth_user.username");
  
+ //Runtime optimisation
+define("SQL_COUNT_FRIENDS", 
+"
+SELECT 
+ count(*) as cnt
+FROM 
+ ltrFriends
+WHERE 
+ ( (Userid = #S) OR (IsFriendOf=#S) ) 
+AND 
+ (State = 'stab')");
+ 
 define("SQL_AWAITED",     "SELECT auth_user.username AS retval, IsFriendOf AS retval2 FROM ltrFriends, auth_user WHERE (Userid = #S) AND (State = 'req') AND (IsFriendOf = auth_user.user_id)");
 define("SQL_WAITING",     "SELECT auth_user.username AS retval, Userid AS retval2 FROM ltrFriends, auth_user WHERE (IsFriendOf = #S) AND (State = 'req') AND (auth_user.user_id = Userid)");
 

@@ -135,4 +135,14 @@ function get_friends($uid, $type){
  return $arr; 
 }
 
+function count_friends($uid){
+ global $myDB;
+ 
+ $query = FormatSQL(SQL_COUNT_FRIENDS, array($uid, $uid));
+ if (!$myDB->query($query)) return 0;
+ if ($myDB->num_rows() == 0) return 0;
+ $myDB->next_record();
+ return $myDB->f("cnt");
+}
+
 ?>

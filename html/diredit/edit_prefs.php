@@ -126,7 +126,9 @@ switch ($method) {
          $subnav = Array();
          $subnav[0] = array( "title" => $ltrstr['Inbox'], "url" => "Inbox" );
          $subnav[1] = array( "title" => $ltrstr['Outbox'], "url" => "Outbox" );
-         $subnav[2] = array( "title" => $ltrstr['Composer'], "url" => "Composer" );
+//         die(count_friends($userdata['User_ID']));
+         if (count_friends($userdata['User_ID']) != 0)
+          $subnav[2] = array( "title" => $ltrstr['Composer'], "url" => "Composer" );
          switch ($extension) {
             case "Inbox":
                 $idx=0;
@@ -423,5 +425,5 @@ function do_change_settings($userdata){
 }
 
 page_close();
-echo($viewdata_messages['ci']);
+//echo($viewdata_messages['ci']);
 ?>
