@@ -108,7 +108,7 @@ $static_help['preview'] = array(
 //                        $ltrstr['Overview']        => array('/Help/', "Overview"),
                         $ltrstr['Privacy']          => array('/Help/Privacy', "Privacy statement"),
                         $ltrstr['Terms of service'] => array('/Help/Terms_of_service', "Terms of service"),
-                        $ltrstr['Report Bug']       => array('/Help/Report_a_bug', $ltrstr['Report Bug']),
+//                        $ltrstr['Report Bug']       => array('/Help/Report_a_bug', $ltrstr['Report Bug']),
                         $ltrstr['Tour']             => array('/Tour/', "Tour"),
                       );
 
