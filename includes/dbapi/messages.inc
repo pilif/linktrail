@@ -251,6 +251,7 @@ function delete_friendship_request($my, $he){
   logic looks that no two requests are pending between the same two poeple.
  */
  $query = FormatSQL(SQL_READ_REQUESTS, array($my, $he, $he, $my));
+// die("<pre>$query</pre>");
  $myDB->query($query);
  $str = "";
  $x   = 0;

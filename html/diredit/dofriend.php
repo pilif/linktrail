@@ -39,6 +39,7 @@ die("test");*/
         
 switch ($HTTP_GET_VARS['action']) {
     case "comfirm":
+        //echo("blepp");
         delete_friendship_request($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         create_friendship($HTTP_GET_VARS['expert'], $HTTP_GET_VARS['target']);
         friendship_notification($uname, $HTTP_GET_VARS['target'], "accepted");

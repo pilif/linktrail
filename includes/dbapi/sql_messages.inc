@@ -84,8 +84,6 @@ FROM
  ltrMessages, auth_user
 WHERE
 ( ltrMessages.MessageType = 1011) 
-AND
- Active = 'y'
 AND ((
   ltrMessages.Target = #S /*myself*/
  AND
