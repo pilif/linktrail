@@ -73,7 +73,7 @@ function encode_address($str){
 function send_one_mail($email, $mail_name, $subject, $message){
  $old_error = error_reporting (0);
  $mail_header  = "";
- $mail_header .= sprintf("From: %s <%s>\n", "linktrail team", "preview@linktrail.com");
+ $mail_header .= sprintf('From: "%s" <%s>'."\n", "linktrail, Inc.", "preview@linktrail.com");
  $mail_header .= sprintf("To: %s <%s>\n", $mail_name, $email);
  $mail_header .= sprintf("Subject: %s (%s)\n", $subject, strftime("%m/%d/%y", time()));
  $mail_header .= "MIME-Version: 1.0\n";
@@ -210,7 +210,7 @@ foreach($users as $user){
  $tpl->set_var("NEWTRAILS", $new_trails);
  $str = "";
  foreach($upd_trails as $trail){
-  $str .= " - ".friendlyname($trail['url'])." ".$trail['flag']."\n";
+  $str .= " - ".friendlyname(urldecode($trail['url']))." ".$trail['flag']."\n";
  }
  if ($str != ""){
   $str = "\nMoreover, the following trails from your Mypage have been updated since\nyour last visit:\n\n".$str;
