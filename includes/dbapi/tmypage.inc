@@ -35,7 +35,7 @@ function read_trails_mypage(&$userdata, $current_index, $order_by, $order_type="
  if (! put_subscribed_trails($tablename, $userdata['Username']) ) return $trails;
 
  $count = count_results_mp($tablename);
- if ($current_index < $count)
+ if ( ($current_index < $count) and ($current_index != -1))
   $current_index = 0;
  $trails = read_table_mp($tablename, $order_by, $order_type, $current_index);
 
