@@ -37,6 +37,7 @@
  */
  function get_allowed_users($trail, &$userlist){
   global $myDB;
+//  die("drin");
   if (!is_array($userlist))
    error('Invalid call', 'userlist is not an array', __LINE__, __FILE__);
   $str = "";
@@ -45,8 +46,8 @@
   $str = substr($str, 0, strlen($str)-1); //remove the last ,
   
   $query = FormatSQL(SQL_SHARE_PERM_OWNER_SUBS, array($str, $trail, $str, $trail, $str, $trail));
-  $myDB->query($query);
 //  die("<pre>$query</pre>");
+  $myDB->query($query);
   //don't call this strange code. it is not. it is actually guite cool
   while ($myDB->next_record()){
    $donot[$myDB->f("subscribed")] = 1;

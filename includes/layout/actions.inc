@@ -31,6 +31,7 @@ define("ACTION_MYPAG", "\n".'<tr><td><font size=1 face="verdana, arial, helvetic
 define("ACTION_MYPAG_MY", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" class="hi">'.$ltrstr["Go to my Mypage"].'</a</font></td></tr>');
 
 define("ACTION_LOGIN", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr['Login'].'</a></font></td></tr>');
+define("ACTION_LOGOUT", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr['Logout'].'</a></font></td></tr>');
 define("ACTION_SHARE", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr["Share this trail"].'</a></font></td></tr>');
 
 define("ACTION_CONTACT", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr['Contact the author'].'</a></font></td></tr>');
@@ -44,7 +45,7 @@ define("GO_MYP", '|<a href="[URL]" class="hi">'.$ltrstr['mypage'].'</a>');
 
 
 function build_action_list($nodeinfo, $perms, $username){
- global $auth, $sess;
+ global $auth, $sess, $PHP_SELF;
  
  $actions = "";
  if (has_caps($perms, PERM_ADD))
@@ -71,6 +72,8 @@ function build_action_list($nodeinfo, $perms, $username){
    $friends = Array();
   if(count($friends) > 0)
    $actions .= str_replace("[URL]",  $sess->url("/trailedit/editshare.php".build_good_url($nodeinfo['path'])), ACTION_SHARE);
+
+  $actions  .= str_replace("[URL]", $sess->url(build_good_url($PHP_SELF).'?dologout=1'), ACTION_LOGOUT);
  }
  
  $actions .= create_go_action($username, $nodeinfo['username'], build_good_url(parent_path($nodeinfo['path'])));

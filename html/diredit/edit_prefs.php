@@ -13,7 +13,6 @@ if ( $dologout == "1" ){
  Header("Location: /"); 
  exit;
 }
-
 if (!defined("COMUTILS_INC"))
  include("dbapi/comutils.inc");
 
@@ -32,9 +31,8 @@ if (!defined("LAY_EDIT_MYPAGE_INC"))
 if (!defined("COMMON_USER_INC"))
  include("commonapi/common_user.inc"); 
   
- 
+global $leer, $expert, $method, $extension;
 list($leer, $expert, $method, $extension) = split('/', $PATH_INFO);
-
 $virt_dir = Array("Settings", "Messages");
 
 if ($expert == "")
@@ -79,6 +77,8 @@ else
  
 function display_form($passerror = false, $senderror="", $ssenderror=false, $posconf=false){
  global $kat, $expert, $in_login, $perm, $extension, $sess, $method, $ltrstr, $HTTP_GET_VARS, $auth, $viewdata_messages, $PATH_INFO;
+
+list($leer, $expert, $method, $extension) = split('/', $PATH_INFO);
 
 $pl  = build_pathlist($kat, false);
 $plf = build_pathlist($kat, true);
@@ -142,7 +142,7 @@ switch ($method) {
             default: 
                 $idx=-1;    
          }
-         $tpl->set_var("SUBNAV", print_mypage_subnav($ltrstr['MESSAGES'], $subnav, $idx));
+         $tpl->set_var("SUBNAV", "");
          update_read_stamp($userdata['User_ID']);
          break;
      case "Send_Message":
@@ -175,14 +175,14 @@ switch ($method) {
          }
          
          $tpl->set_var("EDITFORM", print_all_settings_form($extension, $userdata, $passerror, $posconf));
-         $tpl->set_var("SUBNAV", print_mypage_subnav($ltrstr['SETTINGS'], $subnav, $idx));
+         $tpl->set_var("SUBNAV", "");
          break;
  }
       
 
 $itsme = ($auth->auth['uname'] == $expert) or has_caps($capabilities, CAP_SUPERUSER);
 $tpl->set_var("FRIENDLIST", print_mypage_friendlist($userdata['User_ID'], $userdata, $itsme));
-$tpl->set_var("IWANTTO", print_mypage_iwantto($capabilities, $userdata));
+$tpl->set_var("IWANTTO",  print_iwantto($PATH_INFO));
 $tpl->parse("main", "main");
 $tpl->p("main");
 include("commonfooter2.html");

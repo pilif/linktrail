@@ -676,7 +676,13 @@ function print_iwantto_tour(){
 }
 
 
-function print_iwantto($kat, $capabilities){
+function print_iwantto($kat, $capabilities=0){
+ if (!defined("IWANTTO_INC"))
+  include("commonapi/iwantto.inc");
+ return print_navigation($kat).print_actions($kat);
+}
+
+function print_iwantto_old($kat, $capabilities){
  global $iwantto_order, $movetrail, $movenode, $linknode;
  
  if (has_caps($capabilities, CAP_ADD_TRAIL) and ($movetrail == ""))

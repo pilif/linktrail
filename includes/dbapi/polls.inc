@@ -1,5 +1,5 @@
 <?php
-/* $Id: polls.inc,v 1.1 2000-11-13 21:57:25 pilif Exp $ */
+/* $Id: polls.inc,v 1.2 2000-11-17 22:07:42 pilif Exp $ */
  define("POLLS_INC", true);
 
  /*
@@ -19,13 +19,15 @@
  if (!defined("COMUTILS_INC"))
   include("dbapi/comutils.inc");
 
- if (!defined("SQL_MESSAGES_INC"))
-  include("dbapi/sql_messages.inc");
+ if (!defined("SQL_POLLS_INC"))
+  include("dbapi/sql_polls.inc");
 
  define("LTPOLL_BASE", 100);
  define("LTPOLL_ADDNODE",  LTPOLL_BASE+1);
  define("LTPOLL_EDITNODE", LTPOLL_BASE+2);
 
+ define("VOTE_NO",  0);
+ define("VOTE_YES", 1);
  //This is a class handling one poll
  class ltrPoll{
   var $id;
@@ -77,7 +79,28 @@
    $myDB->query($query);
   }
   
- }
+  function self_destruct(){
+   global $myDB;
+   
+   $query = FormatSQL(DESTRUCT_POLL, array($this->id));
+   $myDB->query($query);
+   $query = FormatSQL(DESTRUCT_VOTES, array($this->id));
+   $myDB->query($query); //I want a database with referential integrity enforced by the RDBMS
+  }
 
+  function execute_action($result_id){}
+  function print_results(){}
+  function print_form(){}
 }
+
+function &create_poll_object(&$recordset){
+ if ($recordset['PollType'] == LTPOLL_ADDNODE){
+  return new ltrPollAdd($recordset);
+ }elseif($recordset['PollType'] == LTPOLL_EDITNODE){
+  return new ltrPollEdit($recordset);
+ }
+}
+
+function &read_polls($node_id){} //todo: implement
+
 ?>

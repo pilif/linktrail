@@ -147,7 +147,7 @@ if (!defined("COMMON_USER_INC"))
  else
   $tpl->set_var("LIMITBOX", ""); 
   
- $tpl->set_var("IWANTTO", print_mypage_iwantto($capabilities, $userdata));
+ $tpl->set_var("IWANTTO",  print_iwantto($kat));//print_mypage_iwantto($capabilities, $userdata));
  $tpl->parse("main", "main");
  $tpl->p("main");
  include("commonfooter2.html"); 

@@ -8,6 +8,20 @@ if (preg_match('/^\/Experts\/(.+)/', $PATH_INFO, $found)){
  Header("Location: ".$sess->url("/directory/directory.php$PATH_INFO"));
  exit;
 }
+
+if ( $dologout == "1" ){
+ $auth->unauth(true);
+ $sess->unregister("linknode");  $linknode  = "";
+ $sess->unregister("movenode");  $movenode  = "";
+ $sess->unregister("movetrail"); $movetrail = "";
+
+ setcookie("ltrLoginAs","",time()+2592000);  
+ $HTTP_COOKIE_VARS['ltrLoginAs'] = "";
+ page_close();
+ Header("Location: $PHP_SELF?reloadparent=1"); 
+ exit;
+}
+
 include("template.inc");
 $in_trail = 4;
 $nobody = ($auth->auth["uid"] == "nobody");

@@ -21,6 +21,7 @@ $ltrstr['Error']      			  = 'Oops ';
 $ltrstr['Trail_Login'] 			  = 'Please log in to create a new trail.';
 $ltrstr['LOGIN'] 			      = 'LOGIN';
 $ltrstr['Login'] 			      = 'Login';
+$ltrstr['Logout'] 			      = 'Logout';
 $ltrstr['Trail_Login_Add'] 	      = 'To add a Link, please log in.';
 $ltrstr['Trail_Login_Sub'] 	      = 'To subscribe to this trail, please log in.';
 $ltrstr['Trail_Login_Req'] 	      = 'Please enter your username and password.';
@@ -196,4 +197,25 @@ $ltrstr['lms comfirmation'][6]    = "The recommendation has been declined.";
 
 $ltrstr['inbox']                  = "received messages";
 $ltrstr['outbox']                 = "sent messages";
+
+$ltrstr['create a new trail']     = "Create a new trail";
+$ltrstr['make a friendship']      = "Request friendship";
+$ltrstr['accept request']         = "Accept the friendship request of %s";
+$ltrstr['cancel friendship']      = "Quit friendship";
+$ltrstr['editmode']               = "Edit this node (admin)";
+$ltrstr['iw_login']               = "Login";
+$ltrstr['iw_logout']              = "Logout (%s)";
+$ltrstr['iw_register']            = "Register";
+$ltrstr['iw_linkdrop']            = "Paste shortcut to %s here";
+$ltrstr['iw_nodedrop']            = "Paste category %s here";
+$ltrstr['iw_traildrop']           = "Paste trail %s here";
+$ltrstr['iw_readmsgs']            = 'Messagecenter';
+$ltrstr['iw_readmsgs_sub']        = '<br>%d new message(s)';
+$ltrstr['Home']                   = 'Home';
+$ltrstr['Mypage']                 = 'Mypage';
+$ltrstr['comfirm_friendship']     = 'Accept friendship request of %s';
+$ltrstr['quit_friendship']        = 'Quit my friendship with %s';
+$ltrstr['make_friendship']        = 'Request a friendship with %s';
+//$ltrstr['Settings']	  		      = "Settings";
+
 ?>

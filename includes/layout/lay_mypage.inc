@@ -337,7 +337,13 @@ function print_iwantto_quit_friendship($uid, $expert){
 }
 */
 
-function print_mypage_iwantto($capabilities, &$expert_data){
+/*function print_mypage_iwantto($kat, $capabilities){
+ if (!defined("IWANTTO_INC"))
+  include("commonapi/iwantto.inc");
+ return print_navigation($kat).print_actions($kat);
+}*/
+
+function print_mypage_iwantto_old($capabilities, &$expert_data){
  global $iwantto_mypage_order, $auth;
  
  $expert = $expert_data['Username'];

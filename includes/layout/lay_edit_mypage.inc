@@ -488,7 +488,7 @@ if ($list){
   $tpl->set_var("LIMITBOX", "");
  }
  $str = "";
- echo($HTTP_GET_VARS['ctype']);
+// echo($HTTP_GET_VARS['ctype']);
  if (isset($HTTP_GET_VARS['ctype']))
   $str = $ltrstr['lms comfirmation'][$HTTP_GET_VARS['ctype']].'<br>';
  $tpl->set_var("STATUS_LINE", $str.sprintf($ltrstr['Displaying messages'], (count($objs['arr'])) ));
