@@ -214,7 +214,7 @@ $ltrstr['iw_readmsgs_sub']        = '<br>%d new message(s)';
 $ltrstr['Home']                   = 'Home';
 $ltrstr['Mypage']                 = 'Mypage';
 $ltrstr['comfirm_friendship']     = 'Accept friendship request of %s';
-$ltrstr['cancel_friendship']      = 'Quit my friendship with %s';
+$ltrstr['quit_friendship']      = 'Quit my friendship with %s';
 $ltrstr['make_friendship']        = 'Request a friendship with %s';
 $ltrstr['iw_editmode']            = 'Admin: Edit this node';
 

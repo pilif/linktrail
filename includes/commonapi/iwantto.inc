@@ -130,7 +130,7 @@
    $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
   }
   
-  $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
+  $str .= (($auth->auth['uid'] == "nobody") and ($auth->auth['uname'] == "")) ? print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User')) : "";
   $str .= (($auth->auth['uid'] != "nobody") and ($auth->auth['uname'] != "")) ? print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($PHP_SELF).'?dologout=1')) : print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($PHP_SELF).'?dologin=1'));
   return $str;
  }
@@ -263,7 +263,7 @@
 
 function print_friendstuff($target_user, $target_uid, $type){
  global $auth, $sess, $ltrstr;
-// die($type);
+
  if ($type == "make")
   $str = print_iwantto_item_ex(sprintf($ltrstr['make_friendship'], $target_user), "", $sess->url(build_good_url("/Experts/$target_user/Make_friendship")));
  else{
