@@ -216,6 +216,7 @@ $ltrstr['Mypage']                 = 'Mypage';
 $ltrstr['comfirm_friendship']     = 'Accept friendship request of %s';
 $ltrstr['quit_friendship']        = 'Quit my friendship with %s';
 $ltrstr['make_friendship']        = 'Request a friendship with %s';
+
 //$ltrstr['Settings']	  		      = "Settings";
 
 ?>
