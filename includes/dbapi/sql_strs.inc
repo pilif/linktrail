@@ -258,7 +258,8 @@ define("SQL_UPDATE_USER",
   NotificationStyle = #I,
   Vacation = #S,
   MypageAfterLogon = #S,
-  NewWindow = #S
+  NewWindow = #S,
+  BounceFlag = #S
  WHERE
   User_ID = #S 
   ");
