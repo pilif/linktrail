@@ -105,7 +105,7 @@ $tpl->set_var("USERNAME", $auth->auth['uname']);
 
 $tpl->set_var("MYPAGEURL", $sess->url(build_good_url("/Experts/".$auth->auth['uname'])));
 $tpl->set_var("SETTINGSURL", $sess->url(build_good_url("/Experts/".$auth->auth['uname'].'/Settings')));
-$tpl->set_var("TOURURL", $sess->url("/Help/Tour/"));
+$tpl->set_var("TOURURL", $sess->url("/Tour/"));
 
 $tpl->set_var("IWANTTO", print_iwantto('/', $caps));
 
