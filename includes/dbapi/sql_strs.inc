@@ -118,12 +118,13 @@ define("SQL_EDIT_SLOT_EX",
   Trail_2_ID=#I,
   Trail_2_Text=#I,
   Description=#S
+  IsLive=#S
  WHERE Slot_ID=#I");
 
 define("SQL_INSSLOT_EX", "
 INSERT INTO 
     ltrSlots 
-    (Slot_ID, Node_ID, Trail_1_ID, Trail_1_Text, Trail_2_ID, Trail_2_Text, Description)
+    (Slot_ID, Node_ID, Trail_1_ID, Trail_1_Text, Trail_2_ID, Trail_2_Text, Description, IsLive)
 VALUES
     ( NULL, #I, #I, #S, #I, #I, #S)
 "); 

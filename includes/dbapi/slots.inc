@@ -37,6 +37,7 @@ function get_slots($id){
    $hsh['trail_2_text'] = $myDB->f("Trail_2_Text");
    $hsh['trail_2_path'] = $myDB->f("Path2");
    $hsh['description']  = $myDB->f("Description");
+   $hsh['islive']       = $myDB->f("IsLive");
    $hsh['next']         = $myDB->f("Next");
    $arr[$idx] = $hsh;
    $idx++;
@@ -65,6 +66,7 @@ function get_slot_info($id){
   $hsh['trail_2_text'] = $myDB->f("Trail_2_Text");
   $hsh['trail_2_path'] = $myDB->f("Path2");
   $hsh['description']  = $myDB->f("Description");
+  $hsh['islive']       = $myDB->f("IsLive");
   $hsh['next']         = $myDB->f("Next");
   reset($hsh);
   return $hsh; 
@@ -81,6 +83,7 @@ function create_empty_slot($node_id){
   $hsh['trail_2_text'] = "";
   $hsh['trail_2_path'] = "";
   $hsh['description']  = "";
+  $hsh['islive']       = "n";
   $hsh['next']         = "";
   reset($hsh);
   return $hsh; 
@@ -119,7 +122,7 @@ function add_slot_ex($obj){
  $t2['text'] = ($obj['trail_2_id'] != '') ? "'".$obj['trail_2_text']."'" : 'NULL';
  
  $query = FormatSQL(SQL_INSSLOT_EX, array($obj['node'], $obj['trail_1_id'], $obj['trail_1_text'],
-                                          $t2['id'], $t2['text'], $obj['description']));
+                                          $t2['id'], $t2['text'], $obj['description'], $obj['islive']));
  $myDB->query($query);
 // echo("<pre>$query</pre><br>");
 
@@ -146,7 +149,7 @@ function edit_slot_ex($id, $obj){
  $t2['text'] = ($obj['trail_2_id'] != '') ? "'".$obj['trail_2_text']."'" : 'NULL';
  
  $query = FormatSQL(SQL_EDIT_SLOT_EX, array($obj['trail_1_id'], $obj['trail_1_text'],
-                                          $t2['id'], $t2['text'], $obj['description'], $id));
+                                          $t2['id'], $t2['text'], $obj['description'], $obj['islive'] $id));
                                           
  $myDB->query($query);
 
