@@ -1,0 +1,26 @@
+<tr>
+ <td>
+  <table cellpadding="0" cellspacing="0">
+   <tr>
+    <td>
+<script language="JavaScript">
+ <!--
+  function check_focus(element){
+   idx = index_of(element, "x");
+   if (element.selectedIndex != idx) 
+    element.selectedIndex = idx;
+  }
+ //-->
+</script>
+	 <font size="1" face="verdana, arial, helvetica"><b>Move this link:</b></font>
+     <a href="#" target="_self" onMouseOut="window.status=''; return true" onMouseOver="window.status='Move up'; return true" onClick="move(1, document.editform, 'selpos[]', document.editform.row); return false;"><img src="/img/up.gif" width="19" height="11" border="0" alt=""></a>
+     <a href="#" target="_self" onMouseOut="window.status=''; return true" onMouseOver="window.status='Move down'; return true" onClick="move(2, document.editform, 'selpos[]', document.editform.row); return false;"><img src="/img/down.gif" width="19" height="11" border="0" alt=""></a><br>
+     <select name="selpos[]" size="5" class="smallDD" onChange="check_focus(document.editform.elements['selpos[]']);">
+     {LINKPOS}
+     </select>
+     <input type="hidden" name="row" value="">
+    </td>
+   </tr>
+  </table>
+ </td>
+</tr>

@@ -1,0 +1,49 @@
+		<table border=0 cellpadding=0 cellspacing=0 width=100%>
+ 		 <tr bgcolor="#FFCC00">
+  		  <td>
+  		   <table border=0 cellpadding=2 cellspacing=0 width="100%">
+   		    <tr> 
+            <td valign=top>
+			 <font face="verdana, arial, helvetica" size=2><b>&nbsp;Ich m&ouml;chte</b></font>
+			 </td>
+            </tr>
+  		   </table>
+  		  </td>
+         </tr>
+ 		 <tr>
+  		  <td valign="top">
+   		   <img src="/img/line.gif" width="176" height="2"><br>
+		  </td>
+ 		 </tr>
+	    </table>
+        <table border=0 cellpadding=3 cellspacing=0 width=100% bgcolor="white">
+          <!-----start-----> 
+          <tr> 
+           <td>
+			<table border=0 cellspacing=0 cellpadding=0>
+          <!-- BEGIN iwanttoitem -->
+		  {MYPAGE}
+		  <tr>
+		   <td colspan="3"><img src="/img/pixel.gif" width=1 height=7><br></td>
+		  </tr>
+          <!-- END iwanttoitem -->
+
+          {READMSGS}
+		  <tr>
+		   <td colspan="3"><img src="/img/pixel.gif" width=1 height=7><br></td>
+     	  </tr>
+          {TRAILADD}
+		  <tr>
+		   <td colspan="3"><img src="/img/pixel.gif" width=1 height=7><br></td>
+		  </tr>
+          {SUBCATEGORY}
+			</table><br><p>
+		    </td>
+		   </tr>
+		   <!-----ende-----> 
+          </table>
+		
+		
+		
+		
+		

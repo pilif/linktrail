@@ -1,0 +1,156 @@
+<?php 
+ global $HTTP_GET_VARS, $sess;
+ $url = (is_trail($PHP_SELF)) ? $PHP_SELF."/" : $PHP_SELF;
+ if (ereg('\.php', $PHP_SELF))
+  $search_url = "/Search";
+ else{
+  $search_url = (ereg('Search/$', $url)) ? $url : $url.'Search/';
+  $search_url = substr($search_url, 0, strlen($search_url)-1); //remove trailing /
+ }
+ global $glob_userdata, $randval; 
+ if (is_array($glob_userdata)){
+  $pp = ($glob_userdata['PopupPos'] != "") ? $glob_userdata['PopupPos'] : "l";
+  $randval = $glob_userdata['NewWindow'] ? $randval : 222;
+ }else {
+  $pp = "l";
+  $randval = 222;
+ }
+?>
+<html>
+<head>
+
+<LINK REL=stylesheet HREF="/styles/trail_1.css" TYPE="text/css">
+
+<script language="JavaScript">
+<!--
+function openIt(windowname){
+ xcord = 200;
+ ycord = 200;
+
+ <?php if ($pp == "l"){ ?>
+ while (xcord > 30)
+  xcord = Math.ceil(Math.random()*100);
+ <?php }else{ ?>
+ xcord = (screen.width - 255);
+ <?php } ?>
+
+ while (ycord > 30)
+  ycord = Math.ceil(Math.random()*100);
+
+ prefs = "width=225,";
+ prefs = prefs + "height=525,";
+ prefs = prefs + "scrollbars=yes,";
+ prefs = prefs + "resizable=yes,";
+ prefs = prefs + "toolbar=no,";
+ prefs = prefs + "location=no,";
+ prefs = prefs + "directories=no,";
+ prefs = prefs + "status=no,";
+ prefs = prefs + "alwaysRaised=yes",
+ prefs = prefs + "menubar=no,";
+ prefs = prefs + "copyhistory=no,left="+xcord+",top="+ycord+",screenX="+ xcord +",screenY="+ ycord;
+ //trailwnd = window.open(url,'trail_' + Math.ceil(Math.random()*10000), prefs); 
+ trailwnd = window.open('',windowname, prefs); 
+ trailwnd.focus();
+ }
+//-->
+</script>
+
+<script language="JavaScript">
+ <!--
+ //window.name="ltrmain233"
+ //var img= new Image();
+ //img.src="/img/logo_small.gif";
+ //-->
+</script>
+
+<title>linktrail - <?php echo($pl); ?></title>
+</head>
+
+<body bgcolor="white" text="black" link="mediumblue" alink="mediumblue" vlink="purple">
+<center>
+
+
+
+<table border=0 cellpadding=0 cellspacing=0 width="600">
+<tr><td colspan="3" valign="top"> 
+
+<table cellpadding=0 cellspacing=0 border=0 width=100%>
+<tr>
+ <td>
+  <a href="/"><img src="/img/logo.gif" border="0" vspace="0"></a></td>
+ <td align="right">
+	<font face="verdana,arial,helvetica" size=1>
+	
+	<a href="JavaScript: alert('Not available at this time. Please check back later.')"><img src="/img/icon_help.gif" width="16" height="16" alt="" border="0" hspace="3" vspace="0" align="texttop"><font color="black"><b>Help</b></font></a>&nbsp;
+	<?php if (!$nobody) { ?><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologout=1"><img src="/img/icono3.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop"><font color="black"><b>Logout</b></font></a><?php } ?>
+	<?php if ($nobody) { ?><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologin=1"><img src="/img/icon_logon.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop"><font color="black"><b>Login</b></font></a><?php } ?>
+	</font>
+ </td>
+</tr>
+<tr> 
+ <td>
+  <img src="/img/pixel.gif" height="1"><br>
+ </td>
+</tr>
+<tr> 
+ <td valign=top height=25 bgcolor="#003366" colspan="2">
+  <table border=0 cellpadding=2 cellspacing=0>
+  <form action="<?= $search_url ?>" name="searchform" method="GET">
+   <tr>  
+	<td>
+	 <font color="white" face="verdana, arial,helvetica" size="1"><b>&nbsp;SEARCH:&nbsp;</b></font> 
+	</td>
+	<td>
+	 <input type="text" name="sq" size="22" value="<?= htmlspecialchars($HTTP_GET_VARS['sq']) ?>">&nbsp;
+	</td>
+	<td>
+	 <input type="submit" border="0" value="&nbsp;Find it&nbsp;">&nbsp;
+	</td>
+	<td>
+	 <select name="restriction">
+     <?= $restriction_list ?>
+     </select>&nbsp;
+	 </td> 
+	<td>
+   &nbsp;
+	<a href="JavaScript: alert('Not available at this time. Please check back later.')">
+	<font face="verdana, arial, helvetica" size=1 color="#ffffff"><b>advanced search</b> </font></a><br>
+	
+	 	 </td> 
+	  </tr>
+	
+  </form>
+  </table>
+ </td>
+</tr>
+ <tr>
+  <td valign="top" colspan="2">
+   <img src="/img/line2.gif" width="602" height="2"><br>
+  </td>
+ </tr>
+ 
+</table>
+<?php if ($kat != '/') { ?>
+<table cellpadding="3"> 
+ <tr>
+  <td valign="middle">
+   <font face="verdana, arial, helvetica" size=1>You are here: <b> <?php echo($plf); ?></b></font><br>
+  </td>
+ </tr>
+</table>
+<?php } else {?>
+	  <table border=0 cellpadding=0 cellspacing=0 width=100%>     
+	   <tr> 
+	    <td>
+		 <img src="/img/pixel.gif" height="8"><br>
+		</td>
+	   </tr>
+	  </table>
+<?php } ?>
+<script language="JavaScript">
+<!--
+document.searchform.sq.focus();
+//-->
+</script>
+</td>
+</tr>

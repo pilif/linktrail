@@ -1,0 +1,31 @@
+<tr>
+ <td rowspan="{SUGGESTION_COUNT_MAX}" valign="top" width="140">
+  <font face="verdana, arial, helvetica" size=2><b>Suggested usernames:</b></font>
+  <script language="JavaScript">
+ <!--
+   var maxIdx = {SUGGESTION_COUNT};
+   function check(){
+     document.regform.elements['{FIELD_USERNAME_SUGGESTION}'][maxIdx].checked = true;
+   }
+   function focus_edit(){
+     if (document.regform.elements['{FIELD_USERNAME_SUGGESTION}'][maxIdx].checked)
+      document.regform.elements['{FIELD_USERNAME_TXT}'].focus();
+   }
+  
+ //-->
+</script>
+ </td>
+</tr>
+<!-- BEGIN suggestion -->
+<tr>
+ <td>
+  <font face="verdana, arial, helvetica" size=2><input type="Radio" name="{FIELD_USERNAME_SUGGESTION}" value="{VALUE_SUGGESTION}" id="s_{SUGGESTION_IDX}"><label for="s_{SUGGESTION_IDX}">{VALUE_SUGGESTION}</label></font>
+ </td>
+</tr>
+<!-- END suggestion -->
+<tr>
+ <td>&nbsp;</td>
+ <td valign="top">
+  <font face="verdana, arial, helvetica" size=2><input type="radio" name="{FIELD_USERNAME_SUGGESTION}" value="other" onClick="focus_edit();" checked id="other"><label for="other">other: </label><input type="text" name="{FIELD_USERNAME_TXT}" size="22" onFocus="check();"><p></font>
+ </td>
+</tr>

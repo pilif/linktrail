@@ -1,0 +1,40 @@
+<?php
+$required_fields = array('field_interests', 'field_lastname', 'field_firstname');
+$valid_fields = array(
+                       'field_email' => 'email'
+                     );
+                     
+$ok_url = "/About/Careers/Thank_You";
+$mailto = array('jobs@linktrail.com');
+
+$mail_subject="Linktrail - Jobangebot";
+$mail_from="Linktrail-Application 0.1 <bugs@linktrail.com>";
+$mail_body="Ein Job-Angebot ist eingetroffen. Hier sind seine Daten:
+
+Interesse: [[FIELD_INTERESTS]]
+Nachname: [[FIELD_LASTNAME]]
+Vorname: [[FIELD_FIRSTNAME]]
+
+Addresse: [[FIELD_ADDRESS]]
+
+Phone: [[FIELD_PHONE]]
+Email: [[FIELD_EMAIL]]
+Country: [[FIELD_COUNTRY]]
+Education: [[FIELD_EDUCATION]]
+Additional Edu: [[FIELD_ADDEDU]]
+
+Experience:
+[[FIELD_EXPERIENCE]]
+
+German (written / spoken): [[FIELD_GERMAN]]
+English (written / spoken): [[FIELD_ENGLISH]]
+Other ([[FIELD_OTHERLANG]]): [[FIELD_OTHER_INFO]]
+
+Additional:
+[[FIELD_INFO]]
+
+Arbeitsbegin:[[FIELD_DATE]]
+
+Vielen Dank fuer meine Verwendung!
+";
+?>

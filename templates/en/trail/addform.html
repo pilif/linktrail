@@ -1,0 +1,57 @@
+<tr>
+ <td>
+  <table border=0 cellpadding=0 cellspacing=0 width=100%>
+   <tr bgcolor="#C1E054">
+    <td>
+	 <a name="addlinks"></a>
+	  <table border=0 cellpadding=2 cellspacing=0 width=100%>
+	   <tr>
+	    <td>
+		 <font face="verdana, arial, helvetica" size=1><b>ADD A LINK</b></font>	
+		</td>
+	   </tr>
+	  </table>
+	 </td>
+	</tr>
+	<tr>
+	 <td valign="top">
+	  <img src="/img/line.gif" width="100%" height="2"><br>
+	 </td>
+	</tr>
+   </table>
+  </td>
+ </tr>
+ <tr>
+  <td valign="top">
+   <form action="{ACTIONURL}" method="post" target="_self">
+   {HIDDENS}
+   <table width="100%" border="0" cellspacing="0" cellpadding="4">
+    <tr>
+     <td>
+      <font size="1" face="verdana, arial, helvetica"><b>Title</b><br>
+      <input type="text" name="title" size="20" maxlength="80" value="{TITLE}" style="font-family: monospace;">
+      </font>
+     </td>
+	</tr>
+	<tr>
+     <td>
+	  <font size="1" face="verdana, arial, helvetica"><b>URL</b> (e.g.: www.linktrail.com)<br>
+      <input type="text" name="url" size="20" maxlength="199" value="{URL}" style="font-family: monospace;">
+      </font>
+	 </td>
+	</tr>
+	<tr>
+	 <td>
+	  <font size="1" face="verdana, arial, helvetica"><b>Description</b><br></font>
+      <font face="monospace"><textarea name="description" wrap="virtual" rows="4" cols="20" style="font-family: monospace;">{DESCRIPTION}</textarea></font><br><br>
+     </td>
+	</tr>
+	<tr>
+	 <td>
+	  <center>{ADDBUTTON}</center><br><br>
+	 </td>
+	</tr>
+   </table>
+  </form>
+ </td>
+</tr>

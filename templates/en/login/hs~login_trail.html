@@ -1,0 +1,25 @@
+		<table border="0" width="100%" cellpadding="0" cellspacing="3">
+  		<tr><td>{ERROR_STRING}<font face="verdana, arial, helvetica" size="2">{LOGINTEXT} Or <a href="/Experts/New_User"><b>get a free account</b></a> if you are not a member yet. 
+
+			 <form action="{ACTION}" method="POST" target="_self">
+			 <input type="hidden" name="LTSESSID" value="{SESSIONID}">
+             {OTHER_HIDDEN}
+			 <input type="hidden" name="reloadparent" value="1">
+                    <font size="2" color="#000000" face="verdana, arial, helvetica">
+					
+					<b>Username:</b><br>
+					<input type="text" name="{FIELD_NAME}" value="{VALUE_NAME}" size="20">
+					<br>
+					<b>Password:</b><br>
+					<input type="password" name="{FIELD_PASSWORD}" value="{VALUE_PASSWORD}" size="20">
+				<br><br>
+					<input type="submit" name="login" value="&nbsp; Login &nbsp;">
+					<br><br>
+
+                    <font face='verdana, arial, helvetica' size='1'><a href="{FORGOTTEN_URL}">Forgot your username or password?</a> </font>
+             </FONT>
+             </form>
+		<hr color="#dcdcdc" noshade>
+		</font>
+		</td></tr>
+		</table>

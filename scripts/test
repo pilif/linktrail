@@ -1,0 +1,11 @@
+#!/usr/bin/perl -w
+use DBI; 
+my $database = "linktrail"; 
+my $data_source = "DBI:mysql:$database;";
+my $username = "root"; 
+my $password = "oelberg"; 
+my $dbh = DBI->connect( $data_source, $username, $password) or die "Can't connect to $data_source: $dbh->errstr\n"; 
+
+$dbh->disconnect; 
+exit(0); 
+__END__ 

@@ -1,0 +1,37 @@
+			 <tr bgcolor="{COLOR}">
+		      <td valign="top"><a name="{MYID}"></a><img src="/img/user_mess.gif" border=0 height=16 width=16 hspace=2></td>
+		      <td valign="top"><font size="1" face="verdana, arial, helvetica"><a href="{USERURL}">{USERNAME}</a></font></td>
+			  <td valign="top"><font size="1" face="verdana, arial, helvetica">{SHORTDESC}</a></font></td>
+			  <td valign="top"><font size="1" face="verdana, arial, helvetica">{DATE}</font></td>
+			  <td valign="top" align="right" nowrap><font size="1" face="verdana, arial, helvetica">[<a href="{CLOSEURL}">close</a> | <a href="{DELURL}">delete</a>]</font></td>
+			 </tr>
+			 <tr bgcolor="{COLOR}">
+		      <td>&nbsp;</td>
+		      <td>&nbsp;</td>
+			  <td colspan=3>
+               <font size="1" face="verdana, arial, helvetica">
+               <b>Message:</b><br>
+               {MESSAGE}
+               <p>
+               {TRAILINFO}
+               </font><p></td>
+			 </tr>
+			 <tr bgcolor="{COLOR}">
+		      <td>&nbsp;</td>
+		      <td>&nbsp;</td>
+			  <td colspan=3>
+			   <font size="1" face="verdana, arial, helvetica">
+               {ERRORSTRING}
+			   <b>Reply to this message:</b><br>
+			   <form action="{ACTION}" method="POST" target="_self">
+               <input type="hidden" name="action" value="answer">
+               <input type="hidden" name="objectid" value="{MYID}">
+			   <b>Subject</b><br>
+			   <input type="text" name="field_subject" size=26 value="{VALUE_SUBJECT}">{WARN_SUBJECT}<p>
+			   <b>Message</b><br>
+			   <textarea name="field_message" wrap="virtual" rows="4" cols=26></textarea><br><br></font>
+			   <input type="submit" name="send" value="Send message">
+			   </form>
+			   </font><p>
+              </td>
+			 </tr>

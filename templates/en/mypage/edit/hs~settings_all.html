@@ -1,0 +1,668 @@
+<table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor="#dcdcdc">
+ <tr> 
+  <td><font face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s Profile</b></font></td>
+  <td align="right"><font face="verdana, arial, helvetica" size=1></font><br></td>
+ </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" bgcolor="#a4a4a4">
+ <tr>
+  <td><a name="profile"></a>
+   <table cellpadding="3" cellspacing="1" border="0" width="100%" align="center">
+   <form name="profileform" ACTION="{ACTION_PROF}#profile" METHOD="POST">
+	<tr>
+     <td bgcolor="#FFFFFF" colspan="2">
+      <table cellpadding="0" cellspacing="3" border="0">
+       <tr>
+	    <td>
+	    <font face="verdana, arial, helvetica" size="2">
+		Changes will become effective after clicking on the "Change settings" button at the bottom of this page. <p>
+		</font>
+	    </td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+	<tr>	
+	 <td bgcolor="#E4F4C6">
+	  <table>
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Name:</b></font>
+	    </td>
+	    <td>
+	     <table cellpadding="0" cellspacing="0" border="0">
+	      <tr>
+	       <td>
+	        <font face="verdana, arial, helvetica" size="1">First</font><br><input type="text" name="{FIELD_FIRST_NAME}" value="{VALUE_FIRST_NAME}" size=13>&nbsp;
+	       </td>
+	       <td>
+	        <font face="verdana, arial, helvetica" size="1">Last</font><br><input type="text" name="{FIELD_LAST_NAME}" value="{VALUE_LAST_NAME}" size=13>
+	       </td>
+	      </tr>
+	     </table>
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+	     <input type="radio" name="{FIELD_NAME_SHOW}" value="{VALUE_ANYONE}" {FIELD_NAME_ANYONE_CHECKED}>anyone | 
+	     <input type="radio" name="{FIELD_NAME_SHOW}" value="{VALUE_FRIENDS}" {FIELD_NAME_FRIENDS_CHECKED}>friends | 
+	     <input type="radio" name="{FIELD_NAME_SHOW}" value="{VALUE_NOBODY}" {FIELD_NAME_NOBODY_CHECKED}>nobody
+	     </font>
+	    </td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+      <table cellpadding="0" cellspacing="3" border="0">
+	  <!---- start email ---->
+       <tr>
+	    <td valign="top" width=140>
+	     <a name="email"></a>
+         <font face="verdana, arial, helvetica" size="2"><b>Email:</b></font>
+	    </td>
+	    <td>
+	     <input type="text" name="{FIELD_EMAIL}" size=26  value="{VALUE_EMAIL}">
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+		 <input type="radio" name="{FIELD_EMAIL_SHOW}" value="{VALUE_ANYONE}" {FIELD_EMAIL_ANYONE_CHECKED}>anyone | 
+		 <input type="radio" name="{FIELD_EMAIL_SHOW}" value="{VALUE_FRIENDS}" {FIELD_EMAIL_FRIENDS_CHECKED}>friends | 
+		 <input type="radio" name="{FIELD_EMAIL_SHOW}" value="{VALUE_NOBODY}" {FIELD_EMAIL_NOBODY_CHECKED}>nobody
+		 </font>
+	    </td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+	  <table cellpadding="0" cellspacing="3" border="0">
+       <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Gender:</b></font>
+	    </td>
+	    <td>
+	     <select name="{FIELD_GENDER}" size="1">
+		 <option value="o" {GENDER_OTHER_SELECTED}>&nbsp;</option>
+		 <option value="m" {GENDER_MALE_SELECTED}>Male</option>
+		 <option value="f" {GENDER_FEMALE_SELECTED}>Female</option>
+		 </select>
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+		 <input type="radio" name="{FIELD_GENDER_SHOW}" value="{VALUE_ANYONE}" {FIELD_GENDER_ANYONE_CHECKED}>anyone | 
+		 <input type="radio" name="{FIELD_GENDER_SHOW}" value="{VALUE_FRIENDS}" {FIELD_GENDER_FRIENDS_CHECKED}>friends | 
+		 <input type="radio" name="{FIELD_GENDER_SHOW}" value="{VALUE_NOBODY}" {FIELD_GENDER_NOBODY_CHECKED}>nobody
+		 </font>
+	    </td>
+	   </tr>
+	  </table>
+	 </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+	  <table cellpadding="0" cellspacing="3" border="0">
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Age:</b></font>
+	    </td>
+	    <td>
+	     <input type="text" name="{FIELD_AGE}" size=26  value="{VALUE_AGE}"></font>
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+	     <input type="radio" name="{FIELD_AGE_SHOW}" value="{VALUE_ANYONE}" {FIELD_AGE_ANYONE_CHECKED}>anyone | 
+	     <input type="radio" name="{FIELD_AGE_SHOW}" value="{VALUE_FRIENDS}" {FIELD_AGE_FRIENDS_CHECKED}>friends | 
+	     <input type="radio" name="{FIELD_AGE_SHOW}" value="{VALUE_NOBODY}" {FIELD_AGE_NOBODY_CHECKED}>nobody
+	     </font>
+	    </td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table cellpadding="0" cellspacing="3" border="0">
+       <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>About me:</b></font>
+	    </td>
+	    <td>
+	     <textarea name="{FIELD_ABOUT}" cols=29 rows=5 wrap="virtual">{VALUE_ABOUT}</textarea>
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+	     <input type="radio" name="{FIELD_ABOUT_SHOW}" value="{VALUE_ANYONE}" {FIELD_ABOUT_ANYONE_CHECKED}>anyone | 
+	     <input type="radio" name="{FIELD_ABOUT_SHOW}" value="{VALUE_FRIENDS}" {FIELD_ABOUT_FRIENDS_CHECKED}>friends | 
+	     <input type="radio" name="{FIELD_ABOUT_SHOW}" value="{VALUE_NOBODY}" {FIELD_ABOUT_NOBODY_CHECKED}>nobody
+	     </font>
+	    </td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#ffffff">
+      <table cellpadding="0" cellspacing="3" border="0">
+       <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Country:</b></font>
+	    </td>
+	    <td>
+	    <select name="{FIELD_COUNTRY}" size=1>
+		<option value=""{FIELD_COUNTRY_EMPTY_SELECTED}></option>
+        <option value="af"{FIELD_COUNTRY_AF_SELECTED}>Afghanistan</option>
+        <option value="al"{FIELD_COUNTRY_AL_SELECTED}>Albania</option>
+        <option value="dz"{FIELD_COUNTRY_DZ_SELECTED}>Algeria</option>
+        <option value="as"{FIELD_COUNTRY_AS_SELECTED}>American Samoa</option>
+        <option value="ad"{FIELD_COUNTRY_AD_SELECTED}>Andorra</option>
+        <option value="ao"{FIELD_COUNTRY_AO_SELECTED}>Angola</option>
+        <option value="ai"{FIELD_COUNTRY_AI_SELECTED}>Anguilla</option>
+        <option value="aq"{FIELD_COUNTRY_AQ_SELECTED}>Antarctica</option>
+        <option value="ag"{FIELD_COUNTRY_AG_SELECTED}>Antigua and Barbuda</option>
+        <option value="ar"{FIELD_COUNTRY_AR_SELECTED}>Argentina</option>
+        <option value="am"{FIELD_COUNTRY_AM_SELECTED}>Armenia</option>
+        <option value="aw"{FIELD_COUNTRY_AW_SELECTED}>Aruba</option>
+        <option value="au"{FIELD_COUNTRY_AU_SELECTED}>Australia</option>
+        <option value="at"{FIELD_COUNTRY_AT_SELECTED}>Austria</option>
+        <option value="az"{FIELD_COUNTRY_AZ_SELECTED}>Azerbaijan</option>
+        <option value="bs"{FIELD_COUNTRY_BS_SELECTED}>Bahamas</option>
+        <option value="bh"{FIELD_COUNTRY_BH_SELECTED}>Bahrain</option>
+        <option value="bd"{FIELD_COUNTRY_BD_SELECTED}>Bangladesh</option>
+        <option value="bb"{FIELD_COUNTRY_BB_SELECTED}>Barbados</option>
+        <option value="by"{FIELD_COUNTRY_BY_SELECTED}>Belarus</option>
+        <option value="be"{FIELD_COUNTRY_BE_SELECTED}>Belgium</option>
+        <option value="bz"{FIELD_COUNTRY_BZ_SELECTED}>Belize</option>
+        <option value="bj"{FIELD_COUNTRY_BJ_SELECTED}>Benin</option>
+        <option value="bm"{FIELD_COUNTRY_BM_SELECTED}>Bermuda</option>
+        <option value="bt"{FIELD_COUNTRY_BT_SELECTED}>Bhutan</option>
+        <option value="bo"{FIELD_COUNTRY_BO_SELECTED}>Bolivia</option>
+        <option value="ba"{FIELD_COUNTRY_BA_SELECTED}>Bosnia and Herzegovina</option>
+        <option value="bw"{FIELD_COUNTRY_BW_SELECTED}>Botswana</option>
+        <option value="bv"{FIELD_COUNTRY_BV_SELECTED}>Bouvet Island</option>
+        <option value="br"{FIELD_COUNTRY_BR_SELECTED}>Brazil</option>
+        <option value="io"{FIELD_COUNTRY_IO_SELECTED}>British Indian Ocean Territory</option>
+        <option value="vg"{FIELD_COUNTRY_VG_SELECTED}>British Virgin Islands</option>
+        <option value="bn"{FIELD_COUNTRY_BN_SELECTED}>Brunei</option>
+        <option value="bg"{FIELD_COUNTRY_BG_SELECTED}>Bulgaria</option>
+        <option value="bf"{FIELD_COUNTRY_BF_SELECTED}>Burkina Faso</option>
+        <option value="bi"{FIELD_COUNTRY_BI_SELECTED}>Burundi</option>
+        <option value="kh"{FIELD_COUNTRY_KH_SELECTED}>Cambodia</option>
+        <option value="cm"{FIELD_COUNTRY_CM_SELECTED}>Cameroon</option>
+        <option value="ca"{FIELD_COUNTRY_CA_SELECTED}>Canada</option>
+        <option value="cv"{FIELD_COUNTRY_CV_SELECTED}>Cape Verde</option>
+        <option value="ky"{FIELD_COUNTRY_KY_SELECTED}>Cayman Islands</option>
+        <option value="cf"{FIELD_COUNTRY_CF_SELECTED}>Central African Republic</option>
+        <option value="td"{FIELD_COUNTRY_TD_SELECTED}>Chad</option>
+        <option value="cl"{FIELD_COUNTRY_CL_SELECTED}>Chile</option>
+        <option value="cn"{FIELD_COUNTRY_CN_SELECTED}>China</option>
+        <option value="cx"{FIELD_COUNTRY_CX_SELECTED}>Christmas Island</option>
+        <option value="cc"{FIELD_COUNTRY_CC_SELECTED}>Cocos Islands</option>
+        <option value="co"{FIELD_COUNTRY_CO_SELECTED}>Colombia</option>
+        <option value="km"{FIELD_COUNTRY_KM_SELECTED}>Comoros</option>
+        <option value="cg"{FIELD_COUNTRY_CG_SELECTED}>Congo</option>
+        <option value="ck"{FIELD_COUNTRY_CK_SELECTED}>Cook Islands</option>
+        <option value="cr"{FIELD_COUNTRY_CR_SELECTED}>Costa Rica</option>
+        <option value="hr"{FIELD_COUNTRY_HR_SELECTED}>Croatia</option>
+        <option value="cu"{FIELD_COUNTRY_CU_SELECTED}>Cuba</option>
+        <option value="cy"{FIELD_COUNTRY_CY_SELECTED}>Cyprus</option>
+        <option value="cz"{FIELD_COUNTRY_CZ_SELECTED}>Czech Republic</option>
+        <option value="dk"{FIELD_COUNTRY_DK_SELECTED}>Denmark</option>
+        <option value="dj"{FIELD_COUNTRY_DJ_SELECTED}>Djibouti</option>
+        <option value="dm"{FIELD_COUNTRY_DM_SELECTED}>Dominica</option>
+        <option value="do"{FIELD_COUNTRY_DO_SELECTED}>Dominican Republic</option>
+        <option value="tp"{FIELD_COUNTRY_TP_SELECTED}>East Timor</option>
+        <option value="ec"{FIELD_COUNTRY_EC_SELECTED}>Ecuador</option>
+        <option value="eg"{FIELD_COUNTRY_EG_SELECTED}>Egypt</option>
+        <option value="sv"{FIELD_COUNTRY_SV_SELECTED}>El Salvador</option>
+        <option value="gq"{FIELD_COUNTRY_GQ_SELECTED}>Equatorial Guinea</option>
+        <option value="er"{FIELD_COUNTRY_ER_SELECTED}>Eritrea</option>
+        <option value="ee"{FIELD_COUNTRY_EE_SELECTED}>Estonia</option>
+        <option value="et"{FIELD_COUNTRY_ET_SELECTED}>Ethiopia</option>
+        <option value="fk"{FIELD_COUNTRY_FK_SELECTED}>Falkland Islands</option>
+        <option value="fo"{FIELD_COUNTRY_FO_SELECTED}>Faroe Islands</option>
+        <option value="fj"{FIELD_COUNTRY_FJ_SELECTED}>Fiji</option>
+        <option value="fi"{FIELD_COUNTRY_FI_SELECTED}>Finland</option>
+        <option value="fr"{FIELD_COUNTRY_FR_SELECTED}>France</option>
+        <option value="gf"{FIELD_COUNTRY_GF_SELECTED}>French Guiana</option>
+        <option value="pf"{FIELD_COUNTRY_PF_SELECTED}>French Polynesia</option>
+        <option value="tf"{FIELD_COUNTRY_TF_SELECTED}>French Southern Territories</option>
+        <option value="ga"{FIELD_COUNTRY_GA_SELECTED}>Gabon</option>
+        <option value="gm"{FIELD_COUNTRY_GM_SELECTED}>Gambia</option>
+        <option value="ge"{FIELD_COUNTRY_GE_SELECTED}>Georgia</option>
+        <option value="de"{FIELD_COUNTRY_DE_SELECTED}>Germany</option>
+        <option value="gh"{FIELD_COUNTRY_GH_SELECTED}>Ghana</option>
+        <option value="gi"{FIELD_COUNTRY_GI_SELECTED}>Gibraltar</option>
+        <option value="gr"{FIELD_COUNTRY_GR_SELECTED}>Greece</option>
+        <option value="gl"{FIELD_COUNTRY_GL_SELECTED}>Greenland</option>
+        <option value="gd"{FIELD_COUNTRY_GD_SELECTED}>Grenada</option>
+        <option value="gp"{FIELD_COUNTRY_GP_SELECTED}>Guadeloupe</option>
+        <option value="gu"{FIELD_COUNTRY_GU_SELECTED}>Guam</option>
+        <option value="gt"{FIELD_COUNTRY_GT_SELECTED}>Guatemala</option>
+        <option value="gn"{FIELD_COUNTRY_GN_SELECTED}>Guinea</option>
+        <option value="gw"{FIELD_COUNTRY_GW_SELECTED}>Guinea-Bissau</option>
+        <option value="gy"{FIELD_COUNTRY_GY_SELECTED}>Guyana</option>
+        <option value="ht"{FIELD_COUNTRY_HT_SELECTED}>Haiti</option>
+        <option value="hm"{FIELD_COUNTRY_HM_SELECTED}>Heard and McDonald Islands</option>
+        <option value="hn"{FIELD_COUNTRY_HN_SELECTED}>Honduras</option>
+        <option value="hk"{FIELD_COUNTRY_HK_SELECTED}>Hong Kong</option>
+        <option value="hu"{FIELD_COUNTRY_HU_SELECTED}>Hungary</option>
+        <option value="is"{FIELD_COUNTRY_IS_SELECTED}>Iceland</option>
+        <option value="in"{FIELD_COUNTRY_IN_SELECTED}>India</option>
+        <option value="id"{FIELD_COUNTRY_ID_SELECTED}>Indonesia</option>
+        <option value="ir"{FIELD_COUNTRY_IR_SELECTED}>Iran</option>
+        <option value="iq"{FIELD_COUNTRY_IQ_SELECTED}>Iraq</option>
+        <option value="ie"{FIELD_COUNTRY_IE_SELECTED}>Ireland</option>
+        <option value="il"{FIELD_COUNTRY_IL_SELECTED}>Israel</option>
+        <option value="it"{FIELD_COUNTRY_IT_SELECTED}>Italy</option>
+        <option value="ci"{FIELD_COUNTRY_CI_SELECTED}>Ivory Coast</option>
+        <option value="jm"{FIELD_COUNTRY_JM_SELECTED}>Jamaica</option>
+        <option value="jp"{FIELD_COUNTRY_JP_SELECTED}>Japan</option>
+        <option value="jo"{FIELD_COUNTRY_JO_SELECTED}>Jordan</option>
+        <option value="kz"{FIELD_COUNTRY_KZ_SELECTED}>Kazakhstan</option>
+        <option value="ke"{FIELD_COUNTRY_KE_SELECTED}>Kenya</option>
+        <option value="ki"{FIELD_COUNTRY_KI_SELECTED}>Kiribati</option>
+        <option value="kp"{FIELD_COUNTRY_KP_SELECTED}>Korea, North</option>
+        <option value="kr"{FIELD_COUNTRY_KR_SELECTED}>Korea, South</option>
+        <option value="kw"{FIELD_COUNTRY_KW_SELECTED}>Kuwait</option>
+        <option value="kg"{FIELD_COUNTRY_KG_SELECTED}>Kyrgyzstan</option>
+        <option value="la"{FIELD_COUNTRY_LA_SELECTED}>Laos</option>
+        <option value="lv"{FIELD_COUNTRY_LV_SELECTED}>Latvia</option>
+        <option value="lb"{FIELD_COUNTRY_LB_SELECTED}>Lebanon</option>
+        <option value="ls"{FIELD_COUNTRY_LS_SELECTED}>Lesotho</option>
+        <option value="lr"{FIELD_COUNTRY_LR_SELECTED}>Liberia</option>
+        <option value="ly"{FIELD_COUNTRY_LY_SELECTED}>Libya</option>
+        <option value="li"{FIELD_COUNTRY_LI_SELECTED}>Liechtenstein</option>
+        <option value="lt"{FIELD_COUNTRY_LT_SELECTED}>Lithuania</option>
+        <option value="lu"{FIELD_COUNTRY_LU_SELECTED}>Luxembourg</option>
+        <option value="mo"{FIELD_COUNTRY_MO_SELECTED}>Macau</option>
+        <option value="mk"{FIELD_COUNTRY_MK_SELECTED}>Macedonia</option>
+        <option value="mg"{FIELD_COUNTRY_MG_SELECTED}>Madagascar</option>
+        <option value="mw"{FIELD_COUNTRY_MW_SELECTED}>Malawi</option>
+        <option value="my"{FIELD_COUNTRY_MY_SELECTED}>Malaysia</option>
+        <option value="mv"{FIELD_COUNTRY_MV_SELECTED}>Maldives</option>
+        <option value="ml"{FIELD_COUNTRY_ML_SELECTED}>Mali</option>
+        <option value="mt"{FIELD_COUNTRY_MT_SELECTED}>Malta</option>
+        <option value="mh"{FIELD_COUNTRY_MH_SELECTED}>Marshall Islands</option>
+        <option value="mq"{FIELD_COUNTRY_MQ_SELECTED}>Martinique</option>
+        <option value="mr"{FIELD_COUNTRY_MR_SELECTED}>Mauritania</option>
+        <option value="mu"{FIELD_COUNTRY_MU_SELECTED}>Mauritius</option>
+        <option value="yt"{FIELD_COUNTRY_YT_SELECTED}>Mayotte</option>
+        <option value="mx"{FIELD_COUNTRY_MX_SELECTED}>Mexico</option>
+        <option value="fm"{FIELD_COUNTRY_FM_SELECTED}>Micronesia, Federated States of</option>
+        <option value="md"{FIELD_COUNTRY_MD_SELECTED}>Moldova</option>
+        <option value="mc"{FIELD_COUNTRY_MC_SELECTED}>Monaco</option>
+        <option value="mn"{FIELD_COUNTRY_MN_SELECTED}>Mongolia</option>
+        <option value="ms"{FIELD_COUNTRY_MS_SELECTED}>Montserrat</option>
+        <option value="ma"{FIELD_COUNTRY_MA_SELECTED}>Morocco</option>
+        <option value="mz"{FIELD_COUNTRY_MZ_SELECTED}>Mozambique</option>
+        <option value="mm"{FIELD_COUNTRY_MM_SELECTED}>Myanmar</option>
+        <option value="na"{FIELD_COUNTRY_NA_SELECTED}>Namibia</option>
+        <option value="nr"{FIELD_COUNTRY_NR_SELECTED}>Nauru</option>
+        <option value="np"{FIELD_COUNTRY_NP_SELECTED}>Nepal</option>
+        <option value="nl"{FIELD_COUNTRY_NL_SELECTED}>Netherlands</option>
+        <option value="an"{FIELD_COUNTRY_AN_SELECTED}>Netherlands Antilles</option>
+        <option value="nc"{FIELD_COUNTRY_NC_SELECTED}>New Caledonia</option>
+        <option value="nz"{FIELD_COUNTRY_NZ_SELECTED}>New Zealand</option>
+        <option value="ni"{FIELD_COUNTRY_NI_SELECTED}>Nicaragua</option>
+        <option value="ne"{FIELD_COUNTRY_NE_SELECTED}>Niger</option>
+        <option value="ng"{FIELD_COUNTRY_NG_SELECTED}>Nigeria</option>
+        <option value="nu"{FIELD_COUNTRY_NU_SELECTED}>Niue</option>
+        <option value="nf"{FIELD_COUNTRY_NF_SELECTED}>Norfolk Island</option>
+        <option value="mp"{FIELD_COUNTRY_MP_SELECTED}>Northern Mariana Islands</option>
+        <option value="no"{FIELD_COUNTRY_NO_SELECTED}>Norway</option>
+        <option value="om"{FIELD_COUNTRY_OM_SELECTED}>Oman</option>
+        <option value="pk"{FIELD_COUNTRY_PK_SELECTED}>Pakistan</option>
+        <option value="pw"{FIELD_COUNTRY_PW_SELECTED}>Palau</option>
+        <option value="pa"{FIELD_COUNTRY_PA_SELECTED}>Panama</option>
+        <option value="pg"{FIELD_COUNTRY_PG_SELECTED}>Papua New Guinea</option>
+        <option value="py"{FIELD_COUNTRY_PY_SELECTED}>Paraguay</option>
+        <option value="pe"{FIELD_COUNTRY_PE_SELECTED}>Peru</option>
+        <option value="ph"{FIELD_COUNTRY_PH_SELECTED}>Philippines</option>
+        <option value="pn"{FIELD_COUNTRY_PN_SELECTED}>Pitcairn Island</option>
+        <option value="pl"{FIELD_COUNTRY_PL_SELECTED}>Poland</option>
+        <option value="pt"{FIELD_COUNTRY_PT_SELECTED}>Portugal</option>
+        <option value="pr"{FIELD_COUNTRY_PR_SELECTED}>Puerto Rico</option>
+        <option value="qa"{FIELD_COUNTRY_QA_SELECTED}>Qatar</option>
+        <option value="re"{FIELD_COUNTRY_RE_SELECTED}>Reunion</option>
+        <option value="ro"{FIELD_COUNTRY_RO_SELECTED}>Romania</option>
+        <option value="ru"{FIELD_COUNTRY_RU_SELECTED}>Russia</option>
+        <option value="rw"{FIELD_COUNTRY_RW_SELECTED}>Rwanda</option>
+        <option value="gs"{FIELD_COUNTRY_GS_SELECTED}>S. Georgia and S. Sandwich Isls.</option>
+        <option value="kn"{FIELD_COUNTRY_KN_SELECTED}>Saint Kitts & Nevis</option>
+        <option value="lc"{FIELD_COUNTRY_LC_SELECTED}>Saint Lucia</option>
+        <option value="vc"{FIELD_COUNTRY_VC_SELECTED}>Saint Vincent and The Grenadines</option>
+        <option value="ws"{FIELD_COUNTRY_WS_SELECTED}>Samoa</option>
+        <option value="sm"{FIELD_COUNTRY_SM_SELECTED}>San Marino</option>
+        <option value="st"{FIELD_COUNTRY_ST_SELECTED}>Sao Tome and Principe</option>
+        <option value="sa"{FIELD_COUNTRY_SA_SELECTED}>Saudi Arabia</option>
+        <option value="sn"{FIELD_COUNTRY_SN_SELECTED}>Senegal</option>
+        <option value="sc"{FIELD_COUNTRY_SC_SELECTED}>Seychelles</option>
+        <option value="sl"{FIELD_COUNTRY_SL_SELECTED}>Sierra Leone</option>
+        <option value="sg"{FIELD_COUNTRY_SG_SELECTED}>Singapore</option>
+        <option value="sk"{FIELD_COUNTRY_SK_SELECTED}>Slovakia</option>
+        <option value="si"{FIELD_COUNTRY_SI_SELECTED}>Slovenia</option>
+        <option value="so"{FIELD_COUNTRY_SO_SELECTED}>Somalia</option>
+        <option value="za"{FIELD_COUNTRY_ZA_SELECTED}>South Africa</option>
+        <option value="es"{FIELD_COUNTRY_ES_SELECTED}>Spain</option>
+        <option value="lk"{FIELD_COUNTRY_LK_SELECTED}>Sri Lanka</option>
+        <option value="sh"{FIELD_COUNTRY_SH_SELECTED}>St. Helena</option>
+        <option value="pm"{FIELD_COUNTRY_PM_SELECTED}>St. Pierre and Miquelon</option>
+        <option value="sd"{FIELD_COUNTRY_SD_SELECTED}>Sudan</option>
+        <option value="sr"{FIELD_COUNTRY_SR_SELECTED}>Suriname</option>
+        <option value="sj"{FIELD_COUNTRY_SJ_SELECTED}>Svalbard and Jan Mayen Islands</option>
+        <option value="sz"{FIELD_COUNTRY_SZ_SELECTED}>Swaziland</option>
+        <option value="se"{FIELD_COUNTRY_SE_SELECTED}>Sweden</option>
+        <option value="ch"{FIELD_COUNTRY_CH_SELECTED}>Switzerland</option>
+        <option value="sy"{FIELD_COUNTRY_SY_SELECTED}>Syria</option>
+        <option value="tw"{FIELD_COUNTRY_TW_SELECTED}>Taiwan</option>
+        <option value="tj"{FIELD_COUNTRY_TJ_SELECTED}>Tajikistan</option>
+        <option value="tz"{FIELD_COUNTRY_TZ_SELECTED}>Tanzania</option>
+        <option value="th"{FIELD_COUNTRY_TH_SELECTED}>Thailand</option>
+        <option value="tg"{FIELD_COUNTRY_TG_SELECTED}>Togo</option>
+        <option value="tk"{FIELD_COUNTRY_TK_SELECTED}>Tokelau</option>
+        <option value="to"{FIELD_COUNTRY_TO_SELECTED}>Tonga</option>
+        <option value="tt"{FIELD_COUNTRY_TT_SELECTED}>Trinidad and Tobago</option>
+        <option value="tn"{FIELD_COUNTRY_TN_SELECTED}>Tunisia</option>
+        <option value="tr"{FIELD_COUNTRY_TR_SELECTED}>Turkey</option>
+        <option value="tm"{FIELD_COUNTRY_TM_SELECTED}>Turkmenistan</option>
+        <option value="tc"{FIELD_COUNTRY_TC_SELECTED}>Turks and Caicos Islands</option>
+        <option value="tv"{FIELD_COUNTRY_TV_SELECTED}>Tuvalu</option>
+        <option value="um"{FIELD_COUNTRY_UM_SELECTED}>U.S. Minor Outlying Islands</option>
+        <option value="ug"{FIELD_COUNTRY_UG_SELECTED}>Uganda</option>
+        <option value="ua"{FIELD_COUNTRY_UA_SELECTED}>Ukraine</option>
+        <option value="ae"{FIELD_COUNTRY_AE_SELECTED}>United Arab Emirates</option>
+        <option value="uk"{FIELD_COUNTRY_UK_SELECTED}>United Kingdom</option>
+		<option value="us"{FIELD_COUNTRY_US_SELECTED}>United States of America</option>
+        <option value="uy"{FIELD_COUNTRY_UY_SELECTED}>Uruguay</option>
+        <option value="uz"{FIELD_COUNTRY_UZ_SELECTED}>Uzbekistan</option>
+        <option value="vu"{FIELD_COUNTRY_VU_SELECTED}>Vanuatu</option>
+        <option value="va"{FIELD_COUNTRY_VA_SELECTED}>Vatican City</option>
+        <option value="ve"{FIELD_COUNTRY_VE_SELECTED}>Venezuela</option>
+        <option value="vn"{FIELD_COUNTRY_VN_SELECTED}>Vietnam</option>
+        <option value="vi"{FIELD_COUNTRY_VI_SELECTED}>Virgin Islands</option>
+        <option value="wf"{FIELD_COUNTRY_WF_SELECTED}>Wallis and Futuna Islands</option>
+        <option value="eh"{FIELD_COUNTRY_EH_SELECTED}>Western Sahara</option>
+        <option value="ye"{FIELD_COUNTRY_YE_SELECTED}>Yemen</option>
+        <option value="yu"{FIELD_COUNTRY_YU_SELECTED}>Yugoslavia (Former)</option>
+        <option value="zr"{FIELD_COUNTRY_ZR_SELECTED}>Zaire</option>
+        <option value="zm"{FIELD_COUNTRY_ZM_SELECTED}>Zambia</option>
+        <option value="zw"{FIELD_COUNTRY_ZW_SELECTED}>Zimbabwe</option>
+        </select>
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign="middle">&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+	     <input type="radio" name="{FIELD_COUNTRY_SHOW}" value="{VALUE_ANYONE}" {FIELD_COUNTRY_ANYONE_CHECKED}>anyone | 
+	     <input type="radio" name="{FIELD_COUNTRY_SHOW}" value="{VALUE_FRIENDS}" {FIELD_COUNTRY_FRIENDS_CHECKED}>friends | 
+	     <input type="radio" name="{FIELD_COUNTRY_SHOW}" value="{VALUE_NOBODY}" {FIELD_COUNTRY_NOBODY_CHECKED}>nobody
+	     </font>
+	    </td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table cellpadding="0" cellspacing="3" border="0">
+       <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Photo URL:</b><br></font>
+	    </td>
+	    <td>
+	     <input type="text" name="{FIELD_PIC}" size=26  value="{VALUE_PIC}"><br>
+	     <font face="verdana, arial, helvetica" size="-2">(e.g. <b>http://www.geocities.com/photo.gif</b>)<br></font>
+	    </td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1"><b>show to:</b>
+	     <input type="radio" name="{FIELD_PIC_SHOW}" value="{VALUE_ANYONE}" {FIELD_PIC_ANYONE_CHECKED}>anyone | 
+	     <input type="radio" name="{FIELD_PIC_SHOW}" value="{VALUE_FRIENDS}" {FIELD_PIC_FRIENDS_CHECKED}>friends | 
+	     <input type="radio" name="{FIELD_PIC_SHOW}" value="{VALUE_NOBODY}" {FIELD_PIC_NOBODY_CHECKED}>nobody
+	     </font>
+	    </td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+      <table>
+	   <tr>
+	    <td width=140>&nbsp;</td>
+	    <td colspan="2">
+	    <input type="submit" name="change_profile" value="Change profile" align="right"><p>
+		<a href="{MYPAGEURL}"><font face="verdana, arial, helvetica" size="1">
+		go back to Mypage without saving changes</font></a>
+	    </td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+   </form>
+   </table>
+  </td>
+ </tr>
+</table>
+<p>
+<table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor="#dcdcdc">
+ <tr> 
+  <td><font face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s Preferences</b></font></td>
+  <td align="right"><font face="verdana, arial, helvetica" size=1></font><br></td>
+ </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" bgcolor="#a4a4a4">
+ <tr>
+  <td><a name="prefs"></a>
+   <table cellpadding="3" cellspacing="1" border="0" width="100%" align="center">
+   <form name="prefsform" ACTION="{ACTION_PREFS}#prefs" METHOD="POST">
+    <tr>
+	 <td bgcolor="#FFFFFF">
+	  <table border=0>
+	  <!---- start trail Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>trail:</b></font>
+	    </td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1">Open the trail popup window<br><input type="radio" name="{FIELD_POPUP_POS}" value="l" {FIELD_POPUP_POS_LEFT_CHECKED}> left<br><input type="radio" name="{FIELD_POPUP_POS}" value="r" {FIELD_POPUP_POS_RIGHT_CHECKED}> right<br>to the main browser window.</font>
+	    </td>
+       </tr>
+       <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+		 <font face="verdana, arial, helvetica" size="1"><input type="checkbox" name="{FIELD_NEWWINDOW}" value="on" {FIELD_NEWWINDOW_CHECKED} id=2><label for="2">Open every trail in a new window</label></font>
+		</td>
+	   </tr>
+       <!----
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+		 <font face="verdana, arial, helvetica" size="1"><b><input type="checkbox" name="{FIELD_NSSIDE}" value="on" {FIELD_NSSIDE_CHECKED}>Open Trails in Netscape 6 Sidebar window</b><br>With the Netscape Browser Release 6 you can load trails into the Sidebar for fast access.</font>
+		</td>
+	   </tr>--->
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table>
+	  <!---- start Login Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Login:</b></font>
+	    </td>
+	    <td>
+	     <input type="checkbox" name="{FIELD_MYPAGE_AFTER_LOGIN}" value="on" {MYPAGE_AFTER_LOGIN_CHECKED}>
+		 <font face="verdana, arial, helvetica" size="1">Take me to Mypage after login.</font>
+		 <!--input type="checkbox" name="{FIELD_MYPAGE_AFTER_LOGIN}" value="on" {MYPAGE_AFTER_LOGIN_CHECKED}>
+		 <font face="verdana, arial, helvetica" size="1">Save my password.</font>-->
+		</td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+	  <table>
+	  <!---- start Search Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Search:</b></font>
+	    </td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1">Display
+		 <select name="{FIELD_COUNT_SEARCH_RESULTS}" size="1">
+		 <option value="10" {COUNT_SEARCH_RESULTS_10_SELECTED}>10</option>
+		 <option value="15" {COUNT_SEARCH_RESULTS_15_SELECTED}>15</option>
+		 <option value="20" {COUNT_SEARCH_RESULTS_20_SELECTED}>20</option>
+		 <option value="30" {COUNT_SEARCH_RESULTS_30_SELECTED}>30</option>
+		 <option value="50" {COUNT_SEARCH_RESULTS_50_SELECTED}>50</option>
+		 <option value="100" {COUNT_SEARCH_RESULTS_100_SELECTED}>100</option>
+		 </select> results per page.</font>
+		</td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <input type="checkbox" name="{FIELD_HIGHLIGHT_RESULTS}" value="on" {HIGHLIGHT_RESULTS_CHECKED}>
+		 <font face="verdana, arial, helvetica" size="1">Highlight search terms in results.</font>
+	    </td>
+	   </tr>
+	  </table>
+	 </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table>
+      <!---- start Notification Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Notification:</b></font>
+	    </td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1">Notify me via email and/or instant message about changes in subscribtions and trails<p>
+		 <select name="{FIELD_NOTIFICATION_METHOD}" size="1">
+		 <option value="1" {NOTIFICATION_METHOD_ALWAYS_SELECTED}>at every change</option>
+		 <option value="2" {NOTIFICATION_METHOD_WEEKLY_SELECTED}>weekly</option>
+		 <option value="3" {NOTIFICATION_METHOD_2WEEKL_SELECTED}>every 2 weeks</option>
+		 <option value="4" {NOTIFICATION_METHOD_3WEEKL_SELECTED}>every 3 weeks</option>
+		 <option value="5" {NOTIFICATION_METHOD_MONTHL_SELECTED}>monthly</option>
+		 </select>
+		 </font>
+		</td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+      <table>
+      <!---- start button ---->
+	   <tr>
+	    <td width=140>&nbsp;</td>
+	    <td colspan="2" valign="top">
+	    <input type="submit" name="change_preferences" value="Change preferences"><p>
+		<a href="{MYPAGEURL}"><font face="verdana, arial, helvetica" size="1">
+		go back to Mypage without saving changes</font></a>
+	    </td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+   </form>
+   </table>
+  </td>
+ </tr>
+</table>
+<p>
+<table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor="#dcdcdc">
+ <tr> 
+  <td><font face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s Password settings</b></font></td>
+  <td align="right"><font face="verdana, arial, helvetica" size=1></font><br></td>
+ </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" bgcolor="#a4a4a4">
+ <tr>
+  <td><a name="pwd"></a>
+   <table cellpadding="3" cellspacing="1" border="0" width="100%" align="center">
+   <form name="passform" ACTION="{ACTION_PASSWD}#pwd" METHOD="POST">
+    <tr>
+	 <td bgcolor="#FFFFFF">
+	  <table cellpadding=0 cellspacing=8 border=0>
+	  <!---- start Username ---->
+       {NOTES_AND_ERROR}
+	   <tr>
+	    <td valign="top" width=140>
+		 <font face="verdana, arial, helvetica" size="2"><b>Username:</b></font>
+		</td>
+		<td align="left">
+		 <font face="verdana, arial, helvetica" size="2"><b>{USERNAME}</b></font>
+		</td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table cellpadding=0 cellspacing=8 border=0>
+	  <!---- start Password ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Password:</b></font><br>
+		</td>
+		<td>
+		 <input type="password" name="{FIELD_PASSWORD}" size=26 value=""><br>
+	    </td>
+	   <tr>
+	   </tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Repeat password:</b></font>
+		</td>
+		<td>
+		 <input type="password" name="{FIELD_PASSWORD2}" size=26 value="">
+		</td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#ffffff" valign="top">
+      <table cellpadding=0 cellspacing=8 border=0>
+      <!---- start button ---->
+	   <tr>
+	    <td width=140><img width=140 height=1 src="/img/pixel.gif"><br></td>
+	    <td align="top">
+	     <input type="submit" name="change_password" value="Change password"><p>
+		<a href="{MYPAGEURL}"><font face="verdana, arial, helvetica" size="1">
+		go back to Mypage without saving changes</font></a>
+	    </td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+   </form>
+   </table>
+  </td>
+ </tr>
+</table>

@@ -1,0 +1,58 @@
+        <form name="regform" action="{ACTION}" method="POST">	 
+		<table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
+         <tr> 
+          <td>
+		   <font face="verdana, arial, helvetica" size=2><b>&nbsp;Register for a free linktrail account</b></font>
+		  </td>
+         </tr>
+        </table>
+        <table cellpadding=1 cellspacing=0 border=0 width=100% bgcolor="#a4a4a4" >
+         <tr> 
+          <td>
+	  	  <table cellpadding=5 cellspacing=0 border=0 width="100%" bgcolor="#ffffff">
+           <tr align=left valign=top>
+		    {ERRORS}
+			{USERNAME}
+		   <tr>
+		    <td width=140>
+			 <font face="verdana, arial, helvetica" size=2><b>Email:</b></font><br><br>
+			</td>
+			<td>
+			 <input type="text" name="{FIELD_EMAIL}" size=33  value="{VALUE_EMAIL}"><br>
+			 <font face="verdana, arial, helvetica" size=1>Read our <a href="/Help/Privacy?dologout=1">privacy policy</a>.</font>
+			</td>
+		   </tr>
+		   <tr>
+		    <td width=140>
+			 <br><font face="verdana, arial, helvetica" size=2><b>Password:</b></font>
+			</td>
+			<td>
+			 <br><input type="password" name="{FIELD_PASSWORD1}" size=33>
+			</td>
+		   </tr>
+		   <tr>
+		    <td width=140>
+			 <font face="verdana, arial, helvetica" size=2><b>Repeat password:</b></font><br><br>
+			</td>
+			<td>
+			 <input type="password" name="{FIELD_PASSWORD2}" size=33><br>
+			 <input type=checkbox name=savepass> <font size="1" color="#000000" face="verdana, arial, helvetica">Save my password [<a href="JavaScript: alert('Not available at this time. Please check back later.')">what's this?</a>]</font>
+			</td>
+		   </tr>
+		   <tr>
+		    <td width=140>&nbsp;</td>
+			<td>
+			 <br><font face="verdana, arial, helvetica" size=-2>By clicking on 'Create my account' I declare that I have read and I agree to the linktrail <a href='#' onClick="alert('Not available at this time. Please check back later'); return false;">terms of service</a>.<br></font>
+			</td>
+		   </tr>
+		   <tr>
+		    <td width=140>&nbsp;</td>
+			<td>
+			 <br><input type=submit value=' Create my account '><br><br>
+			</td>
+		   </tr>
+          </table>
+         </td>
+        </tr>
+       </table>
+	   </form>

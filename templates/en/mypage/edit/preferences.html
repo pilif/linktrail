@@ -1,0 +1,130 @@
+<table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor="#dcdcdc">
+ <tr> 
+  <td><font face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s preferences</b></font></td>
+  <td align="right"><font face="verdana, arial, helvetica" size=1></font><br></td>
+ </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" align="center" bgcolor="#a4a4a4">
+ <tr>
+  <td><a name="prefs"></a>
+   <table cellpadding="3" cellspacing="1" border="0" width="100%" align="center">
+   <form name="prefsform" ACTION="{ACTION_PREFS}" METHOD="POST">
+    <tr>
+	 <td bgcolor="#FFFFFF">
+	  <table border=0>
+	  <!---- start trail Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>trail:</b></font>
+	    </td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1">Open the trail popup window<br><input type="radio" name="{FIELD_POPUP_POS}" value="l" {FIELD_POPUP_POS_LEFT_CHECKED}> left<br><input type="radio" name="{FIELD_POPUP_POS}" value="r" {FIELD_POPUP_POS_RIGHT_CHECKED}> right<br>to the main browser window.</font>
+	    </td>
+       </tr>
+       <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+		 <font face="verdana, arial, helvetica" size="1"><input type="checkbox" name="{FIELD_NEWWINDOW}" value="on" {FIELD_NEWWINDOW_CHECKED} id=2><label for="2">Open every trail in a new window</label></font>
+		</td>
+	   </tr>
+       <!----
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+		 <font face="verdana, arial, helvetica" size="1"><b><input type="checkbox" name="{FIELD_NSSIDE}" value="on" {FIELD_NSSIDE_CHECKED}>Open Trails in Netscape 6 Sidebar window</b><br>With the Netscape Browser Release 6 you can load trails into the Sidebar for fast access.</font>
+		</td>
+	   </tr>--->
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table>
+	  <!---- start Login Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Login:</b></font>
+	    </td>
+	    <td>
+	     <input type="checkbox" name="{FIELD_MYPAGE_AFTER_LOGIN}" value="on" {MYPAGE_AFTER_LOGIN_CHECKED}>
+		 <font face="verdana, arial, helvetica" size="1">Take me to Mypage after login.</font>
+		 <!--input type="checkbox" name="{FIELD_MYPAGE_AFTER_LOGIN}" value="on" {MYPAGE_AFTER_LOGIN_CHECKED}>
+		 <font face="verdana, arial, helvetica" size="1">Save my password.</font>-->
+		</td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+	  <table>
+	  <!---- start Search Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Search:</b></font>
+	    </td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1">Display
+		 <select name="{FIELD_COUNT_SEARCH_RESULTS}" size="1">
+		 <option value="10" {COUNT_SEARCH_RESULTS_10_SELECTED}>10</option>
+		 <option value="15" {COUNT_SEARCH_RESULTS_15_SELECTED}>15</option>
+		 <option value="20" {COUNT_SEARCH_RESULTS_20_SELECTED}>20</option>
+		 <option value="30" {COUNT_SEARCH_RESULTS_30_SELECTED}>30</option>
+		 <option value="50" {COUNT_SEARCH_RESULTS_50_SELECTED}>50</option>
+		 <option value="100" {COUNT_SEARCH_RESULTS_100_SELECTED}>100</option>
+		 </select> results per page.</font>
+		</td>
+	   </tr>
+	   <tr>
+	    <td valign=middle>&nbsp;</td>
+	    <td>
+	     <input type="checkbox" name="{FIELD_HIGHLIGHT_RESULTS}" value="on" {HIGHLIGHT_RESULTS_CHECKED}>
+		 <font face="verdana, arial, helvetica" size="1">Highlight search terms in results.</font>
+	    </td>
+	   </tr>
+	  </table>
+	 </td>
+    </tr>
+    <tr>
+     <td bgcolor="#E4F4C6">
+      <table>
+      <!---- start Notification Preferences ---->
+	   <tr>
+	    <td valign="top" width=140>
+	     <font face="verdana, arial, helvetica" size="2"><b>Notification:</b></font>
+	    </td>
+	    <td>
+	     <font face="verdana, arial, helvetica" size="1">Notify me via email and/or instant message about changes in subscribtions and trails<p>
+		 <select name="{FIELD_NOTIFICATION_METHOD}" size="1">
+		 <option value="1" {NOTIFICATION_METHOD_ALWAYS_SELECTED}>at every change</option>
+		 <option value="2" {NOTIFICATION_METHOD_WEEKLY_SELECTED}>weekly</option>
+		 <option value="3" {NOTIFICATION_METHOD_2WEEKL_SELECTED}>every 2 weeks</option>
+		 <option value="4" {NOTIFICATION_METHOD_3WEEKL_SELECTED}>every 3 weeks</option>
+		 <option value="5" {NOTIFICATION_METHOD_MONTHL_SELECTED}>monthly</option>
+		 </select>
+		 </font>
+		</td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+      <table>
+      <!---- start button ---->
+	   <tr>
+	    <td width=140>&nbsp;</td>
+	    <td colspan="2" valign="top">
+	    <input type="submit" name="change_preferences" value="Change preferences"><p>
+		<a href="{MYPAGEURL}"><font face="verdana, arial, helvetica" size="1">
+		go back to Mypage without saving changes</font></a>
+	    </td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+   </form>
+   </table>
+  </td>
+ </tr>
+</table>

@@ -1,0 +1,52 @@
+		<form action="{ACTION}" method="POST" name="loginform">
+        <table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
+         <tr> 
+          <td>
+		   <font face="verdana, arial, helvetica" size=2><b>&nbsp;Member login</b></font>
+		  </td>
+         </tr>
+        </table>
+        <table cellpadding=1 cellspacing=0 border=0 width=100% bgcolor="#a4a4a4">
+         <tr> 
+          <td>
+	  	  <table cellpadding=5 cellspacing=0 border=0 width="100%" bgcolor="#ffffff">
+          {ERROR_STRING}
+		  <tr>
+		   <td width="140">
+		    <font size="2" color="#000000" face="verdana, arial, helvetica"><b>Username:</b></font><br>
+		   </td>
+		   <td>
+		    <input type="text" name="{FIELD_NAME}" value="{VALUE_NAME}" size="33"><br>
+		   </td>
+		  </tr>
+		  <tr>
+		   <td width="140">
+		    <font size="2" color="#000000" face="verdana, arial, helvetica"><b>Password:</b></font><br><br>
+		   </td>
+		   <td>
+		    <input type="password" name="{FIELD_PASSWORD}" value="{VALUE_PASSWORD}" size="33"><br>
+			<input type=checkbox name=savepass> <font size="1" color="#000000" face="verdana, arial, helvetica">Save my password [<a href="JavaScript: alert('Not available at this time. Please check back later.')">what's this?</a>] </font>
+		   </td>
+		  </tr>
+		  <tr>
+		   <td width="140">&nbsp;</td>
+		   <td>
+		    <br><input type="submit" name="login" value="&nbsp; Log in &nbsp;">
+		   </td>
+		  </tr>
+		  <tr>
+		   <td width="140">&nbsp;</td>
+		   <td>
+		    <br><font size="1" color="#000000" face="verdana, arial, helvetica"><a href="{FORGOTTEN_URL}">Forgot your username or password?</a> </font><br><br>
+		   </td>
+		  </tr>
+		 </form>
+		 </table>
+		</td>
+	   </tr>
+	  </table>
+	<script language="JavaScript">
+	<!--
+	 document.loginform.elements['{FIELD_NAME}'].focus();  
+	//-->
+	</script>

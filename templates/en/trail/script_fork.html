@@ -1,0 +1,39 @@
+<script language="JavaScript" type="text/javascript">
+<!--
+var str = window.name;
+
+function openIt(url){
+ xcord = 200;
+ ycord = 200;
+
+ if ("{OPEN_TYPE}" == "l"){
+  while (xcord > 30)
+   xcord = Math.ceil(Math.random()*100);
+ }else{
+   xcord = (screen.width - 255);
+ }
+
+ while (ycord > 30)
+  ycord = Math.ceil(Math.random()*100);
+
+ 
+ prefs = "width=225,";
+ prefs = prefs + "height=525,";
+ prefs = prefs + "scrollbars=yes,";
+ prefs = prefs + "resizable=yes,";
+ prefs = prefs + "toolbar=no,";
+ prefs = prefs + "location=no,";
+ prefs = prefs + "directories=no,";
+ prefs = prefs + "status=no,";
+ prefs = prefs + "menubar=no,";
+ prefs = prefs + "copyhistory=no,left="+xcord+",top="+ycord+",screenX="+ xcord +",screenY="+ ycord;
+ //trailwnd = window.open(url,'trail_' + Math.ceil(Math.random()*10000), prefs); 
+ trailwnd = window.open(url,'{WINDOWNAME}', prefs); 
+ trailwnd.focus();
+ }
+ if ( (str.indexOf('trail') == -1) ){
+  openIt('{TRAILURL}');
+  window.location.replace('{NODEURL}');
+ }
+ //-->
+ </script>

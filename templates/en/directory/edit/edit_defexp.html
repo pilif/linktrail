@@ -1,0 +1,91 @@
+<script language="JavaScript">
+<!--
+ /* IE-Browsers will disable the Editfields. */
+ function check_enabled(){
+  if (document.expform.expert_type[0].checked){
+   document.expform.field_expert.disabled = true;
+   document.expform.field_description.disabled = true;
+//   document.expform.field_notify_user.disabled = true;
+   if(document.expform.field_description.style){
+    document.expform.field_description.style.backgroundColor = "#DCDCDC";
+    document.expform.field_expert.style.backgroundColor = "#DCDCDC";
+   }
+  }else{
+   document.expform.field_expert.disabled = false;
+   document.expform.field_description.disabled = false;
+//   document.expform.field_notify_user.disabled = false;
+   document.expform.field_expert.focus();
+   if(document.expform.field_description.style){
+    document.expform.field_description.style.backgroundColor = "#FFFFFF";
+    document.expform.field_expert.style.backgroundColor = "#FFFFFF";
+   }
+  }
+ }
+ 
+ /* For netscape-Users. Will be used if text is typed in one of the fields */
+ function check_radio(){
+  document.expform.expert_type[1].checked = true;
+ }
+//-->
+</script>
+        <table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
+         <tr> 
+          <td>
+		   <font face="verdana, arial, helvetica" size=2><b>&nbsp;Edit featured Expert of&nbsp;<font color="red">{THISNODE}</font></b></font>
+		 </td>
+         </tr>
+        </table>
+		
+        <table cellpadding=1 cellspacing=0 border=0 width=420 bgcolor="#a4a4a4">
+         <tr> 
+          <td>
+	  	  <table border=0 cellpadding=3 cellspacing=0 width=100% bgcolor="white">
+           <tr> 
+            <td width=100%>
+			  <font size="2" face="verdana, arial, helvetica">
+			  <form action="{ACTION}" name="expform" method="post" target="_self">
+              {HIDDENS}
+              {ERRORS}
+              <table width="100%" border="0">
+               <tr>
+                <td><font size="2" face="verdana, arial, helvetica">Category: {FULLPATH}</font></td>
+               </tr>
+               <tr>
+                <td><font size="2" face="verdana, arial, helvetica"><input type="radio" name="expert_type" id="expert_type_auto" value="auto" onClick="check_enabled();" {CHECKED_AUTO}><label for="expert_type_auto">Let the application chose one</label></font></td>
+               </tr>
+               <tr>
+                <td>
+                 <font size="2" face="verdana, arial, helvetica"><input type="radio" name="expert_type" value="define" onClick="check_enabled();" id="expert_type_define" {CHECKED_DEFINE}><label for="expert_type_define">Define one for this node</label><br></font>
+                 <table width="100%" border=0>
+                 <tr valign="top">
+                  <td width=20 rowspan=3>&nbsp;</td>
+                  <td><font size="2" face="verdana, arial, helvetica"><b>Name of Expert</b></font></td>
+                  <td><font size="2" face="verdana, arial, helvetica"><input type="text" name="field_expert" id="name_expert" size="30" maxlength="32" value="{EXPERT}" onFocus="check_radio();"></font></td>
+                 </tr>
+                 <tr valign="top">
+                  <td><font size="2" face="verdana, arial, helvetica"><b>Description of Expert</b></font></td>
+                  <td><font size="2" face="verdana, arial, helvetica"><textarea cols="22" rows="5" name="field_description" onFocus="check_radio();">{DESCRIPTION}</textarea></font></td>
+                 </tr>
+                 <tr>
+                  <td colspan="2"><font size="2" face="verdana, arial, helvetica"><input type="checkbox" name="field_notify_user" id="field_notify_user" value="yes" checked><label for="field_notify_user">Notify this user of the changes</label></font></td>
+                 </tr>
+                 </table>
+                </td>
+               </tr>
+               <tr>
+                <td align="center"><input type="submit" name="doit" value="Change"> <input type="submit" name="cancel" value="Cancel"></td>
+               </tr>
+              </table>
+              </form>			 
+              <script language="JavaScript">
+              <!-- 
+               check_enabled(); 
+              //-->
+              </script>			 
+             </font>
+			</td>
+           </tr>
+          </table>
+          </td>
+         </tr>
+        </table>

@@ -1,0 +1,190 @@
+
+  <tr> 
+   <td width=420 valign="top">
+     
+	       <table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
+                <tr> 
+                  <td><font  face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s Mypage</b></font></td>
+				   <td align="right"><font face="verdana, arial, helvetica" size=1>
+				  </font><br></td>
+				 
+					 
+				 
+                </tr>
+              </table>
+	  
+	  
+        <table cellpadding=1 cellspacing=0 border=0 width=420 bgcolor="#a4a4a4">
+          <tr> 
+            <td> 
+              
+			  
+			  
+			  
+			  
+			  
+   <table bgcolor=#ffffff cellpadding=4 cellspacing=0 border=0 width="100%" height="100">
+				{NAME}
+                {EMAIL}
+                {GENDER}
+                {AGE}
+				{ABOUTME}
+                {COUNTRY}
+                {PIC}
+                <tr><td colspan="2">&nbsp;</td></tr>
+              </table>
+			  
+					  
+            </td>
+          </tr>
+        </table>
+    
+	  <table border=0 cellpadding=0 cellspacing=0 width=420>     
+	   <tr> 
+	    <td>
+		 <img src="/img/pixel.gif" height="8"><br>
+		</td>
+	   </tr>
+	  </table>
+<a name="trails"></a>                
+
+		   <table border=0 cellpadding=2 cellspacing=0 width="420" bgcolor="#dcdcdc">
+                <tr> 
+                <form name="sortform" action="{SORTACTION}#trails">
+                  <td><font  face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s trails</b></font></td>
+				   <td align="right"><font face="verdana, arial, helvetica" size=1>
+				  </font><br></td>
+				 
+					  
+				  <td align="right" align="right" class="actionTable"><font size="1" face="verdana, arial, helvetica">sort by:&nbsp;</font><select name="ob" size="1" style="font-size: 11px; font-family: Verdana, Helvetica, Arial, sans-serif;" tabindex="4" onChange="document.sortform.submit();">
+<option value="t" {SELECTED_SORT_TITL}>title</option>
+<option value="c" {SELECTED_SORT_NODE}>category</option>
+<option value="d" {SELECTED_SORT_DATE}>date created</option>
+<option value="a" {SELECTED_SORT_ACTU}>last update</option>
+<option value="s" {SELECTED_SORT_SUBS}>subscriptions</option>
+</select><input type="hidden" name="ci" value="{CURRENT_INDEX}">&nbsp;
+</td>
+				 
+                </tr>
+                </form>
+              </table>
+
+        <table cellpadding=1 cellspacing=0 border=0 width="420" bgcolor="#a4a4a4">
+          <tr valign="top"> 
+            <td align="center" valign="top"> 
+			
+	  <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" height=200>
+		<tr valign="top">
+        <td valign="top">
+				
+			  
+		
+			
+	 <table width="100%" cellspacing="0" cellpadding="2" border="0" bgcolor="white">
+<tr height=16>
+    <td valign="top"><font size="1" face="verdana, arial, helvetica"><b>Title</font></b></font></td>
+    <td valign="top"><font size="1" face="verdana, arial, helvetica"><b>Category</b></font></td>
+	<td valign="top"><font size="1" face="verdana, arial, helvetica"><b>Date</b></font></td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">&nbsp;</td>
+</tr>
+   {TRAILS}
+ </td>
+</tr>
+
+
+</table>
+			  
+
+			  
+            </td>
+          </tr>
+        </table>
+<tr valign="bottom">
+ <td valign="bottom">
+  {LIMITBOX}
+ </td>
+</tr>
+</td></tr></table>				
+				
+				
+	  <table border=0 cellpadding=0 cellspacing=0 width=100%>     
+	   <tr> 
+	    <td>
+		 <img src="/img/pixel.gif" height="8"><br>
+		</td>
+	   </tr>
+	  </table>
+	  </td>
+	  <td>
+	   <img src="/img/pixel.gif" border=0 width="6" height="1">
+	  </td>
+	  <td width=175 valign="top">
+       {IWANTTO}		
+		
+		
+		
+		   
+	   <table border=0 cellpadding=0 cellspacing=0 width=100%>
+ <tr bgcolor="#C1E054">
+  <td>
+  <table border=0 cellpadding=2 cellspacing=0>
+   <tr>
+    <td>
+	 <font face="verdana, arial, helvetica" size=1><b>&nbsp;{USERNAME_BIG}'s FRIENDS</b></font><img src="/img/pixel.gif" height="15" border="0" hspace="0" vspace="0">
+	</td>
+   </tr>
+  </table>
+  </td>
+ </tr>
+ <tr>
+  <td valign="top">
+   <img src="/img/line.gif" width="176" height="2"><br>
+  </td>
+ </tr>
+</table>
+{FRIENDLIST}
+<br>
+
+<!---
+	   		<table border=0 cellpadding=0 cellspacing=0 width=100%>
+ 		 <tr bgcolor="#C1E054">
+  		  <td>
+  		   <table border=0 cellpadding=2 cellspacing=0 width="100%">
+   		    <tr> 
+             <td valign=top>
+			  <font face="verdana, arial, helvetica" size=1><b>&nbsp;A TRAIL FOR YOU?</b></font><img src="/img/pixel.gif" height="15" border="0" hspace="0" vspace="0">
+			 </td>
+            </tr>
+  		   </table>
+  		  </td>
+         </tr>
+ 		 <tr>
+  		  <td valign="top">
+   		   <img src="/img/line.gif" width="176" height="2"><br>
+		  </td>
+ 		 </tr>
+	    </table>
+        <table border=0 cellpadding=3 cellspacing=0 width=100% bgcolor="white">
+         
+          <tr> 
+            <td> <font size=1 face="verdana, arial, helvetica"> <b> <a href="/Business/Market_Research_Firms" onClick="openIt('');" target="trail222" onMouseOver="window.status='Popup'; return true" onMouseOut="window.status=''; return true;" >Research Sites</a></b><br>
+       On this spot, we will suggest trails that may be of interest to you. The feature will be implemented as we go live. During preview, we suggest to check out the trail about market research firms from <a href="/Experts/birichino">birichino</a>.</font><br>
+
+
+
+
+              <p> 
+			  </td></tr>
+        </table><br><p>
+		----->
+	   	
+       
+	  </td>
+	 </tr>
+	 <tr>
+	  <td>
+	   <img src="/img/pixel.gif" height="8"><br>
+	  </td>
+	 </tr>
+     

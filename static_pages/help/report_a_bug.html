@@ -1,0 +1,180 @@
+<!------ content start-------->
+{ERRORS}
+<p>
+<table border="0" cellspacing="0" cellpadding="0">
+ <tr> 
+  <td align="left" valign="top"> 
+   <form name="bugform" action="{ACTION}" method="post">
+   <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2"><b>Short description:</b><p></font>
+	 </td>
+     <td width="180" align="left" valign="top">
+	  <input type="text" name="field_shortdesc" value="{SHORTDESC}" size="30">{WARN_SHORTDESC}
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2"><b>Bug type</b>: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <select name="field_type">
+	  <option value="">-Select-
+	  <option value="Malfunction">Malfunction
+	  <option value="Usability related">Usability related
+	  <option value="Enhancement">Enhancement
+	  <option value="Layout bug">Layout bug
+	  <option value="Text-Bug">Text-Bug
+	  <option value="SQL-Error">SQL-Error</select>{WARN_TYPE}
+	  <p>	  
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2">Where did it happen? </font>
+	 </td>
+	 <td width="180" align="left" valign="middle">
+	<select name="field_component">
+	<option value="">-Select-
+	<option value="Mypage">Mypage
+	<option value="Directory">Directory
+	<option value="View trails">View trails
+	<option value="Edit trails">Edit trails
+	<option value="Login/Authentication">Login/Authentication
+	<option value="Search">Search</select>
+	<p>
+	  
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2">Exact description of what happened: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <textarea name="field_description" rows="6" cols="30">{DESCRIPTION}</textarea><p>
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2" class="COPY">When did it happen?</font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <input type="text" name="field_datetime" value="{DATETIME}" size="30"><p>&nbsp;<p>
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2" class="COPY"><b>Browser:</b> </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	<select name="field_browser">
+	<option value="">-Select-
+	<option value="N/A">N/A
+	<option value="Netscape 3.x">Netscape 3.x
+	<option value="MSIE 4.x">MSIE 4.x
+	<option value="MSIE 5.x">MSIE 5.x
+	<option value="Netscape 4.0x">Netscape 4.0x
+	<option value="Netscape 4.5+">Netscape 4.5+
+	<option value="Mozilla 5/NS6 beta">Mozilla 5/NS6 beta
+	<option value="Opera 3.x">Opera 3.x
+	<option value="Opera 4.x">Opera 4.x
+	<option value="iCab">iCab
+	<option value="Other">Other
+	</select>{WARN_BROWSER}
+	<p>
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2" class="COPY"><b>Operating system:</b> </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	 <select name="field_os">
+	 <option value="">-Select-
+	 <option value="N/A'>N/A
+	 <option value="Windows 9x">Windows 9x / ME
+	 <option value="Windows NT/2000">Windows NT / 2000
+	 <option value="MacOS 7.x">MacOS 7.x
+	 <option value="MacOS 8.x">MacOS 8.x
+	 <option value="MacOS 9.x">MacOS 9.x
+	 <option value="Linux">Linux
+	 <option value="Other Unix">Other Unix
+	 <option value="Other">Other
+	 </select>{WARN_OS}
+	<p>
+	 
+	 </td>
+	</tr>
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2" class="COPY">Connection: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+     <select name="field_connection">
+	 <option value="">-Select-
+	 <option value="N/A">N/A
+	 <option value="14400">14'400 bit/s
+	 <option value="28800">28'800 bit/s
+	 <option value="33600">33'600 bit/s
+	 <option value="55600">56'000 bit/s
+	 <option value="64000">ISDN 64'000 bit/s
+	 <option value="128000">ISDN 128'000 bit/s
+	 <option value="mehr">Broadband
+	 <option value="Other">Other
+	 </select>
+	<p>&nbsp;<p>
+	 </td>
+	</tr>
+	
+		<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2" class="COPY"><b>Last name</b>: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <input type="text" name="{FIELD_LASTNAME}" value="{LASTNAME}">{WARN_LASTNAME}<p>
+	 </td>
+	</tr>
+	
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2">First name: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <input type="text" name="{FIELD_FIRSTNAME}" value="{FIRSTNAME}"><p>
+	 </td>
+	</tr>
+	
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2"><b>Email</b>: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <input type="text" name="{FIELD_EMAIL}" value="{EMAIL}">{WARN_EMAIL}<p>
+	 </td>
+	</tr>
+
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  <font face="verdana,arial,helvetica" size="2">Phone number: </font>
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <input type="text" name="field_phone" value=""><p>
+	 </td>
+	</tr>
+		
+	<tr>
+	 <td width="180" align="left" valign="top">
+	  &nbsp;
+	 </td>
+	 <td width="180" align="left" valign="top">
+	  <input type="submit" name="Submit" value="Send">&nbsp;
+	 </td>
+	</tr>
+   </table>
+	<input type=hidden name="forminfo" value="bugs.inf">
+	</form>
+   </td>
+  </tr>
+ </table>
+<!------ content end---------->

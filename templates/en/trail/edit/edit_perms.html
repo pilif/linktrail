@@ -1,0 +1,53 @@
+<form action="{ACTION}" method="POST" target="_self">
+<input type="hidden" name="action" value="exec">
+<font face="verdana, arial, helvetica" size="2">
+Please specify which changes friends and other members are allowed to make to links in this trail:</font><br>
+<hr color="#dcdcdc" noshade>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+ <tr>
+  <td rowspan="2" valign="top">
+   <font size="2" face="verdana, arial, helvetica"><b>My friends may</b></font>
+  </td>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="edit_f">edit </label><input type="checkbox" name="{NAME_CHECK_EDIT_FRIEND}" value="on" {CHECKED_EDIT_FRIEND} id="edit_f"></font>
+  </td>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="add_f">add </label><input type="checkbox" name="{NAME_CHECK_ADD_FRIEND}" value="on" {CHECKED_ADD_FRIEND} id="add_f"></font>
+  </td>
+ </tr>
+ <tr>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="del_f">del </label><input type="checkbox"  name="{NAME_CHECK_DEL_FRIEND}" value="on" {CHECKED_DEL_FRIEND} id="del_f"></font>
+  </td>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="move_f">move </label><input type="checkbox" name="{NAME_CHECK_MOVE_FRIEND}" value="on" {CHECKED_MOVE_FRIEND} id="move_f"></font>
+  </td>
+ </tr>
+</table>
+<hr color="#dcdcdc" noshade>
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+ <tr>
+  <td rowspan="2" valign="top">
+   <font size="2" face="verdana, arial, helvetica"><b>Other members<br> may</b></font>
+  </td>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="edit_o">edit </label><input type="checkbox" name="{NAME_CHECK_EDIT_OTHER}" value="on" {CHECKED_EDIT_OTHER} id="edit_o"></font>
+  </td>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="add_o">add </label><input type="checkbox" name="{NAME_CHECK_ADD_OTHER}" value="on" {CHECKED_ADD_OTHER} id="add_o"></font>
+  </td>
+ </tr>
+ <tr>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="del_o">del </label><input type="checkbox"  name="{NAME_CHECK_DEL_OTHER}" value="on" {CHECKED_DEL_OTHER} id="del_o"></font>
+  </td>
+  <td align="right" nowrap>
+   <font size="1" face="verdana, arial, helvetica"><label for="move_o">move </label><input type="checkbox" name="{NAME_CHECK_MOVE_OTHER}" value="on" {CHECKED_MOVE_OTHER} id="move_o"></font>
+  </td>
+ </tr>
+</table>
+<hr color="#dcdcdc" noshade><br>
+<center>
+ <input type="submit" name="exec" value="Set permissions">
+</center>
+</form>

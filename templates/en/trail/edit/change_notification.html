@@ -1,0 +1,21 @@
+<form action="{ACTION}" method="POST" target="_self">
+<input type="hidden" name="action" value="exec">
+<input type="hidden" name="reloadparent" value="{RLP}">
+
+	  	<font face="verdana, arial, helvetica" size="2">
+		Please indicate in which way you would like to be notified about changes in this trail:
+		<p>
+	 	<hr color="#dcdcdc" noshade>
+     	<input type="checkbox" name="{NAME_EMAIL}" value="on" id="email" {CHECKED_EMAIL}><b><label for="email">Email</label> </b> <font size="1"> [<a href="{PROFILE_URL}">Edit</a>]</font>
+	 	<hr color="#dcdcdc" noshade>
+		
+		     	<input type="checkbox" name="{NAME_ICQ}" value="on" id="icq" {CHECKED_ICQ}><b><label for="icq">ICQ</label> </b> <font size="1"> [<a href="{PROFILE_URL}">Edit</a>]</font>
+	 	<hr color="#dcdcdc" noshade>
+		
+<p>           
+           
+<center>
+<input type="submit" name="send" value="Change Notification"><p>
+ </font>
+</center>
+</form>

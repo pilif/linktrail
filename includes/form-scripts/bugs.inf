@@ -1,0 +1,33 @@
+<?php
+$required_fields = array('field_shortdesc', 'field_type', 'field_browser', 'field_os', 'field_lastname');
+$valid_fields = array(
+                       'field_email' => 'email'
+                     );
+                     
+$ok_url = "/Help/Report_a_Bug/Thank_You";
+$mailto = array('pilif@linktrail.com');
+
+$mail_subject="Linktrail - Bugreport";
+$mail_from="Linktrail-Application 0.1 <bugs@linktrail.com>";
+$mail_body="Spass mit einem Bugreport:
+
+Kurzdesc: [[FIELD_SHORTDESC]]
+
+Type: [[FIELD_TYPE]]
+Component: [[FIELD_COMPONENT]]
+Date/Time: [[FIELD_DATETIME]]
+Browser: [[FIELD_BROWSER]]
+OS: [[FIELD_OS]]
+Conneciton: [[FIELD_CONNECTION]]
+
+Lastname: [[FIELD_LASTNAME]]
+Firstname: [[FIELD_FIRSTNAME]]
+Email: [[FIELD_EMAIL]]
+Phone: [[FIELD_PHONE]]
+
+Description: 
+[[FIELD_DESCRIPTION]]
+
+Vielen Dank fuer meine Verwendung!
+";
+?>

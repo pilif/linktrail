@@ -1,0 +1,75 @@
+<table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor="#dcdcdc">
+ <tr>
+  <td align="left">
+   <font face="verdana, arial, helvetica" size=2><b>&nbsp;Member login</b></font>
+  </td>
+  <td align="right">
+  &nbsp;
+  </td>
+ </tr>
+</table>
+<table cellpadding=1 cellspacing=0 border=0 width="100%" bgcolor="#a4a4a4">
+ <tr>
+  <td>
+   <table cellpadding=0 cellspacing=0 border=0 width="100%" bgcolor="#ffffff">
+    <tr>
+	 <td colspan="2">{ERROR_STRING}</td>
+	</tr>
+	<form action="{ACTION}" method="POST">
+	<tr>
+     <td bgcolor="#ffffff">
+      <table cellpadding=0 cellspacing=8 border=0>
+	  <!---- start Username ---->
+	   <tr>
+	    <td width="140">
+		 <font size="2" color="#000000" face="verdana, arial, helvetica"><b>Username:</b></font><br>
+		</td>
+		<td>
+		 <input type="text" name="{FIELD_NAME}" value="{VALUE_NAME}" size="33"><br>
+		</td>
+	   </tr>
+	  </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#FFFFFF">
+	  <table cellpadding=0 cellspacing=8 border=0>
+	  <!---- start Password ---->
+	   <tr>
+	    <td width="140">
+		 <font size="2" color="#000000" face="verdana, arial, helvetica"><b>Password:</b></font><br><br>
+		</td>
+		<td align="left">
+		 <input type="password" name="{FIELD_PASSWORD}" value="{VALUE_PASSWORD}" size="33"><br>
+		 <input type=checkbox name=savepass> <font size="1" color="#000000" face="verdana, arial, helvetica">Save my password [<a href="JavaScript: alert('Not available at this time. Please check back later.')">what's this?</a>] </font>
+		</td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+    <tr>
+     <td bgcolor="#ffffff" valign="top">
+      <table cellpadding=0 cellspacing=8 border=0>
+      <!---- start button ---->
+	   <tr height="100%">
+	    <td width=140>
+		 <img width=140 height=1 src="/img/pixel.gif"><br>
+		</td>
+		<td align="left">
+		 <br><input type="submit" name="login" value="&nbsp; Log in &nbsp;">
+		</td>
+	   </tr>
+	   <tr>
+	    <td>&nbsp;</td>
+		<td>
+		 <br><font size="1" color="#000000" face="verdana, arial, helvetica"><a href="{FORGOTTEN_URL}">Forgot your username or password?</a></font><br><br>
+		</td>
+	   </tr>
+      </table>
+     </td>
+    </tr>
+   </form>
+   </table>
+  </td>
+ </tr>
+</table>

@@ -1,0 +1,89 @@
+		<table border=0 cellpadding=0 cellspacing=0 width=100%>     
+            <tr> 
+              <td>
+				<img src="/img/pixel.gif" height="10"><br>
+			</td>
+              </tr>
+              </table>
+		
+		  <table border=0 cellpadding=2 cellspacing=0 width=100% bgcolor="#dcdcdc">
+         <tr> 
+          <td>
+		   <font face="verdana, arial, helvetica" size=2><b><font color="red">&nbsp;{THISNODE}</font> Editieren</b></font>
+		 </td>
+         </tr>
+        </table>
+		
+        <table cellpadding=1 cellspacing=0 border=0 width=100% bgcolor="#a4a4a4">
+         <tr> 
+          <td>
+	  	  <table border=0 cellpadding=3 cellspacing=0 width=100% bgcolor="white">
+           <tr> 
+            <td width=100%>
+			 <font size="2" face="verdana, arial, helvetica">
+			 			 <!-- start --->
+			 		 		
+<form action="{ACTION_EDIT}" name="editform" method="post" target="_self">
+{HIDDENS_EDIT}
+<table border="0" width="100%" cellpadding="0" cellspacing="4">
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica"><b>Kategorie Title</b><br>
+      <input style="font-family: monospace" type="text" name="title" value="{PREDEF_TITLE}" size="24">
+      </font></td>
+  </tr>
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica"><b>Kategorie Level</b><br>      
+	  <select name="level">
+     {LEVELOPTIONS_EDIT}     
+     </select>
+     </font></td>
+  </tr>
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica"><b>Kategorie Beschreibung</b><br>
+      <textarea name="description" wrap="virtual" rows="4" cols=22>{PREDEF_DESCRIPTION}</textarea><br><br>
+      </font></td>
+  </tr>
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica"><b>This category in the international directory</b><br>
+      <input style="font-family: monospace" type="text" name="int_node" value="{PREDEF_INTNODE}" size="24"><br><br>
+      </font></td>
+  </tr>
+  
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica"><b>Delete this category: </b></font>
+    {DELBUTTON_EDIT}<br><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica"><a href="{MOVEURL}">Move this category</a> and all its trails</font><br><br>
+    </td>
+  </tr>
+
+  <tr>
+    <td><font size="2" face="verdana, arial, helvetica">Make a <a href="{LINKURL}">shortcut</a> to this category</font><br><br>
+    </td>
+  </tr>
+  
+  
+  <tr>
+    <td>
+    {BUTTONS_EDIT}
+    </td>
+  </tr>
+</form>
+</table>
+			 
+			  <!-- end --->
+			 
+			 
+			
+			 
+			 
+			 </font>
+			</td>
+           </tr>
+          </table>
+          </td>
+         </tr>
+        </table>

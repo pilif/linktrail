@@ -1,0 +1,53 @@
+<SCRIPT LANGUAGE="Javascript">
+<!--
+var flashinstalled = 0;
+MSDetect = "false";
+if (navigator.mimeTypes && navigator.mimeTypes.length)
+{
+	x = navigator.mimeTypes['application/x-shockwave-flash'];
+	if (x && x.enabledPlugin) flashinstalled = 2;
+	else flashinstalled = 1;
+}
+else
+{
+	 MSDetect = "true";
+}
+// -->
+</SCRIPT>
+<SCRIPT LANGUAGE="VBScript">
+on error resume next
+If MSDetect = "true" Then
+	If Not(IsObject(CreateObject("ShockwaveFlash.ShockwaveFlash"))) Then
+		flashinstalled = 1
+	Else
+		flashinstalled = 2
+	End If
+End If
+</SCRIPT>
+
+<script language="JavaScript">
+<!--
+if (flashinstalled != 2)
+    window.location.replace("{NOFLASH_URL}");
+-->
+</script>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- use this comment tag to hide the enclosed code from old browsers.
+
+//Look for a version of Internet Explorer that supports ActiveX (i.e., one that's
+//running on a platform other than Mac or Windows 3.1) or a browser that supports
+//the plugin property of the navigator object and that has Flash Player 2.0
+//installed.
+
+/*if (!((navigator.appName == "Microsoft Internet Explorer" &&
+    navigator.appVersion.indexOf("Mac") == -1 && 
+    navigator.appVersion.indexOf("3.1") == -1) ||
+
+    (navigator.plugins && navigator.plugins["Shockwave Flash"])
+                       || navigator.plugins["Shockwave Flash 2.0"])){
+
+    window.location.replace("{NOFLASH_URL}")
+}
+*/
+// Close the comment tag. -->
+</SCRIPT>

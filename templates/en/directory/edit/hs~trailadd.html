@@ -1,0 +1,26 @@
+		<form action="{ACTION}" method="post" name="editform" id="editform" target="_self">  
+      {HIDDENS}
+      <table border="0" width="100%" cellpadding="0" cellspacing="3">
+  		<tr><td>
+        {HEADTEXT}		
+		<font size="1" face="verdana, arial, helvetica">
+		<b>{TRAIL_TITLE}</b><br>
+      	<input type="text" name="txt_title" value="{TITLE}" size="21" maxlength="80" style="font-family: monospace;">
+     	</font>
+		
+		</td></tr>
+			
+		<tr><td>
+		<font size="1" face="verdana, arial, helvetica">
+		<b>{TRAIL_DESCRIPTION}</b><br></font>
+		<font face="'Lucida Console', monospace"><textarea cols="21" rows="4" name="txt_description" wrap="virtual" style="font-family: monospace; font-size: 12px;">{DESCRIPTION}</textarea></font>
+		</font>
+	  	</td></tr>
+      {DELETE}
+      {DO_AS_ADMIN}
+		<tr><td>
+      {BUTTONS}
+		<p>		
+		</td></tr>		
+		</table> 
+      </form>
