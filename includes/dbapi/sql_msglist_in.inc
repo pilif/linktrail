@@ -35,5 +35,5 @@ ORDER BY
  #I DESC
 ");
 
-define("COUNT_RESULTS_MSG", "SELECT count(*) as cnt FROM ltrMessages WHERE Target = #S");
+define("COUNT_RESULTS_MSG", "SELECT count(*) as cnt FROM ltrMessages WHERE Target = #S AND ( ((ReferenceCount & 1) != 0) )");
 ?>
