@@ -149,7 +149,7 @@ function edit_slot_ex($id, $obj){
  $t2['text'] = ($obj['trail_2_id'] != '') ? "'".$obj['trail_2_text']."'" : 'NULL';
  
  $query = FormatSQL(SQL_EDIT_SLOT_EX, array($obj['trail_1_id'], $obj['trail_1_text'],
-                                          $t2['id'], $t2['text'], $obj['description'], $obj['islive'] $id));
+                                          $t2['id'], $t2['text'], $obj['description'], $obj['islive'], $id));
                                           
  $myDB->query($query);
 

@@ -21,6 +21,8 @@ define("BACK_COLOR1", "#E4F4C6");
 define("BACK_COLOR3", "#dcdcdc");
 define("SEARCH_HILIGHT", "#C1E054");
 
+define("ALWAYS_DISPLAY_SLOTS", true);
+
 //How many columns will be used for displaying subnodes?
 define("SUBCOLCOUNT", 2);
 

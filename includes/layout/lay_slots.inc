@@ -150,7 +150,7 @@ function print_slots($slots, $editmode=false){
     $links[1]['url']   = $slot['trail_2_path'];
     $links[1]['title'] = $slot['trail_2_text'];
   }
-  if ($slot['islive'] == "y")
+  if (($slot['islive'] == "y") or (ALWAYS_DISPLAY_SLOTS) )
    $str .= print_one_slot($links, $slot['id'], $slot['description'], $editmode);
  }
  return $str;
