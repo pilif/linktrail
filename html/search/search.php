@@ -59,6 +59,9 @@ if ($query != ""){
  $query = $query_hash['query'];
  global $glob_search_words;
  $glob_search_words = $query_hash['words'];
+ foreach($glob_search_words as $key => $value)
+  $glob_search_words[$key] = str_replace('"', "", $value);
+  
  $users = Array();
  if (!ereg('^/Experts', $restriction) ){
   $cats    = execute_query($query, $sess->id, $cic, "c", $restriction, $glob_userdata['ResPerPage']);

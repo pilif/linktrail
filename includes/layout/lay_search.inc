@@ -215,4 +215,70 @@ $tpl->parse("main", "user");
 return $tpl->get("main"); 
 }
 
+function print_adv_search_form(&$http_vars, &$cond_array, $kat="/"){
+ global $PHP_SELF;
+ 
+ $tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
+ $tpl->set_file(array("form" => "adv_form.html"));
+ $tpl->set_var("NODENAME", friendlyname($kat));
+ $tpl->set_var("ACTION", $PHP_SELF);
+ $tpl->set_var("HIDDENS", "");
+ $str = "";
+ $count = 0;
+ foreach($cond_array as $condition){
+  $str .= print_adv_condition($count, $condition['text'], $condition['loc'], $condition['conn']);
+  $count++;
+ }
+ if ($count == 0){
+  $str .= print_adv_condition($x, "", "", "");
+  for($x=1; $x < 2; $x++)
+   $str .= print_adv_condition($x, "", "", "a");
+ }
+ $tpl->set_var("CONDITIONLIST", $str);
+ 
+ $tpl->parse("main", "form");
+ return $tpl->get("main"); 
+}
+
+function print_adv_condition($nr, $text, $sel, $connsel){
+ 
+ $res = "";
+ if($connsel != ""){ 
+  $condarr = Array("a", "o", "n");
+  $tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
+  $tpl->set_file(array("cond_conn" => "adv_condition_connector.html"));
+  foreach($condarr as $poss){
+   $str = ($poss == $connsel) ? "selected" : "";
+   $tpl->set_var("COND_SEL_CONN_".strtoupper($poss), $str);
+  }
+  $tpl->parse("main", "cond_conn");
+  $res .= $tpl->get("main");
+ }
+
+ 
+ $tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
+ $tpl->set_file(array("cond" => "adv_condition.html"));
+ 
+ $selarr  = Array("a", "tt", "td", "lt", "ld", "lu");
+ foreach($selarr as $poss){
+  $str = ($poss == $sel) ? "selected" : "";
+  $tpl->set_var("COND_LOC_SEL_".strtoupper($poss), $str);
+ }
+ $tpl->set_var("COND_TEXT", $text);
+ $tpl->set_var("REMOVE_CONDITION", ($nr != 0) ? print_adv_conn_remove($nr) : "");
+ 
+ $tpl->parse("main", "cond");
+ $res .= $tpl->get("main"); 
+
+
+ return $res;
+}
+
+function print_adv_conn_remove($nr){
+ $tpl = new Template(APPLICATION_HOME."/templates/search", "keep");
+ $tpl->set_file(array("cond_remv" => "adv_condition_remove.html"));
+ $tpl->set_var("COND_ID", $nr);
+ $tpl->parse("main", "cond_remv");
+ return $tpl->get("main");
+}
 ?>

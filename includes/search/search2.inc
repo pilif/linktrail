@@ -84,7 +84,7 @@ function format_query($query, $whole_words = false){
 } 
 
 function make_query($sSearchExpr, $sessid, $table_type="c", $ci=0, $rc=5, $restriction="/") {
- return $sessid.'|'.'A'.'|'.$table_type.'|'.$ci.'|'.$rc.'|'.$restriction.'|'.$sSearchExpr . chr(0);
+ return $sessid.'|'.'A'.'|'.$table_type.'|1||'.$ci.'|'.$rc.'|'.$restriction.'|'.$sSearchExpr . chr(0);
 }
 
 function parse_header($headers){
@@ -123,7 +123,7 @@ function parse_results($content, $req_type, $restriction){
   }
  }elseif( ($restriction != "/Experts/") and ($req_type == "c") ){
   foreach($content as $result){
-   list($hsh['id'], $hsh['rank'], $hsh['n'], $hsh['name']) = explode(' | ', $result);
+   list($hsh['id'], $hsh['rank'], $hsh['n'], $hsh['language'], $hsh['name']) = explode(' | ', $result);
    $fertig[] = $hsh;
   } 
  }elseif( ($restriction != "/Experts/") and ($req_type == "e") ){
@@ -133,7 +133,7 @@ function parse_results($content, $req_type, $restriction){
   } 
  }else{
   foreach($content as $result){
-   list($hsh['id'], $hsh['rank'], $hsh['n'], $hsh['name'], 
+   list($hsh['id'], $hsh['rank'], $hsh['n'], $hsh['language'], $hsh['name'], 
         $hsh['description'], $hsh['username'], $hsh['date']) = explode(' | ', $result);
    $fertig[] = $hsh;
   } 
@@ -150,7 +150,7 @@ function execute_query($formated_query, $session_id, $current_index, $type="c", 
  if (!$fp)
   error("Connection Error", "Could not connect to search-server<br>\n", __LINE__-1, __FILE__);
  $sFormattedSearch = make_query($formated_query, $sess->id, $type, $current_index, $count, $restriction);
-//  echo("Sent: $sFormattedSearch<br>");
+// echo("Sent: $sFormattedSearch<br>");
  $iResult = fputs ($fp, $sFormattedSearch);
  $header_done = false;
  while (!feof($fp)) {

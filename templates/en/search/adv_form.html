@@ -1,0 +1,91 @@
+<script language="JavaScript">
+<!--
+  function submit_add_condition(){
+   document.adv_searchform.buildaction.value = "add_condition";
+   document.adv_searchform.submit();
+  }
+
+  function submit_erase_condition(nr){
+   document.adv_searchform.buildaction.value = "erase_condition_"+nr;
+   document.adv_searchform.submit();
+  }
+  
+//-->
+</script>
+ <tr> 
+   <td width=420 valign="top">
+     
+        <table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
+         <tr> 
+          <td>
+		   <font face="verdana, arial, helvetica" size=2><b>Advanced Search in {NODENAME}</b></font>
+		  </td>
+		 </tr></table>
+
+<table cellpadding=1 cellspacing=0 border=0 width=100% bgcolor="#a4a4a4">
+         <tr> 
+          <td>
+		  <table border=0 cellpadding=3 cellspacing=0 width=100% bgcolor="white" height=500>
+           <tr> 
+            <td width=100% valign="top">
+<form action="{ACTION}" name="adv_searchform" method="post">		
+{HIDDENS}
+<table border=0 width="100%">
+ <tr>
+  <td colspan="2">
+  <font face="verdana, arial, helvetica" size=2>
+   <b>Find:</b><br>
+   <table width="100%" border="0" cellspacing=0 cellpadding="5">
+   {CONDITIONLIST}
+    <tr>
+     <td align="center" width=1><font face="verdana, arial, helvetica" size=1>&nbsp;</font></td>
+     <td nowrap><center><font face="verdana, arial, helvetica" size=1>[<a onMouseOver="window.status='Add a condition'; return true" onMouseOut="window.status='';" href="JavaScript: submit_add_condition();">add query</a>]</font></center></td>
+     <td colspan=2><font face="verdana, arial, helvetica" size=1>&nbsp;</font></td>
+    </tr>
+   </table>
+  </font>
+  </td>
+ </tr>
+ <tr>
+  <td colspan="2">
+  <font face="verdana, arial, helvetica" size=2>&nbsp;</font>
+  </td>
+ </tr>
+ <script language="JavaScript">
+  <!--
+   function check_languages(){
+    checkboxes = document.adv_searchform.elements["langs[]"]
+    for(x=0; x < checkboxes.length; x++)
+     checkboxes[x].checked = true;
+   }
+  //-->
+ </script>
+ <tr valign="top">
+  <td width="50%">
+  <font face="verdana, arial, helvetica" size=1>
+  <b>Include language(s):</b> [<a href="JavaScript:check_languages();" onMouseOver="window.status='Check all languages'; return true" onMouseOut="window.status='';">check all</a>]<br>
+   <input type="checkbox" name="langs[]" id="langsen" value="en" checked onClick="return document.adv_searchform.elements['langs[]'][1].checked;"><label for="langsen">English</label><br>
+   <input type="checkbox" name="langs[]" id="langsde" value="de" onClick="return document.adv_searchform.elements['langs[]'][0].checked;"><label for="langsde">German</label><br>
+  </font>
+  </td>
+  <td width="50%" align="center">
+   <input type="submit" name="find" value="&nbsp;&nbsp;Find it&nbsp;&nbsp;">
+   <input type="hidden" name="buildaction" value="">
+  </td>
+ </tr>
+</table>
+</form>
+
+			 </font>
+					<p>
+				    <!-- END trailstd--></font></td></tr><tr> 
+            <td width=100% valign="bottom">
+			</td>
+           </tr>
+          </table>
+		  
+		  
+		  
+          </td>
+         </tr>
+        </table>
