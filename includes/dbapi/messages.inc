@@ -153,17 +153,20 @@ function &read_messages_ex($userval, $inbox=true, $current_index=0, $ordertext="
  }
   
  $object_array = Array();
- 
+
+ $count = count_max_messages($userval, $inbox);
+ if ($count <= $current_index)
+  $current_index = 0;
  if ($current_index != -1)
   $query = FormatSQL(GET_MESSAGES_EX, array($userval, $ordertext, $current_index));
  else
   $query = FormatSQL(GET_MESSAGES_EX_UL, array($userval, $ordertext));
  if (!$myDB->query($query)) return $object_array; 
- if ($myDB->num_rows() == 0) return $object_array;
+  if ($myDB->num_rows() == 0) return $object_array;
+
  while($myDB->next_record()){
   $object_array[] = create_message_object($myDB->Record); //still not more portable than in the above
  }                                                        //now obsolete function...
- $count = count_max_messages($userval, $inbox);
  
  $hsh['arr']   = &$object_array;
  $hsh['count'] = $count;
