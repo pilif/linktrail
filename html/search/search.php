@@ -12,7 +12,7 @@ if ( $dologout == "1" ){
  setcookie("ltrLoginAs","",time()+2592000);  
  $HTTP_COOKIE_VARS['ltrLoginAs'] = "";
  page_close();
- Header("Location: ".$PATH_INFO); 
+ header("Location: ".$PHP_SELF); 
  exit;
 }
 
