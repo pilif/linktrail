@@ -213,11 +213,11 @@ function do_links_table(){
   $query = sprintf("
    INSERT INTO
     ltrLinks
-   (Trail, Name, Description, Url, Owner, ChangeDate, AddDate, Next)
+   (Link_ID, Trail, Name, Description, Url, Owner, ChangeDate, AddDate, Next)
    VALUES
-    (%d, '%s', '%s', '%s', '%s', '%s', '%s', %s)
+    (%d, %d, '%s', '%s', '%s', '%s', '%s', '%s', %s)
    ",
-  $row['Trail'], $row['Name'], $row['Description'], $row['Url'], $row['Owner'], $row['CompDate'],
+  $row['Link_ID'], $row['Trail'], $row['Name'], $row['Description'], $row['Url'], $row['Owner'], $row['CompDate'],
   $row['AddDate'], $row['Next']
   );
   $pg_res = pg_exec($postgres, $query);
@@ -297,11 +297,11 @@ function do_slots_table(){
   $query = sprintf("
    INSERT INTO
     ltrSlots
-   (Node_ID, Trail_1_ID, Trail_1_Text, Trail_2_ID, Trail_2_Text, Description, Next, IsLive)
+   (Slot_ID, Node_ID, Trail_1_ID, Trail_1_Text, Trail_2_ID, Trail_2_Text, Description, Next, IsLive)
    VALUES
-    (%d, %d, '%s', %s, %s, '%s', %s, '%s')
+    (%d, %d, %d, '%s', %s, %s, '%s', %s, '%s')
    ",
-  $row['Node_ID'], $row['Trail_1_ID'], $row['Trail_1_Text'], $row['Trail_2_ID'], $row['Trail_2_Text'], 
+  $row['Slot_ID'], $row['Node_ID'], $row['Trail_1_ID'], $row['Trail_1_Text'], $row['Trail_2_ID'], $row['Trail_2_Text'], 
   $row['Description'], $row['Next'], $row['IsLive']
   );
   $pg_res = pg_exec($postgres, $query);
