@@ -23,7 +23,6 @@ $auth->login_if( ($dologin=="1") and ($auth->auth["uid"] == "nobody") );
 $nobody = ( ($auth->auth["uid"] == "nobody") or ($auth->auth["uid"] == "") or ($auth->auth["uid"] == "form"));
 
 $kat = (ereg_replace('^/([^-\]*-[^/]*)(.*)', '\\2', $PHP_SELF));
-
 if (preg_match('/^\/Tour[\/]*(.*)$/', $kat, $matches)){
  if ($matches[1] == ""){
   if ( (substr($kat, -1)) != '/'){
@@ -119,7 +118,7 @@ include("commonheader2.html");
 $tpl = new Template(APPLICATION_HOME."/templates/tour", "keep");
 $tpl->set_file(array("main" => "main.html"));
 $tpl->set_var("CONTENT", print_tour_content($step));
-$tpl->set_var("IWANTTO", print_iwantto('/', $capabilities));
+$tpl->set_var("IWANTTO", print_iwantto('/Tour/', $capabilities));
 $tpl->set_var("NAVIGATION", print_tour_navigation($step));
 $tpl->set_var("TOURNAV", print_nav_links($step));
 $tpl->parse("main", "main");

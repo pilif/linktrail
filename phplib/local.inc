@@ -5,7 +5,7 @@
  * Copyright (c) 1998,1999 SH Online Dienst GmbH
  *                    Boris Erdmann, Kristian Koehntopp
  *
- * $Id: local.inc,v 1.1.1.1 2000-11-06 20:55:49 linktrai Exp $
+ * $Id: local.inc,v 1.2 2000-11-20 21:21:18 pilif Exp $
  *
  */ 
 
@@ -29,6 +29,19 @@ class DB_Linktrail extends DB_Sql {
    sql_error($error, isset($in_trail));
   }
 }
+
+class DB_Tester extends DB_Sql {
+  var $Host     = DB_SERVER;
+  var $Database = "AlphaTest";
+  var $User     = "root";
+  var $Password = "oelberg";
+  var $Debug    = false;
+  
+  function haltmsg($msg){
+   echo("error: $msg"); 
+  }
+}
+
 
 class Linktrail_CT_Sql extends CT_Sql {
   var $database_class = "DB_Linktrail";    	  ## Which database to connect...

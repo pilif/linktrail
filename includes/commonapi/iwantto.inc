@@ -25,9 +25,21 @@
  $nav_logged['/^\/(.+)\/Settings/']    = array('print_nav_settings_a', 'print_nav_settings_d', 3);
  $nav_logged['/^\/$/']                          = array('print_nav_home_active', 'print_nav_home_inactive', 0);
  $nav_logged['/^\/Experts\/'.$auth->auth['uname'].'$/']   = array('print_nav_mypage_a', 'print_nav_mypage_d', 1);
+ $nav_logged['/^\/Tour\/.*/']           = array('print_nav_tour_a', 'print_nav_tour_d', 4);
 
 //die('/^\/Experts\/'.$auth->auth['uname'].'$/');
  $nav_unlogged['/^\/$/']       =    array('print_nav_home_active', 'print_nav_home_inactive', 0);
+ $nav_unlogged['/^\/Tour.*/']           = array('print_nav_tour_a', 'print_nav_tour_d', 1);
+ 
+ function print_nav_tour_a(){
+  global $sess, $ltrstr;
+  return print_iwantto_item_ex($ltrstr['iw_tour'], "", $sess->url('/Tour/'));
+ }
+ 
+ function print_nav_tour_d(){
+  global $ltrstr;
+  return print_iwantto_item_ex($ltrstr['iw_tour']);
+ }
  
  function print_nav_messages_a(){
   global $auth, $sess, $glob_userdata, $ltrstr;
@@ -72,6 +84,17 @@
   return print_iwantto_item_ex($ltrstr['Settings']);
  }
 
+ 
+ function print_actions_tour($kat){
+  global $sess, $ltrstr, $auth;
+  if ($auth->auth['uname'] == ""){
+   if ($auth->auth['uid'] == "nobody")  $str .= print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($kat).'?dologin=1'));
+   $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
+  }else{
+   $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($kat).'?dologout=1'));
+  }
+  return $str;
+ }
 
  function print_actions_msgcenter($kat){
   global $sess, $ltrstr, $auth, $PHP_SELF;
@@ -92,7 +115,7 @@
  function print_actions_experts($kat){
   global $auth, $sess, $PHP_SELF, $ltrstr;
   
-  if(!defined("COMMON_PERMISSIONS_INC"))
+   if(!defined("COMMON_PERMISSIONS_INC"))
    include("commonapi/common_permissions.inc");
   if(!defined("USER_INC"))
    include("dbapi/user.inc");
@@ -101,6 +124,11 @@
   $expert = $found[1];
   $method = $found[2];
   $str = "";
+
+  if (($expert != $auth->auth['uname']) and ($expert != "New_User") ){
+   $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
+  }
+
   $expert_data = get_user_from_name($expert);
   /* 
    What you can see below is reutilisation of existing code. The whole if-clause is 
@@ -126,9 +154,6 @@
     }
    }
   } //expert_data != -1   
-  if (($expert != $auth->auth['uname']) and ($expert != "New_User") ){
-   $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
-  }
   
   $str .= (($auth->auth['uid'] == "nobody") and ($auth->auth['uname'] == "")) ? print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User')) : "";
   $str .= (($auth->auth['uid'] != "nobody") and ($auth->auth['uname'] != "")) ? print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($PHP_SELF).'?dologout=1')) : print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($PHP_SELF).'?dologin=1'));
@@ -217,6 +242,8 @@
   $kat = (ereg_replace('^/([^-\]*-[^/]*)(.*)', '\\2', $PHP_SELF));
 
   $str = "";
+  if ($kat != "/")
+   $str .= print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php'.$kat).'?action=addform')); 
   if ($auth->auth['uname'] == ""){
    if ($auth->auth['uid'] == "nobody")  $str .= print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($kat).'?dologin=1'));
    $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
