@@ -240,6 +240,8 @@ function sub_change_profile(&$currentuser, $dbname, $fieldname){
 function do_change_profile_ex($currentuser){
  global $HTTP_POST_VARS; //there are much too many vars to import them.
  
+ $old_mail = $currentuser['Email'];
+
  foreach($HTTP_POST_VARS as $key => $value){
   $HTTP_POST_VARS[$key] = cleanup_string($value);
  }
@@ -265,7 +267,10 @@ function do_change_profile_ex($currentuser){
 
  $currentuser['Description'] = plattform_nl2br($currentuser['Description']);
  
- //die($currentuser['Email']);
+ /* If the Email-Address changes, suppose, it is valid */
+ if (strtolower($currentuser['Email']) != strtolower($old_mail))
+  $currentuser['BounceFlag'] = BOUNCE_OK;
+  
  set_user_at_name($currentuser['Username'], $currentuser); 
 }
 
