@@ -141,13 +141,13 @@ $ltrstr['User_Action_1007']       = "deleted";
 $ltrstr['Message sent in trail']  = 'This message has been sent from the trail <a href="%s" target="%s" onClick="openIt(\'%s\');">%s</a>';
 
 $ltrstr['subscribe_link']         = '<a href="%s">subscribe</a>';
-$ltrstr['decline_link']           = '<a href="%s">decline</a>';
+$ltrstr['decline_link']           = '<a href="%s">reject</a>';
 $ltrstr['delete_link']            = '<a href="%s">delete</a>';
 $ltrstr['close_link']             = '<a href="%s">close</a>';
 $ltrstr['read_link']              = '<a href="%s">read</a>';
 $ltrstr['acceptnote']             = '<i>Click <a href="%s">subscribe</a> to accept this recommendation and to list this trail on your Mypage.</i>';
 $ltrstr['acceptednote']           = '<i>You have accepted this recommendation and subscribed this trail.</i>';
-$ltrstr['declinednote']           = '<i>You have declined this recommendation.</i>';
+$ltrstr['declinednote']           = '<i>You have rejected this recommendation.</i>';
 
 $ltrstr['recommends']             = "recommends";
 $ltrstr['recommended']            = "recommended";
