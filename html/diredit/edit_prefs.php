@@ -151,7 +151,7 @@ switch ($method) {
          }
          
          $tpl->set_var("EDITFORM", print_all_settings_form($extension, $userdata, $passerror, $posconf));
-         $tpl->set_var("SUBNAV", print_mypage_subnav($ltrstr['Settings'], $subnav, $idx));
+         $tpl->set_var("SUBNAV", print_mypage_subnav($ltrstr['SETTINGS'], $subnav, $idx));
          break;
  }
       

@@ -32,6 +32,7 @@ $ltrstr['Profile']				  = "Change profile";
 $ltrstr['Security Preferences']	  = "Change password";
 $ltrstr['Preferences']	  		  = "Customize linktrail";
 $ltrstr['Settings']	  		      = "Settings";
+$ltrstr['SETTINGS']	  		      = "SETTINGS";
 
 
 $ltrstr['Pass_Nomatch']			  = "Your passwords did not match.";
