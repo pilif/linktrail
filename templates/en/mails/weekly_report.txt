@@ -1,24 +1,21 @@
-Hi {FIRSTNAME} {LASTNAME},
+Hi {FIRSTNAME} {LASTNAME}
 
-this is the linktrail application with the weekly status report. If you
-want to stop us sending this message, please follow the instructions
-at the end of this message.
+Welcome to your linktrail update. If you don't want to receive this 
+message in the future, follow the instructions at the end.
 
-On your linktrail-account, we found
+On your linktrail account, you will find
+- {UNREAD} unread messages
+- {FREQ} pending friendship requests
+- {RECC} trail recommendations
 
-  - {UNREAD} unread messages.
-  - {FREQ} friendship requests pending.
-  - {RECC} recommendations waiting.
-  
-Systemwide, there where created {NEWTRAILS} new trails since we last
-emailed you.
+{NEWTRAILS} new trails were created overall since your last visit.
 
-The following trails to be found on your mypage have been added or
-updated since you last logged on at linktrail:
+The following trails from your Mypage have been updated since your last 
+visit:
 
 {TRAILLIST}
 
 -- 
-To unsubscribe these mailings, please log on at www.linktrail.com,
-visit your personal settings and change the drop down-box at the end
-of the page to "never".
+If you don't want to receive this message in the future, choose "never"
+from the dropdown-box at the bottom of your personal account 
+settings page.
