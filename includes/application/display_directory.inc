@@ -14,7 +14,6 @@ function print_mypage_profile_item(&$tpl, $showname, $filename, $sub_templatenam
 function display_mypage($expert){
  global $kat, $auth, $nobody, $PHP_SELF, $capabilities, $userdata, $friend, $itsme, $sess, 
         $HTTP_GET_VARS, $phplib_user, $user_ob, $sess_ob, $user_ci, $sess_ci;
-// echo("Expert: $expert; username: ".$auth->auth['uname']);
  
  if (!defined("USER_INC"))
   include("dbapi/user.inc");
@@ -86,7 +85,6 @@ if  (!defined("TRAILFORYOU_INC"))
  $sortselect['SUBS'] = false;
  $sortselect['ACTU'] = false;
  
- 
  if ($ob == "t"){
   $sortselect['TITL'] = true;
   $ob = "friendlyname_trail";
@@ -130,15 +128,6 @@ if  (!defined("TRAILFORYOU_INC"))
  if ($userdata['Favourites'] != "") 
   $fav_array =  explode('|||', $userdata['Favourites']);
  
-/* $trails = get_trails_by_uname($expert, $userdata['User_ID'], $current_index, $ob, $ot, !$itsme);
- $max_trail_count = count_trails_mypage($expert, !$itsme); */
-
- 
- /*if (!isset($viewdata_mypage['ob'])) $viewdata_mypage['ob'] = $ob;
- if (!isset($viewdata_mypage['ot'])) $viewdata_mypage['ob'] = $ot;
- $phplib_user->register("viewdata_mypage");
- */
- 
  $trailsdata = read_trails_mypage(&$userdata, $current_index, $ob, $ot);
  if ($expert == $auth->auth['uname'])
   $t4u = read_a_trail_for_you($trailsdata['trails'], $auth->auth['uname'], $auth->auth['uid']);
@@ -178,7 +167,7 @@ if  (!defined("TRAILFORYOU_INC"))
    $res = print_mypage_trail($trailsdata['trails'][$x], $expert, ( ($c % 2) == 0)   ? BACK_COLOR1 : BACK_COLOR2, $itsme);
    if ($res != ""){
     $str.=$res;
-    $c++; //h„h„h„
+    $c++; 
    }
   }
  }
@@ -252,10 +241,6 @@ if ( $HTTP_GET_VARS['drop'] == "1" ){
   $oldname = id2path($movetrail);
   mv_object($oldname, $kat.friendlyname($oldname));
   $ni = get_node_info($movetrail);
-/*  if (has_caps($capabilities, CAP_SUPERUSER))
-   send_link_admin_move_notification($ni, $newname);
-  else
-   send_move_notification($auth->auth['uid'], $ni, $newname); */
   $movetrail = "";
   
   $sess->unregister("movetrail");
@@ -305,7 +290,6 @@ if ( $ci == "all")
  
 $current_index = intval($ci);
 
-//$current_index = -1;
 include("template.inc");
 $pl  = build_pathlist($kat, false);
 $plf = build_pathlist($kat, true);
