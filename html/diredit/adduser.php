@@ -32,7 +32,7 @@ if (!defined("PERMISSIONS_INC"))
 
  
   
-$kat = $PHP_SELF;
+$kat = $kat = (ereg_replace('^/([^-\]*-[^/]*)(.*)', '\\2', $PHP_SELF));;
 if ($auth->auth['uid'] != "nobody"){
  $auth->unauth(true);
  $sess->unregister("linknode");  $linknode  = "";
