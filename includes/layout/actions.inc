@@ -21,7 +21,7 @@ if (!defined("COMMON_SUBSCRIPTIONS_INC"))
 define("ACTION_PERMS", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi" title="Change who may edit this trail">'.$ltrstr["Change Permissions"].'</a></font></td></tr>');
 define("ACTION_BACK",  "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><li><a href="[URL]" class="hi" title="go back to the linktrail directory">'.$ltrstr["Go back to linktrail"].'</a></font></td></tr>');
 
-define("ACTION_CSUBS"    , "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><li><a href="[URL]" target="_self" class="hi">'.$ltrstr["Change Subscription"].'</a></font></td></tr>');
+define("ACTION_CSUBS"    , "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr["Change Subscription"].'</a></font></td></tr>');
 define("ACTION_SUBSCRIBE", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi" title="Subscribe this Trail to find it again">'.$ltrstr["Subscribe"].'</a></font></td></tr>');
 //define("ACTION_CNOTI"    , "\n".'<li><a href="[URL]" target="_self" class="hi" title="Change how i would like the be notified about changes">'.$ltrstr["Change Notification"].'</a>');
 
@@ -52,7 +52,7 @@ function build_action_list($nodeinfo, $perms, $username){
   $actions.=str_replace("[URL]", "#addlinks", ACTION_ADD);
  if (has_caps($perms, PERM_CHANGE_PERMS) )
   $actions.=str_replace("[URL]", $sess->url('/trailedit/editperms.php'.build_good_url($nodeinfo['path'])), ACTION_PERMS);
- if ($auth->auth['uid'] != "nobody"){
+ if (($auth->auth['uid'] != "nobody") and ($auth->auth['uid'] != $nodeinfo['userid'])){
   if (get_notification_method($username, $nodeinfo['id']) != -1)
    $actions.=str_replace("[URL]", $sess->url("/trailedit/editsubs.php".build_good_url($nodeinfo['path'])."?ft=".SFT_CHSUBS), ACTION_CSUBS);
   else

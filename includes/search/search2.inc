@@ -150,7 +150,7 @@ function execute_query($formated_query, $session_id, $current_index, $type="c", 
  if (!$fp)
   error("Connection Error", "Could not connect to search-server<br>\n", __LINE__-1, __FILE__);
  $sFormattedSearch = make_query($formated_query, $sess->id, $type, $current_index, $count, $restriction);
-  //echo("Sent: $sFormattedSearch<br>");
+  echo("Sent: $sFormattedSearch<br>");
  $iResult = fputs ($fp, $sFormattedSearch);
  $header_done = false;
  while (!feof($fp)) {
