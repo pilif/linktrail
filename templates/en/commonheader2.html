@@ -79,11 +79,10 @@ function openIt(windowname){
  <td>
   <a href="/"><img src="/img/logo.gif" border="0" vspace="0"></a></td>
  <td align="right">
-	<font face="verdana,arial,helvetica" size=1>
-	
-	<a href="JavaScript: alert('Not available at this time. Please check back later.')"><img src="/img/icon_help.gif" width="16" height="16" alt="" border="0" hspace="3" vspace="0" align="texttop"><font color="black"><b>Help</b></font></a>&nbsp;
-	<?php if (!$nobody) { ?><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologout=1"><img src="/img/icono3.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop"><font color="black"><b>Logout</b></font></a><?php } ?>
-	<?php if ($nobody) { ?><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologin=1"><img src="/img/icon_logon.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop"><font color="black"><b>Login</b></font></a><?php } ?>
+	<font face="verdana,arial,helvetica" size="1">
+	<b><a href="JavaScript: alert('Not available at this time. Please check back later.')" style="color: #000000"><img src="/img/icon_help.gif" width="16" height="16" alt="" border="0" hspace="3" vspace="0" align="texttop">Help</a></b>
+	<?php if (!$nobody) { ?><b><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologout=1" style="color: #000000"><img src="/img/icono3.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop">Logout</a></b><?php } ?>
+	<?php if ($nobody) { ?><b><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologin=1" style="color: #000000"><img src="/img/icon_logon.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop">Login</a></b><?php } ?>
 	</font>
  </td>
 </tr>
