@@ -220,7 +220,7 @@
  function print_iwantto_item_ex($text, $moretext="", $url="", $intrail=false){
   global $glob_userdata;
   
-  $tpl = new Template(APPLICATION_HOME."/templates/directory/", "keep");
+  $tpl = new Template(APPLICATION_HOME."/templates/iwantto/", "keep");
 //  echo("Url: |$url|; Text: $text<br>");
   if ($url != ""){
 //   echo("Url: |$url| ist nicht leer<br>");
