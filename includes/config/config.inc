@@ -31,7 +31,7 @@ define("DIR_MAX_TRAILS", 15);
 define("MSG_MAX_MSGS", 18);
 
 
-define("DIR_MAX_NEWTRAILS", 5);
+define("DIR_MAX_NEWTRAILS", 10);
 
 define("DID_YOU_KNOW_COUNT", 10);
 
