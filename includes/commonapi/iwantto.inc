@@ -55,7 +55,10 @@
  
  function print_nav_messages_d(){
   global $auth, $sess, $glob_userdata, $ltrstr;
-  return print_iwantto_item_ex($ltrstr['iw_readmsgs']);
+  if (!defined("MESSAGES_INC"))
+   include("dbapi/messages.inc");
+  $count = count_new_messages($auth->auth['uid'], $glob_userdata['LastReadStamp']);
+  return print_iwantto_item_ex($ltrstr['iw_readmsgs'].'</b>'.sprintf($ltrstr['iw_readmsgs_sub'], $count));
  }
  
  function print_nav_home_inactive(){
