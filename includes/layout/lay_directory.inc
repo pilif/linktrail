@@ -402,7 +402,7 @@ function print_trailgroup(&$nodeinfo, $caps=0, $current_index=0){
 // $tpl->set_var("ADDSLOT", $addslot);
  include("directory/trails/5.html");
  
- if ($boxtype == 0)
+ if (($boxtype == 0) AND ($max_trail_count > DIR_MAX_TRAILS) )
   print(print_limitbox($current_index, $max_trail_count)); 
  include("directory/trails/6.html");
 }

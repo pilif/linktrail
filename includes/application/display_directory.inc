@@ -142,7 +142,11 @@ if (!defined("COMMON_USER_INC"))
   }
  } 
  $tpl->set_var("TRAILS", $str);
- $tpl->set_var("LIMITBOX", print_limitbox($current_index, $trailsdata['count'])); 
+ if ($trailsdata['count'] > DIR_MAX_TRAILS)
+  $tpl->set_var("LIMITBOX", print_limitbox($current_index, $trailsdata['count'])); 
+ else
+  $tpl->set_var("LIMITBOX", ""); 
+  
  $tpl->set_var("IWANTTO", print_mypage_iwantto($capabilities, $userdata));
  $tpl->parse("main", "main");
  $tpl->p("main");
