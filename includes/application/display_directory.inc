@@ -12,7 +12,8 @@ function print_mypage_profile_item(&$tpl, $showname, $filename, $sub_templatenam
  define("DISPLAY_DIRECTORY_INC", true);
  
 function display_mypage($expert){
- global $kat, $auth, $nobody, $PHP_SELF, $capabilities, $userdata, $friend, $itsme, $sess, $HTTP_GET_VARS, $phplib_user, $user_ob, $sess_ci;
+ global $kat, $auth, $nobody, $PHP_SELF, $capabilities, $userdata, $friend, $itsme, $sess, 
+        $HTTP_GET_VARS, $phplib_user, $user_ob, $sess_ob, $user_ci, $sess_ci;
 // echo("Expert: $expert; username: ".$auth->auth['uname']);
  
  if (!defined("USER_INC"))
@@ -42,11 +43,12 @@ if  (!defined("TRAILFORYOU_INC"))
   Header("Location: /?");
   exit;
  }
- 
  if (isset($HTTP_GET_VARS['ci'])){
   $ci = $HTTP_GET_VARS['ci'];
   if ($ci == "all") $ci = -1;
   $current_index = intval($ci);
+ }elseif((isset($user_ci)) and ($auth->auth['uid'] != "nobody")){
+  $current_index = $user_ci; 
  }elseif(isset($sess_ci)){
   $current_index = $sess_ci;
  }else{
@@ -55,18 +57,28 @@ if  (!defined("TRAILFORYOU_INC"))
  
  $sess_ci = $current_index;
  $sess->register("sess_ci");
-
+ 
+ if ($auth->auth['uid'] != "nobody"){
+  $user_ci = $current_index;
+  $GLOBALS['user']->register("user_ci");
+ } 
  
  $ot = "ASC";
  if (isset($HTTP_GET_VARS['ob']))
   $ob = $HTTP_GET_VARS['ob'];
- elseif(isset($user_ob))
+ elseif((isset($user_ob))  and ($auth->auth['uid'] != "nobody"))
   $ob = $user_ob;
+ elseif(isset($sess_ob))
+  $ob = $sess_ob;
  else
   $ob = "";
  
- $user_ob = $ob;
- $GLOBALS['user']->register("user_ob");
+ if ($auth->auth['uid'] != "nobody"){
+  $user_ob = $ob;
+  $GLOBALS['user']->register("user_ob");
+ }
+ $sess_ob = $ob;
+ $sess->register("sess_ob");
  
  $sortselect['TITL'] = false;
  $sortselect['NODE'] = false;
@@ -170,7 +182,6 @@ if  (!defined("TRAILFORYOU_INC"))
    }
   }
  }
- //echo($expert);
  if ($userdata['Username'] == $auth->auth['uname'])
   $tpl->set_var("T4U", print_mypage_t4u($t4u));
  else
