@@ -197,7 +197,7 @@ foreach($users as $user){
  $strs['freq']   = ($req_count > 0) ? " - $req_count pending friendship request(s)\n": "";
  $strs['recc']   = ($rec_count > 0) ? " - $rec_count trail recommendation(s)\n": ""; 
  
- if ( ($strs['unread'] == "") and ($strs['unread'] == "") and ($strs['unread'] == ""))
+ if ( ($strs['unread'] == "") and ($strs['recc'] == "") and ($strs['freq'] == ""))
    $stats_i = "Since your last visit, there were no\nnew messages, no pending friendship requests and no new trail\nrecommendations in your message center.";
  else
    $stats_i = "Since your last visit to linktrail,\nthere have been the following changes in your message center:\n";
