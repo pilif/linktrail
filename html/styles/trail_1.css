@@ -18,7 +18,7 @@ A.in:visited {color: purple;}
 
 A.in:active	 {color: gray;}
 
-A.in:hover 	 {color: red;}
+A.in:hover 	 {color: red;text-decoration:none;}
 
 
 
@@ -28,7 +28,7 @@ A.stat:visited 	{color: blue;}
 
 A.stat:active	{color: gray;}
 
-A.stat:hover 	{color: red;}
+A.stat:hover 	{color: red;text-decoration:none;}
 
 
 
@@ -38,7 +38,7 @@ A.hi:visited 	{color: purple;}
 
 A.hi:active	{color: gray;}
 
-A.hi:hover 	{color: red;}
+A.hi:hover 	{color: red;text-decoration:none;}
 
 -->
 
