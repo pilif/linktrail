@@ -12,7 +12,7 @@ function print_mypage_profile_item(&$tpl, $showname, $filename, $sub_templatenam
  define("DISPLAY_DIRECTORY_INC", true);
  
 function display_mypage($expert){
- global $kat, $auth, $nobody, $PHP_SELF, $capabilities, $userdata, $friend, $itsme, $sess, $HTTP_GET_VARS;
+ global $kat, $auth, $nobody, $PHP_SELF, $capabilities, $userdata, $friend, $itsme, $sess, $HTTP_GET_VARS, $phplib_user, $user_ob, $sess_ci;
 // echo("Expert: $expert; username: ".$auth->auth['uname']);
  
  if (!defined("USER_INC"))
@@ -43,12 +43,30 @@ if  (!defined("TRAILFORYOU_INC"))
   exit;
  }
  
- $ci = $HTTP_GET_VARS['ci'];
- if ($ci == "all") $ci = -1;
- $current_index = intval($ci);
+ if (isset($HTTP_GET_VARS['ci'])){
+  $ci = $HTTP_GET_VARS['ci'];
+  if ($ci == "all") $ci = -1;
+  $current_index = intval($ci);
+ }elseif(isset($sess_ci)){
+  $current_index = $sess_ci;
+ }else{
+  $current_index = 0;
+ }
+ 
+ $sess_ci = $current_index;
+ $sess->register("sess_ci");
 
+ 
  $ot = "ASC";
- $ob = $HTTP_GET_VARS['ob'];
+ if (isset($HTTP_GET_VARS['ob']))
+  $ob = $HTTP_GET_VARS['ob'];
+ elseif(isset($user_ob))
+  $ob = $user_ob;
+ else
+  $ob = "";
+ 
+ $user_ob = $ob;
+ $GLOBALS['user']->register("user_ob");
  
  $sortselect['TITL'] = false;
  $sortselect['NODE'] = false;
@@ -103,6 +121,11 @@ if  (!defined("TRAILFORYOU_INC"))
 /* $trails = get_trails_by_uname($expert, $userdata['User_ID'], $current_index, $ob, $ot, !$itsme);
  $max_trail_count = count_trails_mypage($expert, !$itsme); */
 
+ 
+ if (!isset($viewdata_mypage['ob'])) $viewdata_mypage['ob'] = $ob;
+ if (!isset($viewdata_mypage['ot'])) $viewdata_mypage['ob'] = $ot;
+ $phplib_user->register("viewdata_mypage");
+ 
  $trailsdata = read_trails_mypage(&$userdata, $current_index, $ob, $ot);
  if ($expert == $auth->auth['uname'])
   $t4u = read_a_trail_for_you($trailsdata['trails'], $auth->auth['uname'], $auth->auth['uid']);

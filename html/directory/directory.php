@@ -1,5 +1,12 @@
 <?php
-page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm" => "Linktrail_Perm"));
+page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "user" => "Linktrail_User", "perm" => "Linktrail_Perm"));
+if (isset($HTTP_GET_VARS['anchor'])){
+$QUERY_STRING = str_replace('&anchor='.$HTTP_GET_VARS['anchor'], "", $QUERY_STRING);
+header("Location: $PHP_SELF?".$QUERY_STRING."#".$HTTP_GET_VARS['anchor']);
+ exit;
+}
+$phplib_user = $user; //so many times, we use $user...
+echo("Test: $phplib_user");
 if ( $dologout == "1" ){
  //die("unauth");
  

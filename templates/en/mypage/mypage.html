@@ -50,7 +50,7 @@
 
 		   <table border=0 cellpadding=2 cellspacing=0 width="420" bgcolor="#dcdcdc">
                 <tr> 
-                <form name="sortform" action="{SORTACTION}#trails">
+                <form name="sortform" action="{SORTACTION}">
                   <td><font  face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s trails</b></font></td>
 				   <td align="right"><font face="verdana, arial, helvetica" size=1>
 				  </font><br></td>
@@ -62,7 +62,7 @@
 <option value="d" {SELECTED_SORT_DATE}>date created</option>
 <option value="a" {SELECTED_SORT_ACTU}>last update</option>
 <option value="s" {SELECTED_SORT_SUBS}>subscriptions</option>
-</select><input type="hidden" name="ci" value="{CURRENT_INDEX}">&nbsp;
+</select><input type="hidden" name="anchor" value="trails">&nbsp;
 </td>
 				 
                 </tr>

@@ -1,13 +1,178 @@
-<?php page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm" => "Linktrail_Perm")); ?>
+<?php 
+ page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm" => "Linktrail_Perm")); 
+ if ($idxj == "y"){
+  Header("Location: test.php#blepp");
+  exit;
+ }
+?>
 <html>
 <head>
 
 <LINK REL=stylesheet HREF="/styles/trail_1.css" TYPE="text/css">
 
 <body>
+<a href="#blepp">blepp</a>
+<form method="get" action="test.php">
+ <select name="idxj" size="1">
+		<option value="n" SELECTED>n</option>
+		<option value="y">y</option>
+</select>
+ <input type="text" name="test"><input type="submit" value="sd">
+</form>
 <?
-phpinfo();
 ?> 
+<pre>
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+<a name="blepp"></a>
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+
+</pre>
 </body>
 </html> 
 <?php page_close(); ?>                           
