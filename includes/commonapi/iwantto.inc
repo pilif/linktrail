@@ -207,8 +207,13 @@
  }
  
  function print_actions_directory(){
-  global $auth, $sess, $PATH_INFO, $ltrstr;
+  global $auth, $sess, $PATH_INFO, $ltrstr, $PHP_SELF, $perm;
   
+  if(!defined("COMMON_PERMISSIONS_INC"))
+   include("commonapi/permissions.inc");
+   
+  $capabilities = get_caps($perm, $kat); // this is used at many places
+
   $kat = (ereg_replace('^/([^-\]*-[^/]*)(.*)', '\\2', $PHP_SELF));
   $str = "";
   if ($auth->auth['uname'] == ""){
@@ -217,7 +222,12 @@
   }else{
    $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($kat).'?dologout=1'));
   }
-  $str .= ($kat != '') ? print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php/'.$kat).'?action=addform'), true) : "";
+  $str .= (($kat != '') and ($kat != '/')) ? print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php/'.$kat).'?action=addform'), true) : "";
+//  die($kat);
+// die($ltrstr['iw_editmode']);
+  if (has_caps($capabilities, CAP_ADMIN_DIRECTORY))
+   $str .= print_iwantto_item_ex($ltrstr['iw_editmode'], "", $sess->url(build_good_url($PHP_SELF).'?editmode=1'));
+   
   return $str;
  }
 
