@@ -91,6 +91,6 @@ elseif($flag == BOUNCE_CHECK)
 
 if ($flag != $old_flag)
  set_bounce_flag($address, $flag);
-warn_bounce($hsh['User_ID'], $flag);
+warn_bounce($hsh['User_ID'], $flag, $address);
 
 ?>
