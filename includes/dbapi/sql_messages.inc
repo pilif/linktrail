@@ -58,7 +58,7 @@ select
 from 
  ltrMessages
 WHERE
- UNIX_TIMESTAMP(Date) > UNIX_TIMESTAMP(#S)
+ Done = 'n'
 AND
  Target = #S
 AND

@@ -207,7 +207,8 @@ function &read_one_message($id, $in=true){
 function count_new_messages($user_id, $timestamp){
  global $myDB;
  $res = 0;
- $query = FormatSQL(NEW_MSG_COUNT, array($timestamp, $user_id));
+ $query = FormatSQL(NEW_MSG_COUNT, array($user_id));
+// die($query);
  if (!$myDB->query($query)) return $res;
  if ($myDB->num_rows() == 0) return $res;
  $myDB->next_record();
