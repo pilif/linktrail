@@ -44,6 +44,6 @@ function &read_a_trail_for_you(&$nodes, $username, $userid){
   $trails[] = $hsh;
  }
  srand((double) microtime() * 1000000);
- $rand = rand(0, count($trails));
+ $rand = rand(0, count($trails)-1);
  return $trails[$rand];
 }
