@@ -14,12 +14,14 @@ function sql_error($error, $empty){
 function get_bounce_state($address){
  global $myDB;
  
- $query = sprintf("SELECT BounceFlag FROM ltrUserData WHERE Email = '%s'", $address);
+ $query = sprintf("SELECT BounceFlag, User_ID FROM ltrUserData WHERE Email = '%s'", $address);
 // die($query);
  if (!$myDB->query($query)) return BOUNCE_ERR;
  if ($myDB->num_rows() == 0) return BOUNCE_ERR;
  $myDB->next_record();
- return $myDB->f("BounceFlag");
+ $hsh['BounceFlag'] = $myDB->f("BounceFlag");
+ $hsh['User_ID']    = $myDB->f("User_ID");
+ return $hsh;
 }
 
 function set_bounce_flag($address, $flag){
@@ -61,16 +63,20 @@ if (!is_object($myDB)) {
   include("dbapi/sql_util.inc");
 }
 
+include("messages/bounce.inc"); //notify the user of the bounce
+
 $address = decode_address($argv[1]);
 
 if ( (isset($argv[2])) and ($argv[2] == "o")){
  print("Debug: $address\n");
 }else{
  $fp = fopen("/home/linktrai/bounce.log", "a");
- fputs($fp, "Doing bounce-code for: $address\n");
+ fputs($fp, "Doing bounce-code for: $address (".strftime("%Y-%m-%d %H:%M:%S", time()).")\n");
  fclose($fp);
 }
-$flag = get_bounce_state($address);
+$hsh  = get_bounce_state($address);
+$flag = $hsh['BounceFlag'];
+
 if ($flag == BOUNCE_ERR) exit(0); //no error code. This would lead to
                                   //bounce being generated. -> loop
 /* 
@@ -85,5 +91,6 @@ elseif($flag == BOUNCE_CHECK)
 
 if ($flag != $old_flag)
  set_bounce_flag($address, $flag);
+warn_bounce($hsh['User_ID'], $flag);
 
 ?>
