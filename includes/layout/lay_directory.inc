@@ -56,7 +56,7 @@ function print_limit_nav($type, $active, $current_index, $max_trail, $objectname
 
  if ($objectname == "trails") $urlextra = "#trails";
 
- if (strstr($REQUEST_URI, $urlextra))
+ if (($urlextra != "") and (strstr($REQUEST_URI, $urlextra)))
   $REQUEST_URI = str_replace($urlextra, "", $REQUEST_URI);
  
  $tpl = new Template(APPLICATION_HOME."/templates/directory/limitbox", "keep");
