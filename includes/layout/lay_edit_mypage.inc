@@ -201,12 +201,12 @@ $tpl->set_var("HIGHLIGHT_RESULTS_CHECKED", $checked);
 
 $tpl->set_var("FIELD_NOTIFICATION_METHOD", "field_notification_method");
 unset($checked);
-$checked["always"]  = ($userdata['NotificationStyle'] == "1")  ? "selected" : "";
-$checked["weekly"]  = ($userdata['NotificationStyle'] == "2")  ? "selected" : "";
-$checked["2weekl"]  = ($userdata['NotificationStyle'] == "3")  ? "selected" : "";
-$checked["3weekl"]  = ($userdata['NotificationStyle'] == "4")  ? "selected" : "";
-$checked["monthl"]  = ($userdata['NotificationStyle'] == "5")  ? "selected" : "";
-$checked["2month"]  = ($userdata['NotificationStyle'] == "6")  ? "selected" : "";
+$checked["always"]  = ($userdata['NotificationStyle'] == "0")  ? "selected" : "";
+$checked["weekly"]  = ($userdata['NotificationStyle'] == "1")  ? "selected" : "";
+$checked["2weekl"]  = ($userdata['NotificationStyle'] == "2")  ? "selected" : "";
+$checked["3weekl"]  = ($userdata['NotificationStyle'] == "3")  ? "selected" : "";
+$checked["monthl"]  = ($userdata['NotificationStyle'] == "4")  ? "selected" : "";
+$checked["2month"]  = ($userdata['NotificationStyle'] == "5")  ? "selected" : "";
 
 $tpl->set_var("NOTIFICATION_METHOD_ALWAYS_SELECTED", $checked['always']);
 $tpl->set_var("NOTIFICATION_METHOD_WEEKLY_SELECTED", $checked['weekly']);
