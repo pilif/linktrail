@@ -135,7 +135,7 @@ function get_subnodes($node, $climb=false){
   $path = $node;
  $path = addslashes($path); 
  $query = FormatSQL(SQL_SUBNODE, (array)$path); 
- die($query);
+// die($query);
  $myDB->query($query);
  if ($myDB->num_rows() <= 0) {
   return -1;

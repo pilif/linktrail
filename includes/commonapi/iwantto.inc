@@ -45,6 +45,16 @@
   return print_iwantto_item_ex($ltrstr['iw_tour']);
  }
  
+ function print_action_logon(){
+  global $PHP_SELF;
+  
+  $tpl = new Template(APPLICATION_HOME."/templates/iwantto/", "keep");
+  $tpl->set_file(array("item" => "iwantto_action_logon.html"));
+  $tpl->set_var("ACTION", build_good_url($PHP_SELF));
+  $tpl->parse("main", "item");
+  return $tpl->get("main"); 
+ }
+ 
  function print_nav_messages_a(){
   global $auth, $sess, $glob_userdata, $ltrstr;
   if (!defined("MESSAGES_INC"))
@@ -95,7 +105,7 @@
  function print_actions_tour($kat){
   global $sess, $ltrstr, $auth;
   if ($auth->auth['uname'] == ""){
-   if ($auth->auth['uid'] == "nobody")  $str .= print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($kat).'?dologin=1'));
+   if ($auth->auth['uid'] == "nobody")  $str .= print_action_logon();
    $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
   }else{
    $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($kat).'?dologout=1'));
@@ -163,7 +173,7 @@
   } //expert_data != -1   
   
   $str .= (($auth->auth['uid'] == "nobody") and ($auth->auth['uname'] == "")) ? print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User')) : "";
-  $str .= (($auth->auth['uid'] != "nobody") and ($auth->auth['uname'] != "")) ? print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($PHP_SELF).'?dologout=1')) : print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($PHP_SELF).'?dologin=1'));
+  $str .= (($auth->auth['uid'] != "nobody") and ($auth->auth['uname'] != "")) ? print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($PHP_SELF).'?dologout=1')) : print_action_logon();
   return $str;
  }
  
@@ -248,16 +258,17 @@
   $capabilities = get_caps($perm, $kat); // this is used at many places
 
   $str = "";
-  if ($kat != "/")
-   $str .= print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php'.$kat).'?action=addform'), true); 
    
   if ($auth->auth['uname'] == ""){
-   if ($auth->auth['uid'] == "nobody")  $str .= print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($kat).'?dologin=1'));
+   if ($auth->auth['uid'] == "nobody")  $str .= print_action_logon();
    $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
   }else{
    $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($kat).'?dologout=1'));
   }
+  
   $str .= (($kat != '') and ($kat != '/') and (!substr('/About/', $kat) )) ? print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php/'.$kat).'?action=addform'), true) : "";
+  if ($kat != "/")
+   $str .= print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php'.$kat).'?action=addform'), true); 
 //  die($kat);
 // die($ltrstr['iw_editmode']);
   if (has_caps($capabilities, CAP_ADMIN_DIRECTORY))

@@ -294,6 +294,7 @@ include("template.inc");
 $pl  = build_pathlist($kat, false);
 $plf = build_pathlist($kat, true);
 $nodeinfo = get_node_info($kat);
+//die($nodeinfo);
 $username = $auth->auth['uname'];
 $restriction_list = build_restriction_list($kat,  $HTTP_GET_VARS['restriction'] == "/Experts/");
 $in_login = false;

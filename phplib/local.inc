@@ -5,7 +5,7 @@
  * Copyright (c) 1998,1999 SH Online Dienst GmbH
  *                    Boris Erdmann, Kristian Koehntopp
  *
- * $Id: local.inc,v 1.3 2000-11-28 11:59:43 pilif Exp $
+ * $Id: local.inc,v 1.4 2000-12-04 22:13:51 pilif Exp $
  *
  */ 
 
@@ -100,16 +100,13 @@ function login_done(){
 }
   
  function auth_preauth(){
-   global $sess, $logon_now_as, $HTTP_COOKIE_VARS;
-   if (isset($logon_now_as)){
-    $sess->unregister("logon_now_as");
-    $query = sprintf("select perms, username from %s where user_id='%s'", $this->database_table, $logon_now_as);
-    $this->db->query($query);
-    while($this->db->next_record()) {
-      $this->auth["perm"] = $this->db->f("perms");
-      $this->auth["uname"] = $this->db->f("username");
-    }
-    return $logon_now_as;
+   global $sess, $REQUEST_METHOD, $HTTP_POST_VARS;
+   if ( ($REQUEST_METHOD == "POST") and ($HTTP_POST_VARS['libaction'] == "directlogin") ){
+    $id = $this->auth_validatelogin();
+    if ($id)
+      return $id;
+    else
+      $this->auth["uname"] = "";
    }
   }
   

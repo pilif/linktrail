@@ -1,4 +1,5 @@
 #!/usr/local/bin/php -q
+
 <?php
 
 $mysql = mysql_pconnect('localhost', 'root','oelberg') or die("Could not connect to mysql");
@@ -24,26 +25,27 @@ function null_check(&$row, $fieldname){
 }
 
 function path2id($path){
- $query = "SELECT Node_ID FROM ltrDirectory WHERE Name = ".$path;
- $res = mysql_query($query);
+ $query = "SELECT Node_ID FROM ltrDirectory WHERE Name = '".$path."'";
+ $res = mysql_query($query) or die("\n\n$query\n\n");;
  if (!$res) return "NULL";
- if (mysql_num_rows($res)) return "NULL";
+ if (mysql_num_rows($res) <= 0) return "NULL";
  $row = mysql_fetch_array($res);
  if ($row['Node_ID'] == "") return "NULL";
- return $roe['Node_ID']; 
+
+ return $row['Node_ID']; 
 }
 
 function do_users_table(){
  global $postgres;
 
  printf("\tCleaning postgres-table\n");
- pg_exec($postgres, "DELETE FROM ltrUserData") or die("Error while cleaning table");
+ pg_exec($postgres, "DELETE FROM auth_user") or die("Error while cleaning table");
 
  printf("\tReading from MySQL...\n");
  $query = "SELECT * FROM auth_user";
  $res   = mysql_query($query) or die("Could not query users\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
   $query = sprintf("
    INSERT INTO
     auth_user
@@ -52,12 +54,12 @@ function do_users_table(){
    ('%s', '%s', '%s', '%s')
   ",
   $row['user_id'], $row['username'], $row['password'], $row['perms']);
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted User: %s", $row['username']);
+   printf("\tInserted User: %s", $row['username']."\n");
   }
  }
  mysql_free_result($res);
@@ -74,10 +76,16 @@ function do_users_data_table(){
  $query = "SELECT * FROM ltrUserData";
  $res   = mysql_query($query) or die("Could not query users data\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
-  foreach($row as $key => $value)
+ while($row = mysql_fetch_array($res)){
+  foreach($row as $key => $value){
    $row[$key] = addslashes($value);
-
+   if ($value == "0000-00-00 00:00:00")
+    $row[$key] = "1970-01-01 00:00:00";
+   if ($value == "0000-00-00")
+    $row[$key] = "1970-01-01";
+  }
+  
+  
   null_check($row, 'Email');
   null_check($row, 'Homepage');
   null_check($row, 'Description');
@@ -103,14 +111,14 @@ function do_users_data_table(){
   $row['Gender'], $row['Age'], $row['Country'], $row['PhotoUrl'], $row['ShowNobody'], $row['ShowFriend'],
   $row['ShowAnyone'], $row['PopupPos'], $row['NS6Sidebar'], $row['ResPerPage'], $row['HighlightSearch'],
   $row['IfaceLang'], $row['Langs'], $row['NotificationStyle'], $row['MypageAfterLogon'], $row['LastOnline'],
-  $row['NewWindow'], $row['LastReadMessages'], $row['BounceFlag'], $row['LastSent']
+  $row['NewWindow'], $row['LastReadMessages'], $row['LastSent']
   );
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted UID: %s", $row['User_ID']);
+   printf("\tInserted UID: %s", $row['User_ID']."\n");
   }
  }
  mysql_free_result($res);
@@ -124,23 +132,26 @@ function do_directory_table(){
  pg_exec($postgres, "DELETE FROM ltrDirectory") or die("Error while cleaning table");
  
  printf("\tReading from MySQL... (and looking up nodes)\n");
- $query = "SELECT ltrDirectory.*, ltrDirectoryData.*, FROM_UNIXTIME(UNIX_TIMESTAMP(ChangeDate)) as CompDate FROM ltrDirectory LEFT JOIN ltrDirectoryData ON ltrDirectory.Node_ID = ltrDirectoryData.Node_ID";
+ $query = "SELECT ltrDirectory.*, ltrDirectory.LinkTo, ltrDirectoryData.*, FROM_UNIXTIME(UNIX_TIMESTAMP(ChangeDate)) as CompDate FROM ltrDirectory LEFT JOIN ltrDirectoryData ON ltrDirectory.Node_ID = ltrDirectoryData.Node_ID";
  $res   = mysql_query($query) or die("Could not query users data\n\n");
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
   foreach($row as $key => $value)
    $row[$key] = addslashes($value);
   if ($row['AddDate'] == "")
    $row['AddDate'] = $row['CompDate'];
   if ($row['AddDate'] == "0000-00-00 00:00:00")
    $row['AddDate'] = $row['CompDate'];
+  if ($row['LinkTo'] != "") 
+   $row['LinkTo'] = path2id($row['LinkTo']);
+
   null_check($row, 'IntNode');
   null_check($row, 'Owner');
   $nodes[] = $row;
-  $nodes['LinkTo'] = path2id($row['LinkTo']);
  } 
  
 
-  
+ begin_transaction();
+ foreach($nodes as $node){ 
   $query = sprintf("
    INSERT INTO
     ltrDirectory
@@ -152,16 +163,17 @@ function do_directory_table(){
      %d, %d, '%s', %s, '%s'
     )
    ",
-  $row['Name'], $row['Node_ID'], $row['Parent'], $row['LinkTo'], $row['Level'], $row['Language'],
-  $row['IntNode'], $row['Description'], $row['UserAccess'], $row['FriendAccess'], $row['ExtraLong'],
-  $row['CompDate'], $row['Owner'], $row['AddDate']
+  $node['Name'], $node['Node_ID'], $node['Parent'], $node['LinkTo'], $node['Level'], $node['Language'],
+  $node['IntNode'], $node['Description'], $node['UserAccess'], $node['FriendAccess'], $node['ExtraLong'],
+  $node['CompDate'], $node['Owner'], $node['AddDate']
   );
-  begin_transaction();$pg_res = pg_exec($postgres, $query)
+ // if ($node['LinkTo'] != "") die("\n\n$query\n\n");
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted Node: %s", $row['Name']);
+   printf("\tInserted Node: %s", $node['Name']."\n");
   }
  }
  mysql_free_result($res);
@@ -178,10 +190,19 @@ function do_links_table(){
  $query = "SELECT *, FROM_UNIXTIME(UNIX_TIMESTAMP(ChangeDate)) as CompDate FROM ltrLinks";
  $res   = mysql_query($query) or die("Could not query links\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
+  if ($row['Trail'] == 28)
+   continue;
+  if ($row['Trail'] == 41)
+   continue;
+  if ($row['Trail'] == 46)
+   continue;
+  if ($row['Trail'] == 59)
+   continue;
+   
   foreach($row as $key => $value)
    $row[$key] = addslashes($value);
-
+  
   null_check($row, 'Next');
   
   $query = sprintf("
@@ -191,15 +212,15 @@ function do_links_table(){
    VALUES
     (%d, '%s', '%s', '%s', '%s', '%s', '%s', %s)
    ",
-  $row['Trail'], $row['Name'], $row['Description'], $row['Url'], $row['Owner'], $row['ChangeDate'],
+  $row['Trail'], $row['Name'], $row['Description'], $row['Url'], $row['Owner'], $row['CompDate'],
   $row['AddDate'], $row['Next']
   );
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted Link: %s", $row['Name']);
+   printf("\tInserted Link: %s", $row['Name']."\n");
   }
  }
  mysql_free_result($res);
@@ -217,7 +238,10 @@ function do_messages_table(){
  $query = "SELECT * FROM ltrMessages";
  $res   = mysql_query($query) or die("Could not query users data\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
+  if ($row['Target'] == "")
+   continue;
+
   foreach($row as $key => $value)
    $row[$key] = addslashes($value);
 
@@ -233,12 +257,12 @@ function do_messages_table(){
   $row['Target'], $row['MessageType'], $row['Sender'], $row['Date'], $row['Done'], $row['Data'],
   $row['ReferenceCount']
   );
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted Message: from=%s to=%s", $row['Sender'], $row['Target']);
+   printf("\tInserted Message: from=%s to=%s", $row['Sender'], $row['Target']."\n");
   }
  }
  mysql_free_result($res);
@@ -256,7 +280,7 @@ function do_slots_table(){
  $query = "SELECT * FROM ltrSlots";
  $res   = mysql_query($query) or die("Could not query slots data\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
   
   foreach($row as $key => $value)
    $row[$key] = addslashes($value);
@@ -275,12 +299,12 @@ function do_slots_table(){
   $row['Node_ID'], $row['Trail_1_ID'], $row['Trail_1_Text'], $row['Trail_2_ID'], $row['Trail_2_Text'], 
   $row['Description'], $row['Next'], $row['IsLive']
   );
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted Slot. Node: %d", $row['Node_ID']);
+   printf("\tInserted Slot. Node: %d", $row['Node_ID']."\n");
   }
  }
  mysql_free_result($res);
@@ -298,7 +322,10 @@ function do_friends_table(){
  $query = "SELECT * FROM ltrFriends";
  $res   = mysql_query($query) or die("Could not query friends\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
+  if ( ($row['Userid'] == 'c1b984f523714d0bdf9b0bbf9bceea4e') or (($row['IsFriendOf'] == 'c1b984f523714d0bdf9b0bbf9bceea4e')) )
+   continue;
+   
   foreach($row as $key => $value)
    $row[$key] = addslashes($value);
 
@@ -310,12 +337,12 @@ function do_friends_table(){
     ('%s', '%s')
    ",
   $row['Userid'], $row['IsFriendOf']);
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted Friendship: (uid1=%s uid2=%s)", $row['Userid'], $row['IsFriendOf']);
+   printf("\tInserted Friendship: (uid1=%s uid2=%s)", $row['Userid'], $row['IsFriendOf']."\n");
   }
  }
  mysql_free_result($res);
@@ -333,10 +360,26 @@ function do_subscriptions_table(){
  $query = "SELECT ltrSubscriptions.Trail, auth_user.user_id FROM ltrSubscriptions, auth_user WHERE auth_user.username = ltrSubscriptions.Username";
  $res   = mysql_query($query) or die("Could not query subscriptions\n\n");
  begin_transaction();
- while($row = mysql_fetch_array($query)){
+ while($row = mysql_fetch_array($res)){
+  if ($row['Trail'] == 32)
+   continue;
+  if ($row['Trail'] == 97)
+   continue;
+  if ($row['Trail'] == 106)
+   continue;
+  if ($row['Trail'] == 40)
+   continue;
+  if ($row['Trail'] == 526)
+   continue;
+  if ($row['Trail'] == 176)
+   continue;
+  if ($row['Trail'] == 927)
+   continue;
+  if ($row['Trail'] == 735)
+   continue;
+
   foreach($row as $key => $value)
    $row[$key] = addslashes($value);
-
   $query = sprintf("
    INSERT INTO
     ltrSubscriptions
@@ -345,12 +388,12 @@ function do_subscriptions_table(){
     ('%s', %d)
    ",
   $row['user_id'], $row['Trail']);
-  $pg_res = pg_exec($postgres, $query)
+  $pg_res = pg_exec($postgres, $query);
   if (!$pg_res){
    end_transaction(false);
    die("SQL-Error! Query:\n\n$query\n\n");
   }else{
-   printf("\tInserted Subscription: (Trail=%d uid=%s)", $row['Trail'], $row['user_id']);
+   printf("\tInserted Subscription: (Trail=%d uid=%s)", $row['Trail'], $row['user_id']."\n");
   }
  }
  mysql_free_result($res);
@@ -358,21 +401,21 @@ function do_subscriptions_table(){
 }
 
 
-printf("\nConverting users...");
+printf("\nConverting users...\n");
 do_users_table();
-printf("\n\nConverting users data...");
+printf("\n\nConverting users data...\n");
 do_users_data_table();
-printf("\n\nConverting Directory...");
+printf("\n\nConverting Directory...\n");
 do_directory_table();
-printf("\n\nConverting links...");
+printf("\n\nConverting links...\n");
 do_links_table();
-printf("\n\nConverting messages...");
+printf("\n\nConverting messages...\n");
 do_messages_table();
-printf("\n\nConverting slots...");
+printf("\n\nConverting slots...\n");
 do_slots_table();
-printf("\n\nConverting friends...");
+printf("\n\nConverting friends...\n");
 do_friends_table();
-printf("\n\nConverting subscriptions...");
-do_subscriptions_table()
+printf("\n\nConverting subscriptions...\n");
+do_subscriptions_table();
 printf("\n\nconversion done! Thanks for rewriting me!\n\n");
 ?>

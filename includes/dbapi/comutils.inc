@@ -32,14 +32,14 @@ function make_short($string, $len=24){
 } 
  
 function remove_from_cache($filename){
- if ( file_exists($filename) ){
+/* if ( file_exists($filename) ){
   unlink($filename); 
- }
+ } */
 }
 
 function write_to_cache($filename, $contents){
  //create or owerwrite file
- if ($fp = fopen ($filename, "w")){
+/* if ($fp = fopen ($filename, "w")){
   if ( flock($fp,2) ){
    $written = fputs ($fp, $contents); 
    fclose ($fp);
@@ -47,7 +47,7 @@ function write_to_cache($filename, $contents){
    if ($written != strlen($contents))
     unlink($filename);
   }  
- }
+ } */
 }
  
 function hilight($string, $words){
