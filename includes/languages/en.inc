@@ -93,6 +93,7 @@ $ltrstr["Search_Error"]['2004']   = 'You have used "(" without ")" or ")" withou
 $ltrstr["Search_Error"]['unknown']= 'An unknown error has occured while processing your query. Please try again or contact our <ahref="mailto:support@linktrail.com">support</a>';
 
 $ltrstr['Privacy']                = "Privacy statement";
+$ltrstr['Terms of service']       = "Terms of service";
 $ltrstr['Report Bug']             = "Report a bug";
 $ltrstr['Tour']                   = "Take a tour";
 $ltrstr['No User Desc']           = "This user did not enter his or her description yet.";
