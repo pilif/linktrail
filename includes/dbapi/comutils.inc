@@ -199,6 +199,7 @@ function short_url($url){
  return $comps['host'];
 } 
  
+if (!function_exists("validate_email")){ 
 function validate_email($email){
    return (ereg('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+'.
                 '@'.
@@ -206,7 +207,7 @@ function validate_email($email){
                 '[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+$',
                 $email));
  }
-
+}
  
 function randomString($len) {
    $possible="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
