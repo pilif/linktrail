@@ -504,7 +504,7 @@ class ltrLMSMessageMsg extends ltrMessage{
     $this->set_read();
     $tpl->set_var("FORM", $this->print_re_form($error, $color));
     if ($this->data['quoted_reply'] != '') 
-     $message .= sprintf($ltrstr['In Reply to'], $this->data['quoted_reply']);
+     $message .= sprintf($ltrstr['In Reply to'], nl2br(longwrap($this->data['quoted_reply'])));
    }else{
     $tpl->set_var("FORM", "");
    } 

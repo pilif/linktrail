@@ -154,6 +154,7 @@ switch ($method) {
          $tpl->set_var("SUBNAV", "");
          break;
      case "Settings":
+         if ($extension == "") $extension = "Profile";
          //die("Ext: ".$extension);
          $subnav = Array();
          $subnav[0] = array( "title" => $ltrstr['Profile'], "url" => "Profile" );
