@@ -51,7 +51,7 @@ function print_announcebox($id, $boxonly=false){
 }
  
 
-function print_limit_nav($type, $active, $current_index, $max_trail, $objectname="trails", $urlextra="", $pagesize=DIS_MAX_TRAILS){
+function print_limit_nav($type, $active, $current_index, $max_trail, $objectname="trails", $urlextra="", $pagesize=DIR_MAX_TRAILS){
  global $PHP_SELF, $REQUEST_URI, $sess;
  
  if ($objectname == "trails") $urlextra = "#trails";
