@@ -2,10 +2,10 @@
 
 <?php
 
-$mysql = mysql_pconnect('localhost', 'root','oelberg') or die("Could not connect to mysql");
+$mysql = mysql_pconnect('troll', 'root','oelberg') or die("Could not connect to mysql");
 mysql_select_db('linktrail') or die("Could not change the database");
 
-$postgres = pg_connect("host=localhost user=postgres dbname=linktrail");
+$postgres = pg_connect("host=localhost user=linktrail dbname=linktrail");
 
 function begin_transaction(){
  global $postgres;
@@ -144,6 +144,11 @@ function do_directory_table(){
   if ($row['LinkTo'] != "") 
    $row['LinkTo'] = path2id($row['LinkTo']);
 
+  if ($row['ObjectType'] == "trail")
+   $row['ObjectType'] = 1;
+  else
+   $row['ObjectType'] = 0;
+   
   null_check($row, 'IntNode');
   null_check($row, 'Owner');
   $nodes[] = $row;
@@ -156,16 +161,16 @@ function do_directory_table(){
    INSERT INTO
     ltrDirectory
    (Name, Node_ID, Parent, LinkTo, Level, Language, IntNode, Description, UserAccess,
-    FriendAccess, ExtraLong, ChangeDate, Owner, AddDate)
+    FriendAccess, ExtraLong, ChangeDate, Owner, AddDate, ObjectType)
    VALUES
     (
      '%s', %d, %d, %d, %d, %d, %s, '%s', %d,
-     %d, %d, '%s', %s, '%s'
+     %d, %d, '%s', %s, '%s', %d
     )
    ",
   $node['Name'], $node['Node_ID'], $node['Parent'], $node['LinkTo'], $node['Level'], $node['Language'],
   $node['IntNode'], $node['Description'], $node['UserAccess'], $node['FriendAccess'], $node['ExtraLong'],
-  $node['CompDate'], $node['Owner'], $node['AddDate']
+  $node['CompDate'], $node['Owner'], $node['AddDate'], $node['ObjectType']
   );
  // if ($node['LinkTo'] != "") die("\n\n$query\n\n");
   $pg_res = pg_exec($postgres, $query);
