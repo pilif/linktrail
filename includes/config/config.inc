@@ -109,7 +109,7 @@ $static_help['preview'] = array(
                         $ltrstr['Privacy']          => array('/Help/Privacy', "Privacy statement"),
                         $ltrstr['Terms of service'] => array('/Help/Terms_of_service', "Terms of service"),
 //                        $ltrstr['Report Bug']       => array('/Help/Report_a_bug', $ltrstr['Report Bug']),
-                        $ltrstr['Tour']             => array('/Tour/', "Tour"),
+//                        $ltrstr['Tour']             => array('/Tour/', "Tour"),
                       );
 
 $glob_allowed_tags = Array('br', 'p', 'hr', 'h5', 'h6', 'b', 'i', 'code', 'em', 'cite', 

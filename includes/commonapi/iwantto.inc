@@ -244,11 +244,10 @@
    
   $capabilities = get_caps($perm, $kat); // this is used at many places
 
-  $kat = (ereg_replace('^/([^-\]*-[^/]*)(.*)', '\\2', $PHP_SELF));
-
   $str = "";
   if ($kat != "/")
    $str .= print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php'.$kat).'?action=addform'), true); 
+   
   if ($auth->auth['uname'] == ""){
    if ($auth->auth['uid'] == "nobody")  $str .= print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($kat).'?dologin=1'));
    $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
