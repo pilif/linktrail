@@ -474,7 +474,7 @@ if ($list){
  }
  //die(count($objs));
  $tpl->set_var("MESSAGES", $str);
- $tpl->set_var("PAGENAME", $extension);
+ $tpl->set_var("PAGENAME", $ltrstr[strtolower($extension)]);
  $tpl->set_var("CURRENT_INDEX", $ci);
  $tpl->set_var("SORTACTION", build_good_url($PHP_SELF));
  $tpl->set_var("TO_BY", ($inbox) ? "by" : "to");

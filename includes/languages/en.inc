@@ -194,4 +194,6 @@ $ltrstr['lms comfirmation'][4]    = "The friendship request has been declined.";
 $ltrstr['lms comfirmation'][5]    = "The recommendation has been accepted. Trail subscribed.";
 $ltrstr['lms comfirmation'][6]    = "The recommendation has been declined.";
 
+$ltrstr['inbox']                  = "received messages";
+$ltrstr['outbox']                 = "sent messages";
 ?>
