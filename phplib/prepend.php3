@@ -23,12 +23,12 @@ $path = $DOCUMENT_ROOT;
 if (substr($path, -1) == "/")
  $path = substr($path, 0, strlen($path)-1);
 define("APPLICATION_HOME", dirname($path));
-$host_language['prototyp.linktrail.work'] = 1;
-$host_language['prototypde.linktrail.work'] = 2;
-$language_host[1] = 'prototyp.linktrail.work';
-$language_host[2] = 'prototypde.linktrail.work';
+$host_language['linktrail.gnegg.ch'] = 1;
+#$host_language['prototypde.linktrail.work'] = 2;
+$language_host[1] = 'linktrail.gnegg.ch';
+#$language_host[2] = 'prototypde.linktrail.work';
 $language_name[1] = "en";
-$language_name[2] = "de";
+#$language_name[2] = "de";
 $glob_language = $host_language[strtolower($HTTP_HOST)];
 if (!$glob_language)
  $glob_language = 1;
