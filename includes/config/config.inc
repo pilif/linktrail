@@ -1,6 +1,14 @@
 <?php
 include("languages/en.inc");
 
+define("LINKTRAIL_APP", true);
+//setting this for my modified template.inc to get
+//to know that it is being used by linktrail (it
+//will not try to insert the current langauge into
+//the given path. This would break bookexchange.ch
+//which is why I have to tell template.inc that we
+//are linktrail.
+
 define("BOUNCE_OK", 'ok');
 define("BOUNCE_ONCE", "bounce");
 define("BOUNCE_CHECK", "bounce_test");
