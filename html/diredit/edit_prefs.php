@@ -55,6 +55,7 @@ if ( ($method != "Send_Message") and ($method != 'Make_friendship') and ($method
  $auth->login_if( ($auth->auth["uid"] == "nobody") );
 }else{
  //user must authenticated and THE user when sending a message
+ $PATH_INFO = '/Experts'.$PATH_INFO;
  $auth->login_if( ($auth->auth["uid"] == "nobody") or ($auth->auth['uname'] != $expert) );
 }
 
