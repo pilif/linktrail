@@ -238,7 +238,7 @@
  function print_actions_directory($kat){
   global $auth, $sess, $PATH_INFO, $ltrstr, $PHP_SELF, $perm, $movetrail;
 
-  echo($kat);
+//  echo($kat);
   if(!defined("COMMON_PERMISSIONS_INC"))
    include("commonapi/permissions.inc");
    
@@ -248,7 +248,7 @@
 
   $str = "";
   if ($kat != "/")
-   $str .= print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php'.$kat).'?action=addform')); 
+   $str .= print_iwantto_item_ex($ltrstr['create a new trail'], "", $sess->url(build_good_url('/diredit/edittrail.php'.$kat).'?action=addform'), true); 
   if ($auth->auth['uname'] == ""){
    if ($auth->auth['uid'] == "nobody")  $str .= print_iwantto_item_ex($ltrstr['iw_login'], "", $sess->url(build_good_url($kat).'?dologin=1'));
    $str .= print_iwantto_item_ex($ltrstr['iw_register'], "", $sess->url('/Experts/New_User'));
