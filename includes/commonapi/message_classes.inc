@@ -52,6 +52,7 @@ $message_functions[LTMSG_FETERMN]  = "std_message";
 $message_functions[LTMSG_REPORTSN] = "std_message";
 $message_functions[LTMSG_SUBNOTI]  = "std_user_message";
 $message_functions[LTMSG_SUBCAST]  = "recommendation_broadcast";
+$message_functions[LTMSG_BOUNCEN]  = "admin_modification";
 
 class ltrStdMessageMsg extends ltrMessage{
   function ltrStdMessageMsg($dataset){
@@ -202,8 +203,6 @@ class ltrAdminModificationMsg extends ltrMessage{
   function print_simple($val){
    global $ltrstr, $PHP_SELF;
 
-   $trailpath = id2path($this->data['Trail']);
-
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
 
@@ -211,12 +210,19 @@ class ltrAdminModificationMsg extends ltrMessage{
    $tpl->set_file(array("simple" => "admin_cn.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
-   $target = 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222);
-   $url    = build_good_url($trailpath);
-   $name   = friendlyname($trailpath);
-   $str = ($trailpath != -1) ? sprintf($ltrstr['trail_link'], $url , $target, $target, $name) : "<b>".$this->data['Title']."</b>";
-   $tpl->set_var("TRAIL", $str);
-   $tpl->set_var("TEXT", $ltrstr["Message_Text_".$this->type]);
+
+   if ($this->type != LTMSG_BOUNCEN){
+    $trailpath = id2path($this->data['Trail']);
+    $target = 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222);
+    $url    = build_good_url($trailpath);
+    $name   = friendlyname($trailpath);
+    $str = ($trailpath != -1) ? sprintf($ltrstr['trail_link'], $url , $target, $target, $name) : "<b>".$this->data['Title']."</b>";
+    $tpl->set_var("TRAIL", $str);
+    $tpl->set_var("TEXT", $ltrstr["Message_Text_".$this->type]);
+   }else{
+    $tpl->set_var("TRAIL", "");
+    $tpl->set_var("TEXT", $ltrstr['msg_bnc'][$this->data['bounce_type']]);
+   } 
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
    $tpl->set_var("READURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1");
    $tpl->set_var("MYID", $this->id);
@@ -236,24 +242,30 @@ class ltrAdminModificationMsg extends ltrMessage{
   function print_extended($val){
    global $ltrstr, $PHP_SELF;
    $this->set_read();
-   $trailpath = id2path($this->data['Trail']);
 
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-
    $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("extended" => "admin_cn.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
-   $str = ($trailpath != -1) ? sprintf($ltrstr['trail_link'], $url , $target, $target, $name) : "<b>".$this->data['Title']."</b>";
-   $tpl->set_var("TRAIL", $str);
-/*    $tpl->set_var("TRAILURL", build_good_url($trailpath)); 
-   $tpl->set_var("TRAILNAME", friendlyname($trailpath));*/
-   $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
-   $tpl->set_var("TEXT", $ltrstr["Message_Text_".$this->type]);
+
+   
+   if ($this->type != LTMSG_BOUNCEN){
+     $trailpath = id2path($this->data['Trail']);
+     $str = ($trailpath != -1) ? sprintf($ltrstr['trail_link'], $url , $target, $target, $name) : "<b>".$this->data['Title']."</b>";
+     $tpl->set_var("TRAIL", $str);
+     $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
+     $tpl->set_var("EXTENDED_INFORMATION", $ltrstr['Admin Trail del']);
+     $tpl->set_var("TEXT", $ltrstr["Message_Text_".$this->type]);
+   }else{
+    $tpl->set_var("TRAIL", "");
+    $tpl->set_var("TEXT", $ltrstr['msg_bnc'][$this->data['bounce_type']]);
+    $tpl->set_var("EXTENDED_INFORMATION", $ltrstr['msg_bnc_l'][$this->data['bounce_type']]);
+   }  
+     
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
    $tpl->set_var("CLOSEURL", build_good_url($PHP_SELF));
-   $tpl->set_var("EXTENDED_INFORMATION", $ltrstr['Admin Trail del']);
    $tpl->set_var("MYID", $this->id);
    $tpl->set_var("DATE", $d);
    $tpl->parse("main", "extended");

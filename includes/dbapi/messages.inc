@@ -44,6 +44,7 @@
  define("LTMSG_REPORTSN", LTMSG_BASE+20);  
  define("LTMSG_SUBNOTI",  LTMSG_BASE+21);  
  define("LTMSG_SUBCAST",  LTMSG_BASE+22);  
+ define("LTMSG_BOUNCEN",  LTMSG_BASE+23);  
 
  define("RC_IN_INBOX", 1);
  define("RC_IN_OUTBOX", 2);

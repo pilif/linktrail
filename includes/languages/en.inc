@@ -219,5 +219,13 @@ $ltrstr['cancel_friendship']        = 'Quit my friendship request to %s';
 $ltrstr['make_friendship']        = 'Request a friendship with %s';
 $ltrstr['iw_editmode']            = 'Admin: Edit this node';
 $ltrstr['iw_tour']                = 'Tour';
+$ltrstr['msg_bnc'][BOUNCE_ONCE]   = 'Mail-Message bounced';
+$ltrstr['msg_bnc'][BOUNCE_CHECK]  = $ltrstr['msg_bnc'][BOUNCE_ONCE];
+$ltrstr['msg_bnc'][BOUNCE_FAIL]   = 'Mail delivery failed for the second time.';
+
+$ltrstr['msg_bnc_l'][BOUNCE_ONCE] = 'We sent you an Email-Report that could not be delivered to you and was returned to us. Please recheck your Email-Address in your <a href="%s">profile</a>.';
+$ltrstr['msg_bnc_l'][BOUNCE_CHECK]= $ltrstr['msg_bnc_l'][BOUNCE_ONCE];
+$ltrstr['msg_bnc_l'][BOUNCE_FAIL] = 'We sent you an Email-Report that was returned to us for the second time. We will not send any further messages to you. Please enter a valid email-address in your <a href="%s">profile</a>';
+
 
 ?>
