@@ -77,6 +77,9 @@ if (preg_match('/^\/Experts\/(.+)/', $kat, $found)){
  }
 }
 page_close();
+//echo("<p>");
+/*foreach($auth->auth as $key => $value)
+ echo("$key = $value<br>"); */
 /*foreach($GLOBALS as $key => $value)
  echo("$key = $value<br>");*/
 ?>                            

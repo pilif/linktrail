@@ -472,7 +472,7 @@ class ltrLMSMessageMsg extends ltrMessage{
   
   function print_extended($val, $error=false){
    global $sess, $PHP_SELF, $ltrstr, $sess;
-   echo("Id: {$this->id}<br>");
+//   echo("Id: {$this->id}<br>");
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
    $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
