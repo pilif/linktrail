@@ -30,6 +30,8 @@ function &read_a_trail_for_you(&$nodes, $username, $userid){
  $trails = Array();
  $in_str = "";
  if (!is_array($nodes)) return $trails;
+ if (count($nodes) == 0) return $trails;
+ 
  $in_str = $nodes[0]['parent_id'];
  for($x=1; $x < count($nodes); $x++){
   $in_str .= ', '.$nodes[$x]['parent_id'];
