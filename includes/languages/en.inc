@@ -220,6 +220,4 @@ $ltrstr['make_friendship']        = 'Request a friendship with %s';
 $ltrstr['iw_editmode']            = 'Admin: Edit this node';
 $ltrstr['iw_tour']                = 'Tour';
 
-//$ltrstr['Settings']	  		      = "Settings";
-
 ?>
