@@ -482,7 +482,14 @@ if ($list){
  if(!defined("LAY_DIRECTORY_INC"))
   include("dbapi/lay_directory.inc");
   
- $tpl->set_var("LIMITBOX", print_limitbox($ci, $objs['count'], "msg."));
+ if ($objs['count'] > MSG_MAX_MSGS){
+  $tpl->set_var("LIMITBOX", print_limitbox($ci, $objs['count'], "msg.", "", MSG_MAX_MSGS));
+ }else{
+  $tpl->set_var("LIMITBOX", "");
+ }
+ 
+ $tpl->set_var("STATUS", sprintf($ltrstr['Displaying messages'], (count($objs['arr'])) ));
+ 
  foreach($selected as $key => $value){
   $str = $value ? "selected" : "";
   $tpl->set_var("SELECTED_OB_".strtoupper($key), $str);
