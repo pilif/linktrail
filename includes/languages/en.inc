@@ -15,8 +15,8 @@ $ltrstr['Add a link']             = 'Add a link';
 $ltrstr['Change Permissions']     = 'Set Permissions';
 
 $ltrstr['Create this Trail']      = '&nbsp;Create this trail&nbsp;&nbsp';
-$ltrstr['Login failed']      	  = 'Your username or password did not match. Please try again.<br><br><li> Not a member yet? <a href="/Experts/New_User">Sign up here!</a><br><li><a href="/Experts/Forgotten_Password?dologout=1">Forgot your username or password?</a><br><br>';
-$ltrstr['Error']      			  = 'Error';
+$ltrstr['Login failed']      	  = 'Your username or password did not match. Please try again.<p><table border=0><tr valign="top"><td><font face="Verdana, Arial, Helvetica, sans-serif" size=2>&#8226;</font></td><td><font face="Verdana, Arial, Helvetica, sans-serif" size=2>Not a member yet? <a href="/Experts/New_User">Sign up here!</a></font></td></tr><tr valign="top"><td><font face="Verdana, Arial, Helvetica, sans-serif" size=2>&#8226;</font></td><td><font face="Verdana, Arial, Helvetica, sans-serif" size=2><a href="/Experts/Forgotten_Password?dologout=1">Forgot your username or password?</a></font></td></tr></table><p>';
+$ltrstr['Error']      			  = 'Oops ';
 
 $ltrstr['Trail_Login'] 			  = 'Please log in to create a new trail.';
 $ltrstr['LOGIN'] 			      = 'LOGIN';

@@ -17,7 +17,7 @@ function print_loginform_trail($action_login, $current_user, $logintext, $failed
  $tpl->set_file(array("main" => "login_trail.html"));
  
  if ($failed)
-   $tpl->set_var("ERROR_STRING", '<font size=2 face="Arial, Helvetica, Sans-Serif"><font color="'.ERR_COLOR.'">'.$ltrstr['Error'].'</font> '.$ltrstr['Login failed'].'</font>');
+   $tpl->set_var("ERROR_STRING", '<font size=2 face="Verdana, Arial, Helvetica, Sans-Serif"><font color="'.ERR_COLOR.'">'.$ltrstr['Error'].'</font>'.$ltrstr['Login failed'].'</font>');
  else
    $tpl->set_var("ERROR_STRING", '');
 
