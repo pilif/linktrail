@@ -185,4 +185,12 @@ $ltrstr['Add Trail description']  = 'What is this trail all about?';
 $ltrstr['Admin Trail del']        = 'We are sorry to inform you that linktrail has removed your trail, because it violated the terms of service you accepted when registering.<p>If you have further questions, feel free to ask our <a href="mailto:support@linktrail.com">support staff</a>';
 
 $ltrstr['In Reply to']            = "<p><b>In Reply to</b>:<br> <i>%s</i>";
+$ltrstr['Displaying messages']    = "Displaying %s messages.";
+$ltrstr['lms comfirmation'][1]    = "Your reply has been sent.";
+$ltrstr['lms comfirmation'][2]    = "Message deleted.";
+$ltrstr['lms comfirmation'][3]    = "The friendship request has been accepted.";
+$ltrstr['lms comfirmation'][4]    = "The friendship request has been declined.";
+$ltrstr['lms comfirmation'][5]    = "The recommendation has been accepted. Trail subscribed.";
+$ltrstr['lms comfirmation'][6]    = "The recommendation has been declined.";
+
 ?>

@@ -100,8 +100,10 @@ class ltrStdMessageMsg extends ltrMessage{
   }
 
   function user_interaction(&$http_vars){
+   global $PHP_SELF;
    if ($http_vars['action'] == "delete")
     $this->self_destruct();
+   return build_good_url($PHP_SELF).'?ctype=2';
   }
 }
 
@@ -183,8 +185,10 @@ class ltrStdMessageUserMsg extends ltrMessage{
   }
 
   function user_interaction(&$http_vars){
+   global $PHP_SELF;
    if ($http_vars['action'] == "delete")
     $this->self_destruct();
+   return build_good_url($PHP_SELF).'?ctype=2';
   }
 }
 
@@ -257,8 +261,10 @@ class ltrAdminModificationMsg extends ltrMessage{
   
   
   function user_interaction(&$http_vars){
+   global $PHP_SELF;
    if ($http_vars['action'] == "delete")
     $this->self_destruct();
+   return build_good_url($PHP_SELF).'?ctype=2';
   }
 }
 
@@ -404,7 +410,7 @@ class ltrSuggestionMsg extends ltrMessage{
   }
   
   function user_interaction(&$http_vars){
-   global $auth;
+   global $auth, $PHP_SELF;
 
    $this->nodeinfo = get_node_info($this->data['Trail']);
    if (!$this->is_read)
@@ -413,13 +419,16 @@ class ltrSuggestionMsg extends ltrMessage{
     if (!isset($this->data['action_done'])){
      $this->data['action_done'] = AD_UNSUBSCRIBED;
      $this->update_data();
+     return build_good_url($PHP_SELF).'?ctype=6';
     }else{
      $this->self_destruct();
+     return build_good_url($PHP_SELF).'?ctype=2';
     }
    }elseif ($http_vars['action'] == "subscribe"){
     if(!defined("SUBSCRIPTOINS.INC"))
      include("dbapi/subscriptions.inc");
     subscribe($auth->auth['uname'], $this->data['Trail'], 999); //TODO: New notification-method-sheme
+    return build_good_url($PHP_SELF).'?ctype=5';
    /* $this->data['action_done'] = AD_SUBSCRIBED;
     $this->update_data(); */
    } 
@@ -531,7 +540,7 @@ class ltrLMSMessageMsg extends ltrMessage{
    global $PHP_SELF, $auth;
    if ($http_vars['action'] == "delete"){
     $this->self_destruct();
-    return "";
+    return build_good_url($PHP_SELF).'?ctype=2';
    }
    if ($http_vars['action'] == "answer"){
     if ( ($http_vars['field_subject'] == "") and ($http_vars['field_message'] == "") )
@@ -546,7 +555,7 @@ class ltrLMSMessageMsg extends ltrMessage{
     $user = $user['User_ID'];
 //    die("sende:".$this->sender);
     talk($auth->auth['uname'], $user, $http_vars['field_subject'], $http_vars['field_message'], -1, $this->data['message']);
-    return "";
+    return build_good_url($PHP_SELF).'?ctype=1';
    }
   }
   
@@ -619,7 +628,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
   }
   
   function user_interaction(&$http_vars){
-   global $auth;
+   global $auth, $PHP_SELF;
    if ($http_vars['action'] == "delete"){
     $this->self_destruct();
     if ($this->is_inbox){
@@ -631,6 +640,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
      friendship_notification($auth->auth['uname'], $auth->auth['uid'], "ignore_self", $this->sender);
      if (!$this->is_read)
       $this->set_read();
+     return build_good_url($PHP_SELF).'?ctype=4'; 
     } 
    }
    if ($http_vars['action'] == "accept"){
@@ -647,6 +657,7 @@ class ltrFriendshipRequestMsg extends ltrMessage{
     if (!$this->is_read)
      $this->set_read();
     $this->self_destruct();
+    return build_good_url($PHP_SELF).'?ctype=3';
    }
   }
   
@@ -748,8 +759,11 @@ class ltrRecommendationBroadcastMsg extends ltrMessage{
   }
   
   function user_interaction(&$http_vars){
+   global $PHP_SELF;
+   
    if ($http_vars['action'] == "delete")
     $this->self_destruct();
+   return build_good_url($PHP_SELF).'?ctype=2';
   }
 }
 

@@ -419,7 +419,7 @@ return $tpl->get("main");
 
 
 function print_my_lms($userdata, $ci=0, $order_by="d", $error="", $expand_id="", $viewtype=1, $extension=""){ 
-global $PHP_SELF, $sess, $ltrstr;
+global $PHP_SELF, $sess, $ltrstr, $HTTP_GET_VARS;
 
 if (!defined("MESSAGES_INC"))
  include("dbapi/messages.inc");
@@ -487,8 +487,11 @@ if ($list){
  }else{
   $tpl->set_var("LIMITBOX", "");
  }
- 
- $tpl->set_var("STATUS", sprintf($ltrstr['Displaying messages'], (count($objs['arr'])) ));
+ $str = "";
+ echo($HTTP_GET_VARS['ctype']);
+ if (isset($HTTP_GET_VARS['ctype']))
+  $str = $ltrstr['lms comfirmation'][$HTTP_GET_VARS['ctype']].'<br>';
+ $tpl->set_var("STATUS_LINE", $str.sprintf($ltrstr['Displaying messages'], (count($objs['arr'])) ));
  
  foreach($selected as $key => $value){
   $str = $value ? "selected" : "";
