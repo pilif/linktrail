@@ -70,6 +70,7 @@ function build_action_list($nodeinfo, $perms, $username){
    get_allowed_users($nodeinfo['id'], $friends);
   else
    $friends = Array();
+ 
   if(count($friends) > 0)
    $actions .= str_replace("[URL]",  $sess->url("/trailedit/editshare.php".build_good_url($nodeinfo['path'])), ACTION_SHARE);
 

@@ -7,7 +7,6 @@ Welcome to your linktrail report. {STATS_INTRODUCTION}
 Keep enjoying our services
 
 linktrail, Inc.
-
 -- 
 This is an automatically generated report message.
 

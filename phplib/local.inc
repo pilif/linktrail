@@ -5,7 +5,7 @@
  * Copyright (c) 1998,1999 SH Online Dienst GmbH
  *                    Boris Erdmann, Kristian Koehntopp
  *
- * $Id: local.inc,v 1.2 2000-11-20 21:21:18 pilif Exp $
+ * $Id: local.inc,v 1.3 2000-11-28 11:59:43 pilif Exp $
  *
  */ 
 
@@ -71,8 +71,7 @@ class Linktrail_User extends User {
 
 class Linktrail_Auth extends Auth { //this class uses default_authentication.
   var $classname      = "Linktrail_Auth";
-
-  var $lifetime       =  30;
+  var $lifetime       =  60;
 
   var $database_class = "DB_Linktrail";
   var $database_table = "auth_user";
@@ -80,8 +79,6 @@ class Linktrail_Auth extends Auth { //this class uses default_authentication.
 
 function logout_done(){
  global $glob_userdata, $sess, $HTTP_COOKIE_VARS;
-// die("logout_done");
-  //echo("logout_done<br>");
  $glob_userdata = "";
  $sess->unregister("glob_userdata");
 } 
@@ -100,12 +97,6 @@ function login_done(){
  $glob_immp = $glob_userdata['MypageAfterLogon'];
  $sess->register("glob_immp");
  update_logon_date($this->auth['uid']);
- 
-// page_close();
-// if ($REQUEST_METHOD == "POST"){
-//  Header("Location: $PHP_SELF");
-//  exit;
-// } 
 }
   
  function auth_preauth(){

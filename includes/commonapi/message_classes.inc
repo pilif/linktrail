@@ -240,7 +240,7 @@ class ltrAdminModificationMsg extends ltrMessage{
   }
   
   function print_extended($val){
-   global $ltrstr, $PHP_SELF, $sess;
+   global $ltrstr, $PHP_SELF, $sess, $glob_userdata;
    $this->set_read();
 
    $dh = friendlydate($this->dat);
@@ -261,7 +261,7 @@ class ltrAdminModificationMsg extends ltrMessage{
    }else{
     $tpl->set_var("TRAIL", "");
     $tpl->set_var("TEXT", $ltrstr['msg_bnc'][$this->data['bounce_type']]);
-    $tpl->set_var("EXTENDED_INFORMATION", sprintf($ltrstr['msg_bnc_l'][$this->data['bounce_type']], $sess->url(build_good_url('/Experts/'.$this->to_name.'/Settings/Profile')) ));
+    $tpl->set_var("EXTENDED_INFORMATION", sprintf($ltrstr['msg_bnc_l'][$this->data['bounce_type']], $this->data['email'], $sess->url(build_good_url('/Experts/'.$this->to_name.'/Settings/Profile')) ));
    }  
      
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
