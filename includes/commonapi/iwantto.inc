@@ -178,7 +178,7 @@
   $str .= (($method == "Profile")) ? print_iwantto_item_ex($ltrstr['Profile']) : print_iwantto_item_ex($ltrstr['Profile'], "", 'Profile');
   $str .= ($method == "Password") ? print_iwantto_item_ex($ltrstr['Security Preferences']) : print_iwantto_item_ex($ltrstr['Security Preferences'], "", 'Password');
   $str .= ($method == "Preferences") ? print_iwantto_item_ex($ltrstr['Preferences']) : print_iwantto_item_ex($ltrstr['Preferences'], "", 'Preferences');
-  $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url(build_good_url($kat).'?dologout=1'));
+  $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_logout'], $auth->auth['uname']), "", $sess->url('/Experts/'.$expert.'?dologout=1'));
   return $str;
  }
 
