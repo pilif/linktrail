@@ -73,9 +73,9 @@
    $this->target  = $dataset['Target'];
    $this->is_read = $dataset['Done'] == 'y';
    $this->rc      = $dataset['ReferenceCount'];
-   $this->to_name = $dataset['to_name'];
+   $this->to_name = isset($dataset['to_name']) ? $dataset['to_name'] : "";
    $this->data    = unserialize($dataset['Data']);
-   $this->is_inbox= ($dataset['inbox'] == "1"); //I use this for encapsulated reference-counted self destruction
+   $this->is_inbox= (isset($dataset['inbox']) and ($dataset['inbox'] == "1")); //I use this for encapsulated reference-counted self destruction
    //die(sprintf("Test: %s (%d)", $dataset['inbox'], $this->is_inbox));
   }
   
