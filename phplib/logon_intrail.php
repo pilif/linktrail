@@ -20,7 +20,6 @@ if (!is_array($mytrail)){
  $mytrail = get_node_info($PATH_INFO);
 }
 
-echo("in trail ist: $in_trail");
 
 if ($in_trail == 1){ 
  //die(class_exists("Template"));
