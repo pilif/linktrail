@@ -132,7 +132,7 @@
   $method = $found[2];
   $str = "";
 
-  if (($expert != $auth->auth['uname']) and ($expert != "New_User") ){
+  if (($expert != $auth->auth['uname']) and ($expert != "New_User") and ($expert != "Forgotten_Password") ){
    $str .=  print_iwantto_item_ex(sprintf($ltrstr['Contact the author'], $expert), "", $sess->url(build_good_url('/Experts/'.$expert.'/Send_Message')));
   }
 
