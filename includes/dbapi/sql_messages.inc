@@ -101,7 +101,7 @@ AND ((
 
 define("SQL_DEL_REQUESTS", "DELETE FROM ltrMessages WHERE Message_ID IN (#I)");
 
-define("SQL_UPDATE_RC","
- UPDATE ltrMessages Set ReferenceCount = #I WHERE Message_ID = #I
-");
+define("SQL_UPDATE_RC","UPDATE ltrMessages Set ReferenceCount = #I WHERE Message_ID = #I");
+
+define("SQL_UPDATE_DATA", "UPDATE ltrMessages SET Data = #S WHERE Message_ID = #I");
 ?>

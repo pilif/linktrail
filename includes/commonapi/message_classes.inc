@@ -21,6 +21,10 @@ global $myDB;
   include("dbapi/sql_strs.inc");
   include("dbapi/sql_util.inc");
  }
+
+define("AD_SUBSCRIBED", 1);
+define("AD_UNSUBSCRIBED", 2);
+
  
 $message_functions[LTMSG_TRAILDEL] = "admin_modification";
 $message_functions[LTMSG_TRAILMOV] = "admin_modification";
@@ -277,9 +281,26 @@ class ltrSuggestionMsg extends ltrMessage{
   function ltrSuggestionMsg($dataset){
    $this->ltrMessage($dataset);
   }
-
+  
+  function get_new_rec_flag(){
+   global $auth;
+   if(!defined("SUBSCRIPTIONS_INC"))
+    include("dbapi/subscriptions.inc");
+   
+   $res = 0;
+   $nm = get_notification_method($auth->auth['uname'], $this->data['Trail']);
+   if ($nm != -1){
+    $res = AD_SUBSCRIBED;
+   }else{
+    $res = AD_UNSUBSCRIBED;
+   }
+   return $res;
+  }
+  
+  
+  
   function print_simple($val){
-   global $sess, $glob_userdata, $auth, $ltrstr;
+   global $sess, $glob_userdata, $auth, $ltrstr, $PHP_SELF;
 
    $this->nodeinfo = get_node_info($this->data['Trail']);
    $trailpath = $this->nodeinfo['path'];
@@ -288,19 +309,15 @@ class ltrSuggestionMsg extends ltrMessage{
    $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
    
    if ($this->is_inbox){
-    if(!defined("SUBSCRIPTIONS_INC"))
-     include("dbapi/subscriptions.inc");
     $tpl->set_file(array("simple" => "recommendation.html"));
     $user = $this->sender;
-    $nm = get_notification_method($auth->auth['uname'], $this->data['Trail']);
-    $subscribed = ($nm != -1);
-    $verb = ($subscribed) ? $ltrstr['recommended'] : $ltrstr['recommends'];
+    $verb = $ltrstr['recommends'];
     $tpl->set_var("VERB", $verb);
     $b['begin'] = (!$this->is_read) ? '<b>'  : "";
     $b['end']   = (!$this->is_read) ? '</b>' : "";
     $tpl->set_var("BOLD_BEGIN", $b['begin']);
     $tpl->set_var("BOLD_END",   $b['end']);
-    $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], false, $subscribed));
+    $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], false, true));
    }else{
     $tpl->set_file(array("simple" => "recommendation_out.html"));
     $user = $this->to_name;
@@ -341,9 +358,15 @@ class ltrSuggestionMsg extends ltrMessage{
    if(!defined("SUBSCRIPTIONS_INC"))
     include("dbapi/subscriptions.inc");   
 
-   $nm = get_notification_method($auth->auth['uname'], $this->data['Trail']);
-   $subscribed = ($nm != -1);
-   $verb = ($subscribed) ? $ltrstr['recommended'] : $ltrstr['recommends'];
+   $flag = $this->get_new_rec_flag();
+   if ((isset($this->data['action_done'])) and ($flag != $this->data['action_done'])){
+    $this->data['action_done'] = $flag;
+    $this->update_data();
+   }elseif((!isset($this->data['action_done'])) and ($flag == AD_SUBSCRIBED)){
+    $this->data['action_done'] = $flag;
+    $this->update_data();
+   }
+   $verb = $ltrstr['recommends'];
    $tpl->set_var("VERB", $verb);
    
    $tpl->set_var("TRAILURL", $sess->url(build_good_url($trailpath)));
@@ -353,24 +376,46 @@ class ltrSuggestionMsg extends ltrMessage{
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
    $tpl->set_var("DATE", $d);
-   $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], true, $subscribed));
+   $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], true, false));
    $tpl->set_var("USER_MESSAGE", nl2br(longwrap($this->data['message'])));
-   $str = (!$subscribed) ? sprintf($ltrstr['acceptnote'], build_good_url($PHP_SELF)."?objectid=".$this->id."&action=subscribe&viewtype=0") : "";
+   
+   if (!isset($this->data['action_done'])){ //recommendation still valid
+     $str = sprintf($ltrstr['acceptnote'], build_good_url($PHP_SELF)."?objectid=".$this->id."&action=subscribe&viewtype=0");
+   }elseif($this->data['action_done'] == AD_SUBSCRIBED){
+     $str = $ltrstr['acceptednote'];
+   }else{
+     $str = $ltrstr['declinednote'];
+   }
+   
+//   $str = (!$subscribed) ?  : "";
    $tpl->set_var("ACCEPTNOTE",  $str);
    $tpl->parse("main", "extended");
    return $tpl->get("main");
   }
   
   
-  function print_option_list($trail_id, $open, $subscribed){
+  function print_option_list($trail_id, $open, $do_db=true){
    global $auth, $ltrstr, $PHP_SELF;
 
+   if ($do_db){
+    $flag = $this->get_new_rec_flag();
+   if ((isset($this->data['action_done'])) and ($flag != $this->data['action_done'])){
+     $this->data['action_done'] = $flag;
+     $this->update_data();
+    }elseif((!isset($this->data['action_done'])) and ($flag == AD_SUBSCRIBED)){
+     $this->data['action_done'] = $flag;
+     $this->update_data();
+    }
+   }
+    
+   $done = (isset($this->data['action_done']));
+   
    if ($open)
     $str = sprintf($ltrstr['close_link'], build_good_url($PHP_SELF)).' | ';
    else
     $str = sprintf($ltrstr['read_link'], build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1").' | ';
     
-   if ( $subscribed){
+   if ($done){
     $str .= sprintf($ltrstr['delete_link'], build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
    }else{
     $str .= sprintf($ltrstr['subscribe_link'], build_good_url($PHP_SELF)."?objectid=".$this->id."&action=subscribe&viewtype=0").' | ';
@@ -383,13 +428,21 @@ class ltrSuggestionMsg extends ltrMessage{
    global $auth;
 
    $this->nodeinfo = get_node_info($this->data['Trail']);
-   
+   if (!$this->is_read)
+    $this->set_read();
    if ($http_vars['action'] == "delete"){
-    $this->self_destruct();
+    if (!isset($this->data['action_done'])){
+     $this->data['action_done'] = AD_UNSUBSCRIBED;
+     $this->update_data();
+    }else{
+     $this->self_destruct();
+    }
    }elseif ($http_vars['action'] == "subscribe"){
     if(!defined("SUBSCRIPTOINS.INC"))
      include("dbapi/subscriptions.inc");
     subscribe($auth->auth['uname'], $this->data['Trail'], 999); //TODO: New notification-method-sheme
+   /* $this->data['action_done'] = AD_SUBSCRIBED;
+    $this->update_data(); */
    } 
   }
 }
@@ -597,6 +650,8 @@ class ltrFriendshipRequestMsg extends ltrMessage{
      $user = $user['User_ID']; 
      friendship_notification($auth->auth['uname'], $user, "ignore");
      friendship_notification($auth->auth['uname'], $auth->auth['uid'], "ignore_self", $this->sender);
+     if (!$this->is_read)
+      $this->set_read();
     } 
    }
    if ($http_vars['action'] == "accept"){
@@ -610,6 +665,8 @@ class ltrFriendshipRequestMsg extends ltrMessage{
     create_friendship($user, $this->target);
     friendship_notification($auth->auth['uname'], $user, "accepted");
     friendship_notification($auth->auth['uname'], $auth->auth['uid'], "accepted_self", $this->sender);
+    if (!$this->is_read)
+     $this->set_read();
     $this->self_destruct();
    }
   }

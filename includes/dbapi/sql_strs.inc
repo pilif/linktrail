@@ -196,6 +196,8 @@ AND
  lookup_name.username IN (#I)
 AND
  ltrMessages.MessageType = 1008
+AND
+ ((ltrMessages.ReferenceCount & 1) != 0)
 ");
 
 define("SQL_LOCK", "LOCK TABLES #I WRITE"); //#S would add '

@@ -116,6 +116,13 @@
    $query = FormatSQL(SET_DONE, array('y', $this->id));
    $myDB->query($query);
   }
+  
+  function update_data(){
+   global $myDB;
+   $query = FormatSQL(SQL_UPDATE_DATA, array(addslashes(serialize($this->data)), $this->id));
+//   die("<pre>$query</pre>");
+   $myDB->query($query);
+  }
  }
  
  
@@ -141,13 +148,12 @@ function &read_messages_ex($userval, $inbox=true, $current_index=0, $ordertext="
   $query = FormatSQL(GET_MESSAGES_EX, array($userval, $ordertext, $current_index));
  else
   $query = FormatSQL(GET_MESSAGES_EX_UL, array($userval, $ordertext));
-// die($query);
  if (!$myDB->query($query)) return $object_array; 
  if ($myDB->num_rows() == 0) return $object_array;
  while($myDB->next_record()){
   $object_array[] = create_message_object($myDB->Record); //still not more portable than in the above
  }                                                        //now obsolete function...
- $count = count_max_messages($userval);
+ $count = count_max_messages($userval, $inbox);
  
  $hsh['arr']   = &$object_array;
  $hsh['count'] = $count;
@@ -167,7 +173,6 @@ function count_max_messages($userval, $inbox=true){
  }
   
  $query = FormatSQL(COUNT_RESULTS_MSG, array($userval));
-
  if (!$myDB->query($query)) return 0;
  $myDB->next_record();
  return $myDB->f("cnt"); 

@@ -145,8 +145,11 @@ $ltrstr['delete_link']            = '<a href="%s">delete</a>';
 $ltrstr['close_link']             = '<a href="%s">close</a>';
 $ltrstr['read_link']              = '<a href="%s">read</a>';
 $ltrstr['acceptnote']             = '<i>Click <a href="%s">subscribe</a> to accept this recommendation and to list this trail on your Mypage.</i>';
-$ltrstr['recommends']             = "<b>recommends</b>";
-$ltrstr['recommended']            = "<b>recommended</b>";
+$ltrstr['acceptednote']           = '<i>You have accepted this recommendation and subscribed this trail.</i>';
+$ltrstr['declinednote']           = '<i>You have declined this recommendation.</i>';
+
+$ltrstr['recommends']             = "recommends";
+$ltrstr['recommended']            = "recommended";
 
 $ltrstr['terminated friendship']  = "has quit his friendship with you";
 $ltrstr['ignored friendship']     = "has rejected your friendship request";
@@ -181,5 +184,5 @@ $ltrstr['Add Trail title']        = 'Enter a title for this trail:';
 $ltrstr['Add Trail description']  = 'What is this trail all about?';
 $ltrstr['Admin Trail del']        = 'We are sorry to inform you that linktrail has removed your trail, because it violated the terms of service you accepted when registering.<p>If you have further questions, feel free to ask our <a href="mailto:support@linktrail.com">support staff</a>';
 
-$ltrstr['In Reply to']            = "<p><b>In Reply to</b>: <i>%s</i>";
+$ltrstr['In Reply to']            = "<p><b>In Reply to</b>:<br> <i>%s</i>";
 ?>
