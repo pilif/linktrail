@@ -5,7 +5,7 @@
  * Copyright (c) 1998,1999 SH Online Dienst GmbH
  *                    Boris Erdmann, Kristian Koehntopp
  *
- * $Id: local.inc,v 1.4 2000-12-04 22:13:51 pilif Exp $
+ * $Id: local.inc,v 1.5 2001-11-07 22:04:33 pilif Exp $
  *
  */ 
 
@@ -103,9 +103,10 @@ function login_done(){
    global $sess, $REQUEST_METHOD, $HTTP_POST_VARS;
    if ( ($REQUEST_METHOD == "POST") and ($HTTP_POST_VARS['libaction'] == "directlogin") ){
     $id = $this->auth_validatelogin();
-    if ($id)
+    if ($id){
       return $id;
-    else
+      $this->login_done();
+    }else
       $this->auth["uname"] = "";
    }
   }
