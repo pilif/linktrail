@@ -142,14 +142,15 @@ function parse_results($content, $req_type, $restriction){
 }
 
 function execute_query($formated_query, $session_id, $current_index, $type="c", $restriction="/", $count=""){
+ global $sess;
  if ($count == "")
  $count = ($type == "c") ? DIR_MAX_SEARCH : TRAIL_MAX_SEARCH;
 // die(SEARCH_HOST." ".SEARCH_PORT);
  $fp = fsockopen(SEARCH_HOST, SEARCH_PORT);
  if (!$fp)
   error("Connection Error", "Could not connect to search-server<br>\n", __LINE__-1, __FILE__);
- $sFormattedSearch = make_query($formated_query, $sessid, $type, $current_index, $count, $restriction);
-// die($sFormattedSearch);
+ $sFormattedSearch = make_query($formated_query, $sess->id, $type, $current_index, $count, $restriction);
+  //echo("Sent: $sFormattedSearch<br>");
  $iResult = fputs ($fp, $sFormattedSearch);
  $header_done = false;
  while (!feof($fp)) {

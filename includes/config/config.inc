@@ -13,7 +13,7 @@ define("DB_USER",     "root");
 define("DB_PASS",     "oelberg");
 
 define("SEARCH_HOST", "troll.linktrail.work");
-define("SEARCH_PORT", 7777);
+define("SEARCH_PORT", 7778);
 
 define("CACHE_DIR", APPLICATION_HOME.'/cache');
 
