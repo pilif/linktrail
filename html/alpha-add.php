@@ -117,11 +117,13 @@ function do_action(){
  
  add_account();
  
- send_welcome_mail($HTTP_POST_VARS['nachname'], 
-                   $HTTP_POST_VARS['vorname'], 
-                   $HTTP_POST_VARS['email'], 
-                   $HTTP_POST_VARS['username'],
-                   $HTTP_POST_VARS['passwort']);
+ if (isset($HTTP_POST_VARS['do_send_mail'])){
+  send_welcome_mail($HTTP_POST_VARS['nachname'], 
+                    $HTTP_POST_VARS['vorname'], 
+                    $HTTP_POST_VARS['email'], 
+                    $HTTP_POST_VARS['username'],
+                    $HTTP_POST_VARS['passwort']);
+ }	    
 }
 
 function add_account(){
@@ -228,6 +230,9 @@ Vorgeschlagene Passwörter:
   <tr>
    <td><b>Passwort</b></td>
    <td><input type="text" name="passwort" size="25" maxlength="80"></td>
+  </tr>
+  <tr>
+   <td colspan="2"><input type="checkbox" name="do_send_mail" value="on" id="1"><label for="1">Send email</label></td>
   </tr>
   <tr>
    <td colspan="2"><p>&nbsp;<center><input type="submit" name="submit"></center></td>
