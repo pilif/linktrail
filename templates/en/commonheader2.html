@@ -1,15 +1,15 @@
 <?php 
  global $HTTP_GET_VARS, $sess;
  $url = (is_trail($PHP_SELF)) ? $PHP_SELF."/" : $PHP_SELF;
- if (ereg('\.php', $PHP_SELF))
+ if (ereg('\.php', $PHP_SELF)){
   $search_url = "/Search";
   $adv_search_url = "/Advanced_Search";
- else{
+ }else{
   $search_url = (ereg('Search/$', $url)) ? $url : $url.'Search/';
   $search_url = substr($search_url, 0, strlen($search_url)-1); //remove trailing /
 
   $adv_search_url = (ereg('Advanced_Search/$', $url)) ? $url : $url.'Advanced_Search/';
-  $adv_search_url = substr($search_url, 0, strlen($search_url)-1); //remove trailing /
+  $adv_search_url = substr($adv_search_url, 0, strlen($adv_search_url)-1); //remove trailing /
  }
  global $glob_userdata, $randval; 
  if (is_array($glob_userdata)){
