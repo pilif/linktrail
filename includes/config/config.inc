@@ -28,7 +28,7 @@ define("SUBCOLCOUNT", 2);
 //if $all is false?
 define("DIR_MAX_TRAILS", 15);
 
-define("MSG_MAX_MSGS", 15);
+define("MSG_MAX_MSGS", 18);
 
 
 define("DIR_MAX_NEWTRAILS", 5);
