@@ -14,19 +14,6 @@ WHERE
 ORDER BY Date DESC
 LIMIT #I,".MSG_MAX_MSGS);
 
-define("GET_REPORT", "
-SELECT 
- *
-FROM
- ltrMessages
-WHERE 
- Urgency = 'r'
-AND
- Target = #S
-AND
- Date <= #S
-ORDER BY Date DESC");
-
 define("DELETE_MESSAGE", "
  DELETE FROM 
   ltrMessages
@@ -44,9 +31,9 @@ define("DELETE_BY_DATE", "
 define("SEND_MESSAGE", "
  INSERT INTO
   ltrMessages
-  (Target, MessageType, Sender, Date, Urgency, Done, Data, Trail)
+  (Target, MessageType, Sender, Date, Done, Data, ReferenceCount)
  VALUES
-  (#S, #I, #S, NOW(), #S, 'n', #S, #I)");
+  (#S, #I, #S, NOW(), 'n', #S, #I)");
 
 define("SET_DONE", "
  UPDATE 
@@ -58,9 +45,10 @@ define("SET_DONE", "
   
 define("GET_ONE_MESSAGE","
  SELECT
-  *
+   *, #I as inbox, auth_user.username as to_name 
  FROM
   ltrMessages
+ LEFT JOIN auth_user ON ltrMessages.Target = auth_user.user_id
  WHERE
   Message_ID = #I");  
 
@@ -75,30 +63,11 @@ AND
  Target = #S
 AND
  MessageType IN (1001, 1002, 1003, 1008, 1009, 1011, 1012, 1014, 1015, 1016, 1017, 1018, 1019, 1021) 
+AND 
+ ( ((ReferenceCount & 1) != 0) )
 ");
 
-define("MSG_READ_CHILD","
-SELECT
- *
-FROM
- ltrMessages
-WHERE
- Target = #S
-AND
- Trail = #I
-AND
- Message_ID != #I 
-ORDER BY
- Date DESC");
 
-define("MSG_KILL_CHILDREN","
-DELETE FROM
- ltrMessages
-WHERE
- Target = #S
-AND
- Trail = #I ");
- 
 define("SQL_UPDATE_READ", "
 UPDATE
  ltrUserData
@@ -131,4 +100,8 @@ AND ((
 ");
 
 define("SQL_DEL_REQUESTS", "DELETE FROM ltrMessages WHERE Message_ID IN (#I)");
+
+define("SQL_UPDATE_RC","
+ UPDATE ltrMessages Set ReferenceCount = #I WHERE Message_ID = #I
+");
 ?>

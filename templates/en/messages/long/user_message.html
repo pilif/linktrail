@@ -16,22 +16,5 @@
                {TRAILINFO}
                </font><p></td>
 			 </tr>
-			 <tr bgcolor="{COLOR}">
-		      <td>&nbsp;</td>
-		      <td>&nbsp;</td>
-			  <td colspan=3>
-			   <font size="1" face="verdana, arial, helvetica">
-               {ERRORSTRING}
-			   <b>Reply to this message:</b><br>
-			   <form action="{ACTION}" method="POST" target="_self">
-               <input type="hidden" name="action" value="answer">
-               <input type="hidden" name="objectid" value="{MYID}">
-			   <b>Subject</b><br>
-			   <input type="text" name="field_subject" size=26 value="{VALUE_SUBJECT}">{WARN_SUBJECT}<p>
-			   <b>Message</b><br>
-			   <textarea name="field_message" wrap="virtual" rows="4" cols=26></textarea><br><br></font>
-			   <input type="submit" name="send" value="Send message">
-			   </form>
-			   </font><p>
-              </td>
-			 </tr>
+              {FORM}
+

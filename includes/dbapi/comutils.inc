@@ -423,7 +423,7 @@ function path2id_ex($path, $requested_language){
  
 function id2path($id){
   global $myDB;
-  if (!is_integer($id)) return -1;
+  if (intval($id) != $id) return -1;
   $query = FormatSQL(SQL_ID2PATH, array($id));
   //die("Friendly: $friendly; parent: $parent<p>$query"); 
   $myDB->query($query);

@@ -35,7 +35,7 @@ if (!defined("COMMON_USER_INC"))
  
 list($leer, $expert, $method, $extension) = split('/', $PATH_INFO);
 
-$virt_dir = Array("Settings");
+$virt_dir = Array("Settings", "Messages");
 
 if ($expert == "")
  error("Unknown Expert", "The given Expert is not known. PLease do not call this file directely", __LINE__, __FILE__);
@@ -102,6 +102,7 @@ if (!(isset($HTTP_GET_VARS['viewtype']) and ($HTTP_GET_VARS['viewtype'] == "0"))
 switch ($method) {
 
      case "Messages":
+         if ($extension == "") $extension = "Inbox";
          if (!isset($viewdata_messages)){
           $viewdata_messages['ci'] =   0;
           $viewdata_messages['ob'] = 'd';
@@ -116,19 +117,39 @@ switch ($method) {
           $viewdata_messages['ob'] = ($HTTP_GET_VARS['ob'] == "") ? 'd' : $HTTP_GET_VARS['ob'];
          }
          if (isset($HTTP_GET_VARS['viewtype']) and ($HTTP_GET_VARS['viewtype'] == "0")){
-          do_mor($userdata, $HTTP_GET_VARS);
+          do_mor($userdata, $HTTP_GET_VARS, ($extension == "Inbox"));
          }elseif (isset($HTTP_GET_VARS['viewtype']) and ($HTTP_GET_VARS['viewtype'] != "0")){
-          $tpl->set_var("EDITFORM", print_my_lms($userdata, $viewdata_messages['ci'], $viewdata_messages['ob'], $senderror, $HTTP_GET_VARS['objectid'], $HTTP_GET_VARS['viewtype']));
+          $tpl->set_var("EDITFORM", print_my_lms($userdata, $viewdata_messages['ci'], $viewdata_messages['ob'], $senderror, $HTTP_GET_VARS['objectid'], $HTTP_GET_VARS['viewtype'], $extension));
          }else{
-          $tpl->set_var("EDITFORM", print_my_lms($userdata, $viewdata_messages['ci'], $viewdata_messages['ob'], $senderror));
+          $tpl->set_var("EDITFORM", print_my_lms($userdata, $viewdata_messages['ci'], $viewdata_messages['ob'], $senderror, "", 1, $extension));
          }
+         $subnav = Array();
+         $subnav[0] = array( "title" => $ltrstr['Inbox'], "url" => "Inbox" );
+         $subnav[1] = array( "title" => $ltrstr['Outbox'], "url" => "Outbox" );
+         $subnav[2] = array( "title" => $ltrstr['Composer'], "url" => "Composer" );
+         switch ($extension) {
+            case "Inbox":
+                $idx=0;
+                break;
+            case "Outbox":
+                $idx=1;
+                break;
+            case "Composer":
+                $idx=2;
+                break;
+            default: 
+                $idx=-1;    
+         }
+         $tpl->set_var("SUBNAV", print_mypage_subnav($ltrstr['MESSAGES'], $subnav, $idx));
          update_read_stamp($userdata['User_ID']);
          break;
      case "Send_Message":
          $tpl->set_var("EDITFORM", print_message_send_form($userdata['Username'], $ssenderror));
+         $tpl->set_var("SUBNAV", "");
          break;
      case "Make_friendship":
          $tpl->set_var("EDITFORM", print_make_friendship($userdata['Username']));
+         $tpl->set_var("SUBNAV", "");
          break;
      case "Settings":
          //die("Ext: ".$extension);
@@ -167,7 +188,7 @@ include("commonfooter2.html");
 //This is a small functoin that is build similar to the above display_form.
 //It distinguishes, what has changed and calls an appropriate function
 function do_changes(){
- global $sess, $HTTP_POST_VARS;
+ global $sess, $HTTP_POST_VARS, $extension;
  
  global $method, $expert;
 
@@ -187,7 +208,7 @@ function do_changes(){
      case "Messages":
          $userdata = get_user_from_name($expert);
          if (isset($HTTP_POST_VARS['objectid']))
-          do_mor($userdata, $HTTP_POST_VARS); //the Form of a message-object was called. messageobjectrequest handles this
+          do_mor($userdata, $HTTP_POST_VARS, ($extension == "Inbox")); //the Form of a message-object was called. messageobjectrequest handles this
          else
           do_send_message($userdata);
          $back_to_mypage = false;
@@ -320,8 +341,8 @@ if ($error != 0){
 
 }
 
-function do_mor($userdata, &$http_vars){
- global $sess, $SERVER_NAME;
+function do_mor($userdata, &$http_vars, $in){
+ global $sess, $SERVER_NAME, $extension;
  
  if(!defined("MESSAGES_INC"))
   include("dbapi/messages.inc");
@@ -332,28 +353,28 @@ function do_mor($userdata, &$http_vars){
   exit;
  }
  
- $msg = read_one_message($http_vars['objectid']);
+ $msg = read_one_message($http_vars['objectid'], $in);
  if (!is_object($msg)){
   page_close();
-  Header($sess->url(build_good_url("/Experts/".$userdata['Username']."/Messages")));
+  Header("Location: ".$sess->url(build_good_url("/Experts/".$userdata['Username']."/Messages")));
   exit;
  }
  
- if ($msg->get_target() != $userdata['User_ID']){
+ if ( (($msg->get_target() != $userdata['User_ID']) and ($msg->is_inbox)) and (($msg->sender != $userdata['Username']) and (!$msg->is_inbox))){
   /* 
    Some script-kiddie just noticed the message-id in the URI and tried to 
    enter the ID of a message that was not sent to you. I'm just laughing and
    redirecting the funny guy back...
   */
   page_close();
-  Header($sess->url(build_good_url("/Experts/".$userdata['Username']."/Messages")));
+  Header("Location: ".$sess->url(build_good_url("/Experts/".$userdata['Username']."/Messages")));
   exit;
  }
 
  $str = "";
  $str = $msg->user_interaction($http_vars);
  if ($str == "")
-  $str = $sess->url(build_good_url("/Experts/".$userdata['Username']."/Messages")."?t=2");
+  $str = $sess->url(build_good_url("/Experts/".$userdata['Username']."/Messages/$extension")."?t=2");
 // page_close();
 // echo("aa");
 header("Location: ".$str);

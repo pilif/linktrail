@@ -14,10 +14,10 @@ function send_notification($traildata, $sender, $type, $ownersend=false){
  $data_array['Trail'] = $traildata['id'];
  $data_array['Title'] = friendlyname($traildata['path']);
  if ($ownersend) //sometimes a message to the owner does not make sense... (when he deletes his own trail for exemple)
-  send_message($sender, $traildata['userid'], $type, LTMSG_URGENCY_STORE, $data_array); //TODO: After the DB changed: Read the correct urgency
+  send_message($sender, $traildata['userid'], $type, $data_array); //TODO: After the DB changed: Read the correct urgency
  $subs = get_subscribers($traildata['id']);
  for($x=0; $x < count($subs); $x++){
-  send_message($sender, $subs[$x]['userid'], $type, LTMSG_URGENCY_STORE, $data_array); //TODO: After the DB changed: Read the correct urgency
+  send_message($sender, $subs[$x]['userid'], $type, $data_array); //TODO: After the DB changed: Read the correct urgency
  }
 }
 
@@ -30,10 +30,10 @@ function send_link_notification($traildata, $linkdata, $sender, $type, $ownersen
  $data_array['Title'] = friendlyname($traildata['path']);
  
  if ($ownersend) //sometimes a message to the owner does not make sense... (when he deletes his own trail for exemple)
-  send_message($sender, $traildata['userid'], $type, LTMSG_URGENCY_STORE, $data_array, $traildata['id']); //TODO: After the DB changed: Read the correct urgency
+  send_message($sender, $traildata['userid'], $type, $data_array, $traildata['id']); //TODO: After the DB changed: Read the correct urgency
  $subs = get_subscribers($traildata['id']);
  for($x=0; $x < count($subs); $x++){
-  send_message($sender, $subs[$x]['userid'], $type, LTMSG_URGENCY_STORE, $data_array, $traildata['id']); //TODO: After the DB changed: Read the correct urgency
+  send_message($sender, $subs[$x]['userid'], $type, $data_array, $traildata['id']); //TODO: After the DB changed: Read the correct urgency
  }
 }
 
@@ -45,10 +45,10 @@ function send_link_admin_move_notification($traildata, $newname, $reason=0){
  $data_array['Reason']  = $reason; //TODO: Find good reasons...
  $data_array['Title'] = friendlyname($traildata['path']);
  
- send_message('-1', $traildata['userid'], LTMSG_TRAILMOV, LTMSG_URGENCY_URGENT, $data_array);
+ send_message('-1', $traildata['userid'], LTMSG_TRAILMOV, $data_array);
  $subs = get_subscribers($traildata['id']);
  for($x=0; $x < count($subs); $x++){
-  send_message('-1', $subs[$x]['userid'], LTMSG_TRAILMOV, LTMSG_URGENCY_STORE, $data_array);
+  send_message('-1', $subs[$x]['userid'], LTMSG_TRAILMOV, $data_array);
  }
 }
 
@@ -61,7 +61,7 @@ function send_move_notification($sender, $traildata, $newname){
  $subs = get_subscribers($traildata['id']);
 
  for($x=0; $x < count($subs); $x++){
-  send_message($sender, $subs[$x]['userid'], LTMSG_TRAILMOV, LTMSG_URGENCY_STORE, $data_array);
+  send_message($sender, $subs[$x]['userid'], LTMSG_TRAILMOV, $data_array);
  }
 }
 
@@ -74,6 +74,6 @@ function send_admin_notification($traildata, $type, $reason=0){
  $data_array['Reason'] = $reason;
  $data_array['Title']  = friendlyname($traildata['path']);
  
- send_message('-1', $traildata['userid'], $type, LTMSG_URGENCY_URGENT, $data_array); //TODO: After the DB changed: Read the correct urgency
+ send_message('-1', $traildata['userid'], $type, $data_array); //TODO: After the DB changed: Read the correct urgency
 }
 ?>

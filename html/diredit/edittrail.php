@@ -183,9 +183,7 @@ function del($id, $act_as_admin = false){
 
  if ($act_as_admin)
   send_admin_notification($mytrail, LTMSG_TRAILDEL); //TODO: add reason
- else{ //will not send message if user kicks his own trail
-  send_notification($mytrail, $auth->auth['uname'], LTMSG_TRAILDEL, !($auth->auth['uid'] == $mytrail['owner']));
- }
+ 
  include("directory/edit/del-confirmation.html");
 }
 

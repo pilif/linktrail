@@ -35,9 +35,9 @@ FROM
 LEFT JOIN
  auth_user ON auth_user.username = ltrMessages.Sender
 WHERE(  
- ( Target = #S AND auth_user.user_id = #S )
+ ( (Target = #S AND auth_user.user_id = #S) AND ((ReferenceCount & 1) != 0 ) )
 OR
- ( Target = #S AND auth_user.user_id = #S )
+ ( (Target = #S AND auth_user.user_id = #S) AND ((ReferenceCount & 1) != 0 ) )
 )AND
  MessageType = 1011 
 AND 
@@ -52,7 +52,7 @@ FROM
 LEFT JOIN
  auth_user ON auth_user.username = ltrMessages.Sender
 WHERE
- Target = #S
+ ((Target = #S) and ((ReferenceCount & 1) != 0 ))
 AND
  MessageType = 1011
 ");
@@ -65,7 +65,7 @@ FROM
 LEFT JOIN
  auth_user AS tblNAMES ON ltrMessages.Target = tblNAMES.user_id 
 WHERE
- (Sender = auth_user.username AND auth_user.user_id = #S)
+ (Sender = auth_user.username AND auth_user.user_id = #S) and ((ReferenceCount & 1) != 0 )
 AND
  MessageType = 1011
 ");

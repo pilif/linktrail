@@ -1,25 +1,8 @@
-<script language="JavaScript">
- <!--
-  function set_textfield(){
-   if (document.msgform.field_friend.selectedIndex != 0)
-    document.msgform.field_username.value = "";
-  }
-  
-  function set_dropdown(){
-   if (document.msgform.field_username.value != "" )    
-    document.msgform.field_friend.selectedIndex = 0;
-  }
- //-->
-</script>      
-      
-
-
-	   
 	  <a name="messages"></a>
       <table width="420" border="0" cellspacing="0" cellpadding="2" bgcolor="#DCDCDC">
         <tr> 
           <form name="sortform" action="{SORTACTION}">
-         <td><font  face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s inbox</b></font></td>
+         <td><font  face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s {PAGENAME}</b></font></td>
          <td align="right" class="actionTable"><font size="1" face="verdana, arial, helvetica">sort by:&nbsp;</font><select name="ob" size="1" style="font-size: 11px; font-family: Verdana, Helvetica, Arial, sans-serif;" tabindex="4" onChange="document.sortform.submit();">
             <option value="o"{SELECTED_OB_SENDER}>sender</option>
             <option value="d"{SELECTED_OB_DATE}>date</option>
@@ -31,13 +14,13 @@
       <table width="420" border="0" cellspacing="0" cellpadding="1" bgcolor="#A4A4A4">
        <tr valign="top"> 
         <td align="center" valign="top"> 
-     	  <table width="100%" height="200" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+     	  <table width="100%" height="450" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
 		   <tr valign="top">
             <td valign="top">
 			 <table width="100%" border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF">
               <tr height=16>
                <td align="left" valign="top">&nbsp;</td>
-               <td align="left" valign="top"><font size="1" face="verdana, arial, helvetica"><b>By</b></font></td>
+               <td align="left" valign="top"><font size="1" face="verdana, arial, helvetica"><b>{TO_BY}</b></font></td>
                <td valign="top"><font size="1" face="verdana, arial, helvetica"><b>Subject</b></font></td>
 	           <td align="left" valign="top"><font size="1" face="verdana, arial, helvetica"><b>Date</b></font></td>
 	           <td align="right" valign="top"><font size="1" face="verdana, arial, helvetica"><b>Message/Request</b></font></td>
@@ -54,102 +37,4 @@
         {LIMITBOX}
         </td>
        </tr>
-      </table>
-	
-	  <table border=0 cellpadding=0 cellspacing=0 width=420>     
-	   <tr> 
-	    <td>
-		 <img src="/img/pixel.gif" height="8"><br>
-		</td>
-	   </tr>
-	  </table>
-	
-	  <table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
-		 <tr>
-		  <td>
-		   <font face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s message composer</b></font>
-		  </td>
-		  <td align="right">
-		   <font face="verdana, arial, helvetica" size=1></font><br>
-		  </td>
-		 </tr>
-	  </table>
-	  <table cellpadding="0" cellspacing="0" border="0" width=420 bgcolor="#a4a4a4">
-		<tr>
-		 <td>
-		   <table cellpadding="3" cellspacing="1" border="0" width="100%">
-		    <form name="msgform" ACTION="{ACTION}" METHOD="POST">
-			  <tr>
-			   <td bgcolor="#ffffff">{ERRORSTR}
-				<table cellpadding="0" cellspacing="3" border="0">
-			     <tr>
-				  <td width="140" valign="top">
-				   <font face="verdana, arial, helvetica" size="2"><b>Subject:</b></font><br><br>
-				  </td>
-				  <td>
-				   <input type="text" name="field_subject" value="{PREDEF_SUBJECT}" size="26" maxlength="25">{WARN_SUBJECT}<br><br>
-                   <img src="/img/pixel.gif" height="1" width="250">
-				  </td>
-				 </tr>
-				</table>
-			   </td>
-			  </tr>
-			  <tr>
-			   <td bgcolor="#E4F4C6">
-			    <table cellpadding="0" cellspacing="3" border="0">
-			     <tr>
-				  <td valign="top" width=140>
-				   <font face="verdana, arial, helvetica" size="2"><b>Message:</b></font><br><br>
-				  </td>
-				  <td>
-				   <textarea name="field_message" cols=22 rows=5 wrap="virtual">{PREDEF_MESSAGE}</textarea><br><br>
-                   <img src="/img/pixel.gif" height="1" width="250">
-				  </td>
-				 </tr>
-			    </table>
-			   </td>
-			  </tr>
-			  <tr>
-			   <td bgcolor="#ffffff">
-			    <table cellpadding="0" cellspacing="3" border="0">
-			     <tr>
-				  <td valign="middle" width=140>
-				   <font face="verdana, arial, helvetica" size="2"><b>Choose a friend:</b></font><br>
-				  </td>
-				  <td valign="top">
-				   <select name="field_friend" size="1" onChange="set_textfield();">
-                   {FRIENDLIST}
-			       </select><br>
-				  </td>
-				 </tr>
-				 <tr>
-			      <td valign="middle" width=140 colspan="2">
-				   <font face="verdana, arial, helvetica" size="2">or</font><br>
-				  </td>
-				 </tr>
-				 <tr>
-				  <td valign="middle" width=140>
-				   <font face="verdana, arial, helvetica" size="2"><b>Type a username:</b></font><p><br>
-				  </td>
-				  <td valign="top">
-				   <input type="text" size=26 name="field_username" value="{PREDEF_USER}" onKeyPress="set_dropdown();" align="left">{WARN_USERNAME}<p>
-                   <img src="/img/pixel.gif" height="1" width="250">
-                  </td>
-				 </tr>
-				 <tr>
-				  <td width=140>&nbsp;</td>
-				  <td colspan="2">
-                   <font face="verdana, arial, helvetica" size="1">
-				   <input type="submit" name="Submit" value="Send message">&nbsp;<p>
-				   <a href="{MYPAGEURL}">go back to Mypage without sending message</a><br><br>
-                   </font>
-				  </td>
-				 </tr>
-			    </table>
-			   </td>
-			  </tr>
-			 </form>
-			 </table>
-			</td>
-		   </tr>
-		  </table>
+      </table>	

@@ -28,7 +28,6 @@ if ( get_notification_method($auth->auth['uname'], $mytrail['id']) != -1)
  change_subscription($auth->auth['uname'], $mytrail['id'], $newn);
 else{
  subscribe($auth->auth['uname'], $mytrail['id'], $newn); 
- sub_action($auth->auth['uname'], $mytrail['userid'], $mytrail, "subscribed");
 }
 $str="";
 if ($HTTP_POST_VARS['reloadparent'] == "1")
@@ -72,7 +71,6 @@ else
 if ($action == "exec"){
  if (isset($unsubscribe)){
   unsubscribe($auth->auth['uname'], $mytrail['id']);
-  sub_action($auth->auth['uname'], $mytrail['userid'], $mytrail, "unsubscribed");
   $str="";
   if ($HTTP_POST_VARS['reloadparent'] == "1")
   $str = "?reloadparent=1";

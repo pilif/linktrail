@@ -43,14 +43,6 @@ function del($act_as_admin=false){
  if (!defined("DIRECTORY_NOTIFICATION_INC"));
   include("messages/directory_notification.inc"); 
 
- if ($act_as_admin)
-  send_admin_notification($mytrail, LTMSG_TRAILCHG); //TODO: add reason
- else{ //will not send message if user kicks his own trail
-  $hsh['url']   = $thislink['url'];
-  $hsh['title'] = $thislink['title'];
-  send_link_notification($mytrail, $hsh, $auth->auth['uname'], LTMSG_LINKDELE, !($auth->auth['uid'] == $mytrail['owner']));
- } 
-
  Header("Location: ".$sess->url($mytrail['path']));
 }
 
@@ -93,14 +85,6 @@ function add($pass_lang_check = false, $act_as_admin = false){
  
  add_link_ex($obj, true);
 
- if ($act_as_admin)
-  send_admin_notification($mytrail, LTMSG_TRAILCHG); //TODO: add reason
- else{ //will not send message if user kicks his own trail
-  $hsh['url']   = $url;
-  $hsh['title'] = $title;
-  send_link_notification($mytrail, $hsh, $auth->auth['uname'], LTMSG_LINKADD, !($auth->auth['uid'] == $mytrail['owner']));
- } 
-
  if ($reloadparent == 1)
   Header("Location: ".$sess->url($mytrail['path']."?reloadparent=1")); 
  else
@@ -127,23 +111,9 @@ function proceed($act_as_admin = false){
  $new_obj['id'] = $thislink['id'];
  
  edit_link_ex($thislink['id'], $new_obj);
- if ($act_as_admin)
-  send_admin_notification($mytrail, LTMSG_TRAILCHG); //TODO: add reason
- else{ //will not send message if user kicks his own trail
-  $hsh['url']   = $txt_linkurl;
-  $hsh['title'] = $txt_linktitle;
-  send_link_notification($mytrail, $hsh, $auth->auth['uname'], LTMSG_LINKCHGD, !($auth->auth['uid'] == $mytrail['owner']));
- } 
 
  if ( isset($row) and ($row != "") ){
   reposition_link($new_obj, $row);
-  if ($act_as_admin)
-   send_admin_notification($mytrail, LTMSG_TRAILCHG); //TODO: add reason
-  else{ //will not send message if user kicks his own trail
-   $hsh['url']   = $thislink['url'];
-   $hsh['title'] = $thislink['title'];
-   send_link_notification($mytrail, $hsh, $auth->auth['uname'], LTMSG_LINKMOVD, !($auth->auth['uid'] == $mytrail['owner']));
-  } 
  }
  
  // die("fertig");

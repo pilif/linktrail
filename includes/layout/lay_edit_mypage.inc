@@ -47,7 +47,7 @@ $tpl->set_var("FIELD_{$fieldname}_FRIENDS_CHECKED", $checked['friends']);
 $tpl->set_var("FIELD_{$fieldname}_NOBODY_CHECKED", $checked['nobody']); 
 } 
  
-function print_profile_form($userdata){
+/*function print_profile_form($userdata){
 global $sess, $PHP_SELF, $ltrstr;
  
 $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
@@ -108,7 +108,7 @@ return $tpl->get("main");
 //now at the end of this function, you possibly can see, how cool the strange
 //function above is. Each call to print_profile is in fact 9 lines of code...
 }
-
+*/
 
 
 
@@ -185,6 +185,7 @@ function print_pwquery_error($text){
  return $tpl->get("edit");
 }
 
+/*
 function print_security_form($userdata, $nomatch=false){
 global $sess, $PHP_SELF, $ltrstr;
  
@@ -213,7 +214,7 @@ $tpl->parse("main", "edit");
 return $tpl->get("main");
 //now at the end of this function, you possibly can see, how cool the strange
 //function above is. Each call to print_profile is in fact 9 lines of code...
-}
+}*/
 
 function fill_password_template(&$userdata, &$tpl, $nomatch=false){
 global $sess, $PHP_SELF, $ltrstr;
@@ -238,7 +239,7 @@ $tpl->set_var("FIELD_PASSWORD2", "field_password2");
 
 }
 
-function print_preferences_form($userdata, $nomatch=false){
+/*function print_preferences_form($userdata, $nomatch=false){
 global $sess, $PHP_SELF, $ltrstr;
  
 $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
@@ -318,7 +319,7 @@ $tpl->parse("main", "edit");
 return $tpl->get("main");
 //now at the end of this function, you possibly can see, how cool the strange
 //function above is. Each call to print_profile is in fact 9 lines of code...
-}
+} */
 
 function fill_preferences_template(&$userdata, &$tpl){
 global $sess, $PHP_SELF, $ltrstr;
@@ -417,7 +418,7 @@ return $tpl->get("main");
 }
 
 
-function print_my_lms($userdata, $ci=0, $order_by="d", $error="", $expand_id="", $viewtype=1){ //TODO: Expand object...
+function print_my_lms($userdata, $ci=0, $order_by="d", $error="", $expand_id="", $viewtype=1, $extension=""){ 
 global $PHP_SELF, $sess, $ltrstr;
 
 if (!defined("MESSAGES_INC"))
@@ -439,79 +440,89 @@ switch ($order_by) {
         $selected['date']    = true;
         $bytext              = "Date";
 }
-
+$list = (($extension == "Inbox") or ($extension == "Outbox"));
 $tpl = new Template(APPLICATION_HOME."/templates/mypage", "keep");
-$tpl->set_file(array("msc" => "msg_center.html"));
-$tpl->set_var("USERNAME", $userdata['Username']);
-$tpl->set_var("ACTION", build_good_url($PHP_SELF));
-$friends = get_friends($userdata['User_ID'], FT_ALL);
-$str = '<option value="-1">(use textfield)'."\n";
-for ($x=0; $x < count($friends); $x++)
- $str .= '<option value="'.$friends[$x]['username'].'">'.$friends[$x]['username']."\n";
-$tpl->set_var("FRIENDLIST", $str);
+if ($list){
+ $inbox = ($extension == "Inbox");
+ 
+ //read_messages_ex($userval, $inbox=true, $current_index=0, $ordertext="Date")
+ $tpl->set_file(array("msc" => "msg_center.html"));
+ 
+ $objs = read_messages_ex(($inbox) ? $userdata['User_ID'] : $userdata['Username'], $inbox, $ci, $bytext);
+//         read_messages_ex(, $ci, );
 
-if ($error == ""){ 
- $tpl->set_var("ERRORSTR", "");
- $tpl->set_var("WARN_SUBJECT", "");
- $tpl->set_var("WARN_USERNAME", "");
- $tpl->set_var("PREDEF_SUBJECT", "");
- $tpl->set_var("PREDEF_MESSAGE", "");
- $tpl->set_var("PREDEF_USER", "");
-}elseif ($error == 999){
- $tpl->set_var("ERRORSTR", print_msg_error_string($ltrstr['Message sent']));
- $tpl->set_var("WARN_SUBJECT", "");
- $tpl->set_var("WARN_USERNAME", "");  
- $tpl->set_var("PREDEF_SUBJECT", "");
- $tpl->set_var("PREDEF_MESSAGE", "");
- $tpl->set_var("PREDEF_USER", "");
-}else{
- $tpl->set_var("ERRORSTR", print_msg_error_string($error['msg']));
- $tpl->set_var("WARN_SUBJECT",  ($error['subject'] )  ? $ltrstr['Form Error Mark'] : "" );
- $tpl->set_var("WARN_USERNAME", ($error['username'] ) ? $ltrstr['Form Error Mark'] : "" );
- $tpl->set_var("PREDEF_SUBJECT", html_attribute($error['predef_subject'], false));
- $tpl->set_var("PREDEF_MESSAGE", html_attribute($error['predef_message'], false));
- $tpl->set_var("PREDEF_USER", html_attribute($error['predef_user'], false));
-}
-
-foreach($selected as $key => $value){
- $str = $value ? "selected" : "";
- $tpl->set_var("SELECTED_OB_".strtoupper($key), $str);
-}
-
-$tpl->set_var("MYPAGEURL", $sess->url(build_good_url("/Experts/".$userdata['Username'])));
-
-$objs = read_messages_ex($userdata['User_ID'], $ci, $bytext);
-
-$str = "";
-if (($viewtype == 1) or ($viewtype == 2)){
- $colorx = 0;
+ $str = "";
+ if (($viewtype == 1) or ($viewtype == 2)){
+  $colorx = 0;
+  for($x=0; $x<count($objs['arr']); $x++){
+   if (($objs['arr'][$x]->get_id() == $expand_id) and ($viewtype == 1)){
+    $str .= $objs['arr'][$x]->print_extended(($colorx % 2 == 0));
+    $colorx++;
+   }elseif (($objs['arr'][$x]->get_id() == $expand_id) and ($viewtype == 2)){
+    $str .= $objs['arr'][$x]->print_error(($colorx % 2 == 0));
+    $colorx++;
+   }
+  }
+ }
  for($x=0; $x<count($objs['arr']); $x++){
-  if (($objs['arr'][$x]->get_id() == $expand_id) and ($viewtype == 1)){
-   $str .= $objs['arr'][$x]->print_extended(($colorx % 2 == 0));
-   $colorx++;
-  }elseif (($objs['arr'][$x]->get_id() == $expand_id) and ($viewtype == 2)){
-   $str .= $objs['arr'][$x]->print_error(($colorx % 2 == 0));
+  if (($objs['arr'][$x]->get_id() == $expand_id) and ( ($viewtype == 1) or ($viewtype == 2)) ){
+   //  nothing to do
+  }else{
+   $str .= $objs['arr'][$x]->print_simple(($colorx % 2 == 0));
    $colorx++;
   }
  }
+ //die(count($objs));
+ $tpl->set_var("MESSAGES", $str);
+ $tpl->set_var("PAGENAME", $extension);
+ $tpl->set_var("CURRENT_INDEX", $ci);
+ $tpl->set_var("SORTACTION", build_good_url($PHP_SELF));
+ $tpl->set_var("TO_BY", ($inbox) ? "by" : "to");
+ 
+ if(!defined("LAY_DIRECTORY_INC"))
+  include("dbapi/lay_directory.inc");
+  
+ $tpl->set_var("LIMITBOX", print_limitbox($ci, $objs['count'], "msg."));
+ foreach($selected as $key => $value){
+  $str = $value ? "selected" : "";
+  $tpl->set_var("SELECTED_OB_".strtoupper($key), $str);
 }
-for($x=0; $x<count($objs['arr']); $x++){
- if (($objs['arr'][$x]->get_id() == $expand_id) and ( ($viewtype == 1) or ($viewtype == 2)) ){
-  //  nothing to do
+}else{
+ $tpl->set_file(array("msc" => "msg_compose.html"));
+ $friends = get_friends($userdata['User_ID'], FT_ALL);
+// $str = '<option value="-1">(use textfield)'."\n";
+ for ($x=0; $x < count($friends); $x++)
+  $str .= '<option value="'.$friends[$x]['username'].'">'.$friends[$x]['username']."\n";
+ $tpl->set_var("FRIENDLIST", $str);
+
+ if ($error == ""){ 
+  $tpl->set_var("ERRORSTR", "");
+  $tpl->set_var("WARN_SUBJECT", "");
+  $tpl->set_var("WARN_USERNAME", "");
+  $tpl->set_var("PREDEF_SUBJECT", "");
+  $tpl->set_var("PREDEF_MESSAGE", "");
+  $tpl->set_var("PREDEF_USER", "");
+ }elseif ($error == 999){
+  $tpl->set_var("ERRORSTR", print_msg_error_string($ltrstr['Message sent']));
+  $tpl->set_var("WARN_SUBJECT", "");
+  $tpl->set_var("WARN_USERNAME", "");  
+  $tpl->set_var("PREDEF_SUBJECT", "");
+  $tpl->set_var("PREDEF_MESSAGE", "");
+  $tpl->set_var("PREDEF_USER", "");
  }else{
-  $str .= $objs['arr'][$x]->print_simple(($colorx % 2 == 0));
-  $colorx++;
+  $tpl->set_var("ERRORSTR", print_msg_error_string($error['msg']));
+  $tpl->set_var("WARN_SUBJECT",  ($error['subject'] )  ? $ltrstr['Form Error Mark'] : "" );
+  $tpl->set_var("WARN_USERNAME", ($error['username'] ) ? $ltrstr['Form Error Mark'] : "" );
+  $tpl->set_var("PREDEF_SUBJECT", html_attribute($error['predef_subject'], false));
+  $tpl->set_var("PREDEF_MESSAGE", html_attribute($error['predef_message'], false));
+  $tpl->set_var("PREDEF_USER", html_attribute($error['predef_user'], false));
  }
 }
-//die(count($objs));
-$tpl->set_var("MESSAGES", $str);
-$tpl->set_var("CURRENT_INDEX", $ci);
-$tpl->set_var("SORTACTION", build_good_url($PHP_SELF));
 
-if(!defined("LAY_DIRECTORY_INC"))
- include("dbapi/lay_directory.inc");
- 
-$tpl->set_var("LIMITBOX", print_limitbox($ci, $objs['count'], "msg."));
+$tpl->set_var("USERNAME", $userdata['Username']);
+$tpl->set_var("ACTION", build_good_url($PHP_SELF));
+$tpl->set_var("MYPAGEURL", $sess->url(build_good_url("/Experts/".$userdata['Username'])));
+
 
 $tpl->parse("main", "msc");
 return $tpl->get("main");

@@ -549,7 +549,7 @@ function print_iwantto_readmsgs(){
   include("dbapi/messages.inc");
  $tpl = new Template(APPLICATION_HOME."/templates/directory/iwantto", "keep");
  $tpl->set_file(array("main" => "iw_readmsgs.html"));
- $tpl->set_var("ACTIONURL", $sess->url(build_good_url("/Experts/".$auth->auth['uname']."/Messages")));
+ $tpl->set_var("ACTIONURL", $sess->url(build_good_url("/Experts/".$auth->auth['uname']."/Messages/")));
  if ($glob_userdata['LastReadStamp'] == "")
   $glob_userdata['LastReadStamp'] == strtotime($glob_userdata['LastOnline']);
  $count = count_new_messages($auth->auth['uid'], $glob_userdata['LastReadStamp']);

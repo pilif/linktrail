@@ -273,124 +273,6 @@ class ltrAdminModificationMsg extends ltrMessage{
   }
 }
 
-class ltrUserModificationMsg extends ltrMessage{
-
-  function ltrUserModificationMsg($dataset){
-   $this->ltrMessage($dataset);
-   $this->trail = $dataset['Trail'];
-  }
-  
-  function get_subs(){
-   global $myDB;
-    
-   $arr = Array();
-    
-   if (!defined("SQL_MESSAGES"))
-    include("dbapi/sql_messages.inc");
-    
-   $query = FormatSQL(MSG_READ_CHILD, array($this->target, $this->trail, $this->id));
-//   die($query);
-   $myDB->query($query);
-   while($myDB->next_record()){
-    $arr[] = $myDB->Record;
-   }
-   return $arr;
-  }
- 
-  function print_simple($val){
-   global $PHP_SELF, $glob_userdata;
-   
-//  die($this->test);
-   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
-   $tpl->set_file(array("simple" => "user_cn.html"));
-   $trailpath = id2path($this->data['Trail']);
-   $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
-   $tpl->set_var("COLOR", $color);
-   $tpl->set_var("TRAILURL", build_good_url($trailpath));
-   $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
-   $tpl->set_var("TRAILNAME", friendlyname($trailpath));
-   $dh = friendlydate($this->dat);
-   $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-   $tpl->set_var("MYID", $this->id);
-   $tpl->set_var("DATE", $d);
-   $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
-   $tpl->set_var("READURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1");
-
-   $b['begin'] = (!$this->is_read) ? '<b>'  : "";
-   $b['end']   = (!$this->is_read) ? '</b>' : "";
-   
-   $tpl->set_var("BOLD_BEGIN", $b['begin']);
-   $tpl->set_var("BOLD_END",   $b['end']);
-
-   $tpl->parse("main", "simple");
-   return $tpl->get("main");
-  }
-  
-
-  function print_extended($val){
-   global $PHP_SELF, $sess, $ltrstr;
-
-   $this->set_read();
-
-   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
-   $tpl->set_file(array("extended" => "user_cn.html"));
-   $trailpath = id2path($this->data['Trail']);
-   $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
-   $tpl->set_var("COLOR", $color);
-   $tpl->set_var("TRAILURL", build_good_url($trailpath));
-   $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
-   $tpl->set_var("TRAILNAME", friendlyname($trailpath));
-   $dh = friendlydate($this->dat);
-   $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-   $tpl->set_var("TOPDATE", $d);
-   $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
-   $tpl->set_var("CLOSEURL", build_good_url($PHP_SELF));
-   
-   $tpl->set_block("extended", "child", "children");
-   //Firstly: let's get the Message that created this object:
-   $tpl->set_var("INITIATORURL", $sess->url(build_good_url('/Experts/'.$this->sender)));
-   $tpl->set_var("INITIATOR", $this->sender);
-   $tpl->set_var("ACTION", $ltrstr['User_Action_'.$this->type]);
-   $tpl->set_var("LINKTITLE", "(".$this->data['Link_Title'].")");
-   $tpl->set_var("SUBDATE", $d);
-   $tpl->parse("children", "child", true);
-   
-   //now to the children:
-//   die(count($childmessages)."##".$this->id);
-   $childmessages = $this->get_subs();
-   for($x=0; $x < count($childmessages); $x++) {
-    $data_arr = unserialize($childmessages[$x]['Data']);
-    $tpl->set_var("INITIATORURL", $sess->url(build_good_url('/Experts/'.$childmessages[$x]['Sender'])));
-    $tpl->set_var("INITIATOR", $childmessages[$x]['Sender']);
-    $tpl->set_var("ACTION", $ltrstr['User_Action_'.$childmessages[$x]['MessageType']]);
-    $tpl->set_var("LINKTITLE", "(".$data_arr['Link_Title'].")");
-    $dh = friendlydate($childmessages[$x]['Date']);
-    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
-    $tpl->set_var("DATE", $d);
-    $tpl->parse("children", "child", true);
-   }
-   $tpl->set_var("MYID", $this->id);
-   $tpl->parse("main", "extended");
-   return $tpl->get("main");
-  }
-  
-  
-  function user_interaction(&$http_vars){
-   if ($http_vars['action'] == "delete"){
-    $this->remove_children(); //remove all the sub-messages
-    $this->self_destruct();
-    return "";
-   }
-  }
-  
-  function remove_children(){
-   global $myDB;
-   
-   $query = FormatSQL(MSG_KILL_CHILDREN, array($this->target, $this->trail));
-   $myDB->query($query);
-  }
-}
-
 class ltrSuggestionMsg extends ltrMessage{
   function ltrSuggestionMsg($dataset){
    $this->ltrMessage($dataset);
@@ -400,38 +282,43 @@ class ltrSuggestionMsg extends ltrMessage{
    global $sess, $glob_userdata, $auth, $ltrstr;
 
    $this->nodeinfo = get_node_info($this->data['Trail']);
-   
-   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
-   $tpl->set_file(array("simple" => "recommendation.html"));
    $trailpath = $this->nodeinfo['path'];
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
+
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
+   
+   if ($this->is_inbox){
+    if(!defined("SUBSCRIPTIONS_INC"))
+     include("dbapi/subscriptions.inc");
+    $tpl->set_file(array("simple" => "recommendation.html"));
+    $user = $this->sender;
+    $nm = get_notification_method($auth->auth['uname'], $this->data['Trail']);
+    $subscribed = ($nm != -1);
+    $verb = ($subscribed) ? $ltrstr['recommended'] : $ltrstr['recommends'];
+    $tpl->set_var("VERB", $verb);
+    $b['begin'] = (!$this->is_read) ? '<b>'  : "";
+    $b['end']   = (!$this->is_read) ? '</b>' : "";
+    $tpl->set_var("BOLD_BEGIN", $b['begin']);
+    $tpl->set_var("BOLD_END",   $b['end']);
+    $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], false, $subscribed));
+   }else{
+    $tpl->set_file(array("simple" => "recommendation_out.html"));
+    $user = $this->to_name;
+    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
+   }
+   
    $tpl->set_var("COLOR", $color);
    $tpl->set_var("MYID", $this->id);
-   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$this->sender)));
-   $tpl->set_var("USERNAME", $this->sender);
+   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$user)));
+   $tpl->set_var("USERNAME", $user);
 
-   if(!defined("SUBSCRIPTIONS_INC"))
-    include("dbapi/subscriptions.inc");
-
-   $nm = get_notification_method($auth->auth['uname'], $this->data['Trail']);
-   $subscribed = ($nm != -1);
-   $verb = ($subscribed) ? $ltrstr['recommended'] : $ltrstr['recommends'];
-   $tpl->set_var("VERB", $verb);
-   
    $tpl->set_var("TRAILURL", $sess->url(build_good_url($trailpath)));
    $tpl->set_var("TRAILNAME", friendlyname($trailpath));
    $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
 
-   $b['begin'] = (!$this->is_read) ? '<b>'  : "";
-   $b['end']   = (!$this->is_read) ? '</b>' : "";
-   
-   $tpl->set_var("BOLD_BEGIN", $b['begin']);
-   $tpl->set_var("BOLD_END",   $b['end']);
-   
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
    $tpl->set_var("DATE", $d);
-   $tpl->set_var("OPTIONLIST", $this->print_option_list($this->data['Trail'], false, $subscribed));
    
    $tpl->parse("main", "simple");
    return $tpl->get("main");
@@ -499,27 +386,10 @@ class ltrSuggestionMsg extends ltrMessage{
    
    if ($http_vars['action'] == "delete"){
     $this->self_destruct();
-    if(!defined("SUBSCRIPTIONS_INC"))
-     include("dbapi/subscriptions.inc");   
-    if(!defined("MSG_SUGGESTIONS_INC"))
-     include("messages/suggestions.inc");
-    
-    $nm = get_notification_method($auth->auth['uname'], $this->data['Trail']);
-    $subscribed = ($nm != -1);
-    if (!$subscribed){ //if the trail is not subscriebed and the user kills the message, this is a declination
-     $user = get_user_from_name($this->sender);
-     $user = $user['User_ID'];
-     sub_action($auth->auth['uname'], $user, $this->nodeinfo, "declined");
-    }
-   }if ($http_vars['action'] == "subscribe"){
+   }elseif ($http_vars['action'] == "subscribe"){
     if(!defined("SUBSCRIPTOINS.INC"))
      include("dbapi/subscriptions.inc");
-    if(!defined("MSG_SUGGESTIONS_INC"))
-     include("messages/suggestions.inc");
     subscribe($auth->auth['uname'], $this->data['Trail'], 999); //TODO: New notification-method-sheme
-    $user = get_user_from_name($this->sender);
-    $user = $user['User_ID'];
-    sub_action($auth->auth['uname'], $user, $this->nodeinfo, "accepted");
    } 
   }
 }
@@ -538,8 +408,9 @@ class ltrLMSMessageMsg extends ltrMessage{
    $tpl->set_file(array("simple" => "user_message.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
-   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$this->sender)));
-   $tpl->set_var("USERNAME", $this->sender);
+   $user = ($this->is_inbox) ? $this->sender : $this->to_name;
+   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$user)));
+   $tpl->set_var("USERNAME", $user);
    $str = (strlen($this->data['subject']) > 20) ? substr($this->data['subject'], 0, 20)."..." : $this->data['subject'];
    $tpl->set_var("SHORTDESC", $str); 
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
@@ -547,8 +418,8 @@ class ltrLMSMessageMsg extends ltrMessage{
    $tpl->set_var("MYID", $this->id);
    $tpl->set_var("DATE", $d);
    
-   $b['begin'] = (!$this->is_read) ? '<b>'  : "";
-   $b['end']   = (!$this->is_read) ? '</b>' : "";
+   $b['begin'] = ((!$this->is_read and ($this->is_inbox))) ? '<b>'  : "";
+   $b['end']   = ((!$this->is_read and ($this->is_inbox))) ? '</b>' : "";
    
    $tpl->set_var("BOLD_BEGIN", $b['begin']);
    $tpl->set_var("BOLD_END",   $b['end']);
@@ -559,17 +430,16 @@ class ltrLMSMessageMsg extends ltrMessage{
   
   function print_extended($val, $error=false){
    global $sess, $PHP_SELF, $ltrstr, $sess;
-
-   $this->set_read();
-   
+   echo("Id: {$this->id}<br>");
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
    $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
    $tpl->set_file(array("long" => "user_message.html"));
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
    $tpl->set_var("COLOR", $color);
-   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$this->sender)));
-   $tpl->set_var("USERNAME", $this->sender);
+   $user = ($this->is_inbox) ? $this->sender : $this->to_name;
+   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$user)));
+   $tpl->set_var("USERNAME", $user);
    $str = (strlen($this->data['subject']) > 20) ? substr($this->data['subject'], 0, 20)."..." : $this->data['subject'];
    $tpl->set_var("SHORTDESC", $str); 
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
@@ -585,8 +455,28 @@ class ltrLMSMessageMsg extends ltrMessage{
     }
    }
    $str ='<i>'.$str.'</i>';
-   $tpl->set_var("MESSAGE", nl2br(longwrap($this->data['message'])));
+   $message = nl2br(longwrap($this->data['message']));
+   
    $tpl->set_var("TRAILINFO", $str);
+   if ($this->is_inbox){
+    $this->set_read();
+    $tpl->set_var("FORM", $this->print_re_form($error, $color));
+    if ($this->data['quoted_reply'] != '') 
+     $message .= sprintf($ltrstr['In Reply to'], $this->data['quoted_reply']);
+   }else{
+    $tpl->set_var("FORM", "");
+   } 
+   $tpl->set_var("ACTION", build_good_url($PHP_SELF));
+   $tpl->set_var("MYID", $this->id);
+   $tpl->set_var("MESSAGE", $message);
+   $tpl->parse("main", "long");
+   return $tpl->get("main");
+  }
+  
+  function print_re_form($error, $color){
+   $tpl = new Template(APPLICATION_HOME."/templates/messages/long", "keep");
+   $tpl->set_file(array("long" => "re_form.html"));
+   $tpl->set_var("COLOR", $color);
    if ($error){
     $tpl->set_var("ERRORSTRING", $ltrstr['Subject missing'].'<p>');
     $tpl->set_var("WARN_SUBJECT", $ltrstr['Form Error Mark']);
@@ -596,9 +486,7 @@ class ltrLMSMessageMsg extends ltrMessage{
     $tpl->set_var("WARN_SUBJECT", "");
     $str = (substr($this->data['subject'], 0, 4) == "Re: ") ? $this->data['subject'] : 'Re: '.$this->data['subject'];
     $tpl->set_var("VALUE_SUBJECT", $str);
-   }
-   $tpl->set_var("ACTION", build_good_url($PHP_SELF));
-   $tpl->set_var("MYID", $this->id);
+   } 
    $tpl->parse("main", "long");
    return $tpl->get("main");
   }
@@ -609,7 +497,6 @@ class ltrLMSMessageMsg extends ltrMessage{
   
   function user_interaction(&$http_vars){
    global $PHP_SELF, $auth;
-   
    if ($http_vars['action'] == "delete"){
     $this->self_destruct();
     return "";
@@ -626,7 +513,7 @@ class ltrLMSMessageMsg extends ltrMessage{
     $user = get_user_from_name($this->sender);
     $user = $user['User_ID'];
 //    die("sende:".$this->sender);
-    talk($auth->auth['uname'], $user, $http_vars['field_subject'], $http_vars['field_message']);
+    talk($auth->auth['uname'], $user, $http_vars['field_subject'], $http_vars['field_message'], -1, $this->data['message']);
     return "";
    }
   }
@@ -641,30 +528,34 @@ class ltrFriendshipRequestMsg extends ltrMessage{
   
   function print_simple($val){
    global $sess, $PHP_SELF;
-   
+
    $dh = friendlydate($this->dat);
    $d  = sprintf('%s/%s/%s', $dh['month'], $dh['day'], $dh['year']);
    $tpl = new Template(APPLICATION_HOME."/templates/messages/short", "keep");
-   $tpl->set_file(array("simple" => "friendship_request.html"));
-   
-   
    $color = ($val) ? BACK_COLOR1 : BACK_COLOR2;
+   
+   if ($this->is_inbox){
+    $tpl->set_file(array("simple" => "friendship_request.html"));
+    $user = $this->sender;
+    $tpl->set_var("READURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1");
+    $tpl->set_var("ACCEPTURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=accept&viewtype=0");
+    $b['begin'] = (!$this->is_read) ? '<b>'  : "";
+    $b['end']   = (!$this->is_read) ? '</b>' : "";
+   
+    $tpl->set_var("BOLD_BEGIN", $b['begin']);
+    $tpl->set_var("BOLD_END",   $b['end']);
+   }else{
+    $tpl->set_file(array("simple" => "friendship_request_out.html"));
+    $user = $this->to_name;
+   }
+   
    $tpl->set_var("COLOR", $color);
-   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$this->sender)));
-   $tpl->set_var("USERNAME", $this->sender);
+   $tpl->set_var("USERURL", $sess->url(build_good_url("/Experts/".$user)));
+   $tpl->set_var("USERNAME", $user);
    $tpl->set_var("DATE", $d);
    $tpl->set_var("MYID", $this->id);
    $tpl->set_var("DELURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=delete&viewtype=0");
-   $tpl->set_var("READURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&viewtype=1");
-   $tpl->set_var("ACCEPTURL", build_good_url($PHP_SELF)."?objectid=".$this->id."&action=accept&viewtype=0");
 
-   $b['begin'] = (!$this->is_read) ? '<b>'  : "";
-   $b['end']   = (!$this->is_read) ? '</b>' : "";
-   
-   $tpl->set_var("BOLD_BEGIN", $b['begin']);
-   $tpl->set_var("BOLD_END",   $b['end']);
-   
-   
    $tpl->parse("main", "simple");
    return $tpl->get("main");
   }
@@ -699,12 +590,14 @@ class ltrFriendshipRequestMsg extends ltrMessage{
    global $auth;
    if ($http_vars['action'] == "delete"){
     $this->self_destruct();
-    if (!defined("MSG_FRIENDSHIPS_INC"))
-     include("messages/friendships.inc");
-    $user = get_user_from_name($this->sender);
-    $user = $user['User_ID']; 
-    friendship_notification($auth->auth['uname'], $user, "ignore");
-    friendship_notification($auth->auth['uname'], $auth->auth['uid'], "ignore_self", $this->sender);
+    if ($this->is_inbox){
+     if (!defined("MSG_FRIENDSHIPS_INC"))
+      include("messages/friendships.inc");
+     $user = get_user_from_name($this->sender);
+     $user = $user['User_ID']; 
+     friendship_notification($auth->auth['uname'], $user, "ignore");
+     friendship_notification($auth->auth['uname'], $auth->auth['uid'], "ignore_self", $this->sender);
+    } 
    }
    if ($http_vars['action'] == "accept"){
     if (!defined("MSG_FRIENDSHIPS_INC"))

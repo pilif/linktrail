@@ -44,13 +44,12 @@
  define("LTMSG_REPORTSN", LTMSG_BASE+20);  
  define("LTMSG_SUBNOTI",  LTMSG_BASE+21);  
 
+ define("RC_IN_INBOX", 1);
+ define("RC_IN_OUTBOX", 2);
+ 
  if (!defined("MESSAGE_CLASSES_INC"))
   include("commonapi/message_classes.inc");
  
- 
- define("LTMSG_URGENCY_URGENT", "u");
- define("LTMSG_URGENCY_REPORT", "r");
- define("LTMSG_URGENCY_STORE",  "s");
  
   
 //some kind of an "abstract" base-class....
@@ -71,7 +70,11 @@
    $this->type    = $dataset['MessageType'];
    $this->target  = $dataset['Target'];
    $this->is_read = $dataset['Done'] == 'y';
-   $this->data = unserialize($dataset['Data']);
+   $this->rc      = $dataset['ReferenceCount'];
+   $this->to_name = $dataset['to_name'];
+   $this->data    = unserialize($dataset['Data']);
+   $this->is_inbox= ($dataset['inbox'] == "1"); //I use this for encapsulated reference-counted self destruction
+   //die(sprintf("Test: %s (%d)", $dataset['inbox'], $this->is_inbox));
   }
   
   function print_simple($val){}
@@ -82,8 +85,6 @@
   
   function user_interaction(&$http_vars){}
   
-  function send_urgent(){}
-
   function get_target(){
    return $this->target;
   }
@@ -92,9 +93,21 @@
    return $this->id;
   }
   
-  function self_destruct(){ //this will kill this message from the database
+  /*
+   The following function handles the Reference-Couting. self_destruct() does only
+   remove the message from the selected xxx-box. it does only delete it, when
+   the message is neither in an inbox nor in an outbox
+  */
+  function self_destruct(){ 
    global $myDB;
-   $query = FormatSQL(DELETE_MESSAGE, array($this->id));
+//   die(sprintf("%d",$this->is_inbox));
+   $new_rc = ($this->is_inbox) ? ($this->rc & ~RC_IN_INBOX) : ($this->rc & ~RC_IN_OUTBOX);
+   if ($new_rc != 0){
+    $this->rc = $new_rc;
+    $query    = FormatSQL(SQL_UPDATE_RC, array($this->rc, $this->id)); 
+   } else{
+    $query = FormatSQL(DELETE_MESSAGE, array($this->id));
+   }
    $myDB->query($query);
   }
   
@@ -112,99 +125,48 @@
   return $obj;
  }
 
- function read_messages($target_user, $current_index=0){
-  global $myDB;
-  
-  $object_array = Array();
-  
-  $query = FormatSQL(GET_MESSAGES, array($target_user, $current_index));
-//  die("Test: $query");
-  if (!$myDB->query($query)) return $object_array;
-  if ($myDB->num_rows() == 0) return $object_array;
-  while($myDB->next_record()){ 
-   $obj = create_message_object($myDB->Record); //this is not portable but works with mysql
-   /*
-    $obj is 0 if we read a child-message of a user-content-notification
-    from the database. We will not have more than one CN-message visible
-    per trail...
-   */
-   if (is_object($obj))
-    $object_array[] = $obj;
-  } 
-  return $object_array;
- }
-
-function &read_messages_ex($target_user, $current_index=0, $ordertext="Date"){
+function &read_messages_ex($userval, $inbox=true, $current_index=0, $ordertext="Date"){
  global $myDB;
- 
- if (!defined("SQL_MSGLIST_INC"))
-  include("dbapi/sql_msglist.inc");
+ if ($inbox){
+  if (!defined("SQL_MSGLIST_IN_INC"))
+   include("dbapi/sql_msglist_in.inc");
+ }else{
+  if (!defined("SQL_MSGLIST_OUT_INC"))
+   include("dbapi/sql_msglist_out.inc");
+ }
   
- /* Tasks to be done:
-  1) Create a unique Tablename
-  2) Get our ungrouped messages (CREATE_AND_FILL_MSG); a temporary table
-     will be created by this task
-  3) Get grouped messages (INSERT_GROUPED_MSG);
-  4) Read the temporary table, sorted by date
-  5) Create Array of Objects
-  6) Drop temp-table
-  
-*/
- 
  $object_array = Array();
  
- srand ((double)microtime()*1000000);
- $randval = rand(1111111,9999999);
- $tablename  = 'tt'.uniqid($randval);  //1
- 
- if (!create_temp_table_msg($tablename, $target_user)) return $object_array; //2
- if (!get_grouped_messages($tablename, $target_user)) return $object_array; //3
- 
  if ($current_index != -1)
-  $query = FormatSQL(GET_MESSAGES_EX, array($tablename, $ordertext, $current_index));
+  $query = FormatSQL(GET_MESSAGES_EX, array($userval, $ordertext, $current_index));
  else
-  $query = FormatSQL(GET_MESSAGES_EX_UL, array($tablename, $ordertext));
-  
+  $query = FormatSQL(GET_MESSAGES_EX_UL, array($userval, $ordertext));
+// die($query);
  if (!$myDB->query($query)) return $object_array; 
  if ($myDB->num_rows() == 0) return $object_array;
  while($myDB->next_record()){
   $object_array[] = create_message_object($myDB->Record); //still not more portable than in the above
  }                                                        //now obsolete function...
- $count = count_max_messages($tablename);
- drop_temp($tablename);
+ $count = count_max_messages($userval);
  
  $hsh['arr']   = &$object_array;
  $hsh['count'] = $count;
  return $hsh;
 } 
 
-function create_temp_table_msg($tablename, $target_user){
- global $myDB;
 
- if (!defined("SQL_MSGLIST_INC"))
-  include("dbapi/sql_msglist.inc"); 
-
- $query = FormatSQL(CREATE_AND_FILL_MSG, array($tablename, $target_user));
- return $myDB->query($query);
-}
-
-function get_grouped_messages($tablename, $target_user){
- global $myDB;
-
- if (!defined("SQL_MSGLIST_INC"))
-  include("dbapi/sql_msglist.inc"); 
-
- $query = FormatSQL(INSERT_GROUPED_MSG, array($tablename, $target_user));
- return $myDB->query($query);
-}
-
-function count_max_messages($tablename){
+function count_max_messages($userval, $inbox=true){
  global $myDB;
  
- if (!defined("SQL_MSGLIST_INC"))
-  include("dbapi/sql_msglist.inc"); 
- 
- $query = FormatSQL(COUNT_RESULTS_MSG, array($tablename));
+ if ($inbox){
+  if (!defined("SQL_MSGLIST_IN_INC"))
+   include("dbapi/sql_msglist_in.inc");
+ }else{
+  if (!defined("SQL_MSGLIST_OUT_INC"))
+   include("dbapi/sql_msglist_out.inc");
+ }
+  
+ $query = FormatSQL(COUNT_RESULTS_MSG, array($userval));
 
  if (!$myDB->query($query)) return 0;
  $myDB->next_record();
@@ -222,32 +184,20 @@ function drop_temp($tablename){
 }
 
  
-function send_message($sender, $user, $type, $urgency, $data_array, $trail = "NULL"){
+function send_message($sender, $user, $type, $data_array, $rc){
   global $myDB;
   $dataser = serialize($data_array); 
-  $query   = FormatSQL(SEND_MESSAGE, array($user, $type, $sender, $urgency, addslashes($dataser), $trail));
-  //die("<pre>$query</pre>");
+  $query   = FormatSQL(SEND_MESSAGE, array($user, $type, $sender, addslashes($dataser), $rc));
+  //echo("<pre>$query</pre><p>");
   $myDB->query($query);
-  //We have an urgent Message. Now we will create a ltrMessage-Object
-  //and utilize it to send the Message.
-  if ($urgency == LTMSG_URGENCY_URGENT){
-   $record['Message_ID']  = mysql_insert_id();
-   $record['Target']      = $user;
-   $record['MessageType'] = $type;
-   $record['Sender']      = $sender;
-   $record['Date']        = sql_date(unix2friendly(time()));
-   $record['Urgency']     = $urgency;
-   $record['Data']        = $dataser;
-   $obj = create_message_object($record);
-   $obj->send_urgent();
-  }
 }
 
-function &read_one_message($id){
+function &read_one_message($id, $in=true){
  global $myDB;
  
  $res = -1;
- $query = FormatSQL(GET_ONE_MESSAGE, array($id));
+ $intext = ($in) ? "1" : "0";
+ $query = FormatSQL(GET_ONE_MESSAGE, array($intext, $id));
  if (!$myDB->query($query)) return $res;
  if ($myDB->num_rows() == 0) return $res;
  $myDB->next_record();

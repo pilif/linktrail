@@ -1,0 +1,75 @@
+	  <table border=0 cellpadding=2 cellspacing=0 width=420 bgcolor="#dcdcdc">
+		 <tr>
+		  <td>
+		   <font face="verdana, arial, helvetica" size=2><b>&nbsp;{USERNAME}'s message composer</b></font>
+		  </td>
+		  <td align="right">
+		   <font face="verdana, arial, helvetica" size=1></font><br>
+		  </td>
+		 </tr>
+	  </table>
+	  <table cellpadding="0" cellspacing="0" border="0" width=420 bgcolor="#a4a4a4">
+		<tr>
+		 <td>
+		   <table cellpadding="3" cellspacing="1" border="0" width="100%">
+		    <form name="msgform" ACTION="{ACTION}" METHOD="POST">
+			  <tr>
+			   <td bgcolor="#ffffff">{ERRORSTR}
+				<table cellpadding="0" cellspacing="3" border="0">
+			     <tr>
+				  <td width="140" valign="top">
+				   <font face="verdana, arial, helvetica" size="2"><b>Subject:</b></font><br><br>
+				  </td>
+				  <td>
+				   <input type="text" name="field_subject" value="{PREDEF_SUBJECT}" size="26" maxlength="25">{WARN_SUBJECT}<br><br>
+                   <img src="/img/pixel.gif" height="1" width="250">
+				  </td>
+				 </tr>
+				</table>
+			   </td>
+			  </tr>
+			  <tr>
+			   <td bgcolor="#E4F4C6">
+			    <table cellpadding="0" cellspacing="3" border="0">
+			     <tr>
+				  <td valign="top" width=140>
+				   <font face="verdana, arial, helvetica" size="2"><b>Message:</b></font><br><br>
+				  </td>
+				  <td>
+				   <textarea name="field_message" cols=22 rows=5 wrap="virtual">{PREDEF_MESSAGE}</textarea><br><br>
+                   <img src="/img/pixel.gif" height="1" width="250">
+				  </td>
+				 </tr>
+			    </table>
+			   </td>
+			  </tr>
+			  <tr>
+			   <td bgcolor="#ffffff">
+			    <table cellpadding="0" cellspacing="3" border="0">
+			     <tr>
+				  <td valign="middle" width=140>
+				   <font face="verdana, arial, helvetica" size="2"><b>Choose a friend:</b></font><br>
+				  </td>
+				  <td valign="top">
+				   <select name="field_friend" size="1" onChange="set_textfield();">
+                   {FRIENDLIST}
+			       </select><br>
+				  </td>
+				 </tr>
+				 <tr>
+				  <td width=140>&nbsp;</td>
+				  <td colspan="2">
+                   <font face="verdana, arial, helvetica" size="1">
+				   <input type="submit" name="Submit" value="Send message">&nbsp;<p>
+				   <a href="{MYPAGEURL}">go back to Mypage without sending message</a><br><br>
+                   </font>
+				  </td>
+				 </tr>
+			    </table>
+			   </td>
+			  </tr>
+			 </form>
+			 </table>
+			</td>
+		   </tr>
+		  </table>
