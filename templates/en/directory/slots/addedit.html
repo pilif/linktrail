@@ -166,13 +166,18 @@ function move(direction, form, listname, position_field){
 </tr>
 
 <tr>
-	<td colspan="2">
+	<td>
 	 <font size="2" face="verdana, arial, helvetica">
      <input type="checkbox" name="field_notify_users" id="field_notify_users" checked value="yes">
      <label for="field_notify_users">Notify the users on change</label>**)
      </font>
 	</td>
-	
+	<td>
+	 <font size="2" face="verdana, arial, helvetica">
+     <input type="checkbox" name="field_slot_live" id="field_slot_live" {CHECKED_FIELD_SLOT_LIVE}value="yes">
+     <label for="field_slot_live">Slot is live</label>***)
+     </font>
+	</td>
 </tr>
 
 
@@ -210,6 +215,14 @@ function move(direction, form, listname, position_field){
   <td><font size="2" face="verdana, arial, helvetica">
       If checked, the Owners of the given trail(s) will be notified about the changes
       using lMS (Messages 16 and 17)
+      </font>
+  </td>
+ </tr>
+ <tr valign="top">
+  <td><font size="2" face="verdana, arial, helvetica">***)</font></td>
+  <td><font size="2" face="verdana, arial, helvetica">
+      If checked, the slot will be displayed on the live-server (any copy of this application with
+      ALWAYS_DISPLAY_SLOTS defined as false)
       </font>
   </td>
  </tr>

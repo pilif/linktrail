@@ -70,6 +70,7 @@ function print_slot_form($nodeinfo, $slot_id=-1, $errstr=""){
  $tpl->set_var("VALUE_DESCRIPTION", $myslot['description']);
  $tpl->set_var("SLOTLIST", print_slot_list($nodeinfo['id'], $myslot['id']));
  $tpl->set_var("BACKURL", build_good_url($nodeinfo['path']));
+ $tpl->set_var("CHECKED_FIELD_SLOT_LIVE", ($myslot['islive'] == "y") ? "checked " : "");
  $tpl->parse("main", "form");
  return $tpl->get("main");
 } 

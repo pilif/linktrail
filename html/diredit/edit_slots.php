@@ -89,7 +89,7 @@ $tpl->p("main");
 print_page_end();
 }
 
-function validate_and_set($http_vars){
+function validate_and_set(&$http_vars){
  global $nodeinfo;
  
  $errors = Array();
@@ -121,6 +121,7 @@ function validate_and_set($http_vars){
  $slot['trail_2_text'] = $http_vars['field_title_2'];
  $slot['description']  = $http_vars['field_description'];
  $slot['next']         = "";
+ $slot['islive']       = (isset($http_vars['field_slot_live'])) ? "y" : "n";
 
  return $slot;
 }
