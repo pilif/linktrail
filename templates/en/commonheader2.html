@@ -81,7 +81,7 @@ function openIt(windowname){
  <td align="right">
 	<font face="verdana,arial,helvetica" size="1">
 	<b><a href="JavaScript: alert('Not available at this time. Please check back later.')" style="color: #000000"><img src="/img/icon_help.gif" width="16" height="16" alt="" border="0" hspace="3" vspace="0" align="texttop">Help</a></b>
-	<?php if (!$nobody) { ?><b><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologout=1" style="color: #000000"><img src="/img/icono3.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop">Logout</a></b><?php } ?>
+	<?php if (!$nobody) { ?><b><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologout=1" style="color: #000000"><img src="/img/icono3.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop">Logout</a> '<?= $auth->auth['uname'] ?>'</b><?php } ?>
 	<?php if ($nobody) { ?><b><a href="<?php echo(build_good_url($PHP_SELF)) ?>?dologin=1" style="color: #000000"><img src="/img/icon_logon.gif" width="16" height="16" alt="" border="0" hspace="1" vspace="0" align="texttop">Login</a></b><?php } ?>
 	</font>
  </td>
