@@ -18,25 +18,25 @@ if (!defined("COMMON_SUBSCRIPTIONS_INC"))
  include("commonapi/common_subscriptions.inc");
 
 
-define("ACTION_PERMS", "\n".'<li><a href="[URL]" target="_self" class="hi" title="Change who may edit this trail">'.$ltrstr["Change Permissions"].'</a>');
-define("ACTION_BACK",  "\n".'<li><a href="[URL]" class="hi" title="go back to the linktrail directory">'.$ltrstr["Go back to linktrail"].'</a>');
+define("ACTION_PERMS", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi" title="Change who may edit this trail">'.$ltrstr["Change Permissions"].'</a></font></td></tr>');
+define("ACTION_BACK",  "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><li><a href="[URL]" class="hi" title="go back to the linktrail directory">'.$ltrstr["Go back to linktrail"].'</a></font></td></tr>');
 
-define("ACTION_CSUBS"    , "\n".'<li><a href="[URL]" target="_self" class="hi">'.$ltrstr["Change Subscription"].'</a>');
-define("ACTION_SUBSCRIBE", "\n".'<li><a href="[URL]" target="_self" class="hi" title="Subscribe this Trail to find it again">'.$ltrstr["Subscribe"].'</a>');
+define("ACTION_CSUBS"    , "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><li><a href="[URL]" target="_self" class="hi">'.$ltrstr["Change Subscription"].'</a></font></td></tr>');
+define("ACTION_SUBSCRIBE", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi" title="Subscribe this Trail to find it again">'.$ltrstr["Subscribe"].'</a></font></td></tr>');
 //define("ACTION_CNOTI"    , "\n".'<li><a href="[URL]" target="_self" class="hi" title="Change how i would like the be notified about changes">'.$ltrstr["Change Notification"].'</a>');
 
-define("ACTION_RECOM", "\n".'<li><a href="[URL]" target="_self" class="hi" title="Recommend this Trail to a friend">'.$ltrstr["Recommend this trail"].'</a>');
-define("ACTION_ADD"  , "\n".'<li><a href="[URL]" target="_self" class="stat" title="Add a link to this trail.">'.$ltrstr["Add a link"].'</a>');
-define("ACTION_MYPAG", "\n".'<li><a href="[URL]" class="hi">'.$ltrstr["Go to the Creators page"].'</a>');
-define("ACTION_MYPAG_MY", "\n".'<li><a href="[URL]" class="hi">'.$ltrstr["Go to my Mypage"].'</a>');
+define("ACTION_RECOM", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi" title="Recommend this Trail to a friend">'.$ltrstr["Recommend this trail"].'</a></font></td></tr>');
+define("ACTION_ADD"  , "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="stat" title="Add a link to this trail.">'.$ltrstr["Add a link"].'</a></font></td></tr>');
+define("ACTION_MYPAG", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" class="hi">'.$ltrstr["Go to the Creators page"].'</a></font></td></tr>');
+define("ACTION_MYPAG_MY", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" class="hi">'.$ltrstr["Go to my Mypage"].'</a</font></td></tr>');
 
-define("ACTION_LOGIN", "\n".'<li><a href="[URL]" target="_self" class="hi">'.$ltrstr['Login'].'</a>');
-define("ACTION_SHARE", "\n".'<li><a href="[URL]" target="_self" class="hi">'.$ltrstr["Share this trail"].'</a>');
+define("ACTION_LOGIN", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr['Login'].'</a></font></td></tr>');
+define("ACTION_SHARE", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr["Share this trail"].'</a></font></td></tr>');
 
-define("ACTION_CONTACT", "\n".'<li><a href="[URL]" target="_self" class="hi">'.$ltrstr['Contact the author'].'</a>');
+define("ACTION_CONTACT", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica"><a href="[URL]" target="_self" class="hi">'.$ltrstr['Contact the author'].'</a></font></td></tr>');
 
 
-define("ACTION_GO", "\n".'<li>'.$ltrstr['Go to'].' [[DIRECTORY]][[CREATOR]][[MYPAGE]]');
+define("ACTION_GO", "\n".'<tr><td><font size=1 face="verdana, arial, helvetica"><b>&#183;</b></font></td><td><font size=1 face="verdana, arial, helvetica">'.$ltrstr['Go to'].' [[DIRECTORY]][[CREATOR]][[MYPAGE]]</font></td></tr>');
 
 define("GO_DIR", '<a href="[URL]" class="hi">'.$ltrstr['directory'].'</a>');
 define("GO_CRE", '|<a href="[URL]" class="hi">'.$ltrstr['Creator'].'</a>');
