@@ -7,12 +7,12 @@ define("BOUNCE_CHECK", "bounce_test");
 define("BOUNCE_FAIL", "fail");
 define("BOUNCE_ERR", -1);
 
-define("DB_SERVER",   "troll.linktrail.work");
+define("DB_SERVER",   "galadriel.linktrail.work");
 define("DB_DATABASE", "linktrail");
 define("DB_USER",     "root");
 define("DB_PASS",     "oelberg");
 
-define("SEARCH_HOST", "troll.linktrail.work");
+define("SEARCH_HOST", "galadriel.linktrail.work");
 define("SEARCH_PORT", 7779);
 
 define("CACHE_DIR", APPLICATION_HOME.'/cache');
