@@ -181,5 +181,5 @@ $ltrstr['Add Trail title']        = 'Enter a title for this trail:';
 $ltrstr['Add Trail description']  = 'What is this trail all about?';
 $ltrstr['Admin Trail del']        = 'We are sorry to inform you that linktrail has removed your trail, because it violated the terms of service you accepted when registering.<p>If you have further questions, feel free to ask our <a href="mailto:support@linktrail.com">support staff</a>';
 
-$ltrstr['In Reply to']            = "<b>In Reply to</b>: <p><i>%s</i>";
+$ltrstr['In Reply to']            = "<p><b>In Reply to</b>: <i>%s</i>";
 ?>
