@@ -22,7 +22,7 @@ where
 AND
  ( tbl2.Node_ID = ltrDirectory.Parent)
 AND
- ltrDirectory.Node_ID = ltrDirectoryData.Node_ID
+ (ltrDirectory.Node_ID = ltrDirectoryData.Node_ID)
 ");
 
 
