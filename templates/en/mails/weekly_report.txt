@@ -1,18 +1,16 @@
-Hi {FIRSTNAME} {LASTNAME}
+Hi {USERNAME}
 
-Welcome to your linktrail update. If you don't want to receive this 
-message in the future, follow the instructions at the end.
-
-On your linktrail account, you will find
-- {UNREAD} unread messages
-- {FREQ} pending friendship requests
-- {RECC} trail recommendations
-
+Welcome to your linktrail report. {STATS_INTRODUCTION}
+{UNREAD}{FREQ}{RECC}
 {NEWTRAILS} new trails were created overall since your last visit.
-
 {TRAILLIST}
+Keep enjoying our services
+
+linktrail, Inc.
 
 -- 
-If you don't want to receive this message in the future, choose "never"
-from the dropdown-box at the bottom of your personal account 
-settings page.
+This is an automatically generated report message.
+
+To change the frequency you are receiving this report or to unsubscribe
+to it, please follow this link:
+{UNSUBURL}
