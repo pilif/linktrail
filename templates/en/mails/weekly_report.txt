@@ -10,9 +10,6 @@ On your linktrail account, you will find
 
 {NEWTRAILS} new trails were created overall since your last visit.
 
-The following trails from your Mypage have been updated since your last 
-visit:
-
 {TRAILLIST}
 
 -- 
