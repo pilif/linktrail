@@ -20,6 +20,8 @@ if (!is_array($mytrail)){
  $mytrail = get_node_info($PATH_INFO);
 }
 
+echo("in trail ist: $in_trail");
+
 if ($in_trail == 1){ 
  //die(class_exists("Template"));
  if (!class_exists("Template"))
@@ -28,19 +30,17 @@ if ($in_trail == 1){
  $tpl->set_file(array("simpleframe" => "simpleframe.html"));
  $tpl->set_var("CONTENT", print_loginform_trail($PHP_SELF, $this->auth["uname"], $ltrstr['Trail_Login'],$failed));
  $tpl->parse("simpleframe", "simpleframe");
- global $action, $kat;
+/* global $action, $kat;
  $action = $HTTP_GET_VARS['action'];
- $kat = $HTTP_GET_VARS['kat'];
+ $kat = $HTTP_GET_VARS['kat'];*/
  //die($action);
- $sess->register("kat"); $sess->register("action");
+// $sess->register("kat"); $sess->register("action");
  print $tpl->get("simpleframe");
 }elseif ($in_trail == 2){
  print(msg_box($ltrstr['LOGIN'], print_loginform_trail(build_good_url($PHP_SELF), $this->auth["uname"], $ltrstr['Trail_Login_Add'],$failed), $mytrail, $mytrail['path']."?dologout=1", 0, $ltrstr['Back without logging in']));
-}elseif ($in_trail == 3){
- print(msg_box($ltrstr['LOGIN'], print_loginform_trail(build_good_url($PHP_SELF), $this->auth["uname"], $ltrstr['Trail_Login_Sub'],$failed), $mytrail, $mytrail['path']."?dologout=1", 0, $ltrstr['Back without logging in'])); 
+/*}elseif ($in_trail == 3){
+ print(msg_box($ltrstr['LOGIN'], print_loginform_trail(build_good_url($PHP_SELF), $this->auth["uname"], $ltrstr['Trail_Login_Sub'],$failed), $mytrail, $mytrail['path']."?dologout=1", 0, $ltrstr['Back without logging in'])); */
 }elseif ($in_trail == 4){
- global $test;
-
  print(msg_box($ltrstr['LOGIN'], print_loginform_trail(build_good_url($PHP_SELF), $this->auth["uname"], $ltrstr['Trail_Login_Req'],$failed), $mytrail, $mytrail['path']."?dologout=1", 0, $ltrstr['Back without logging in']));
 } 
 ?>                            
