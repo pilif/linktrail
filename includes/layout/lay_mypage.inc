@@ -202,6 +202,18 @@ function print_flag_subscribed($path, $itsme){
  return $tpl->get("main");
 }
 
+function print_mypage_t4u($t4u){
+ global $sess, $glob_userdata;
+ 
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/", "keep");
+ $tpl->set_file(array("name" => "t4u.html"));
+ $tpl->set_var("T4U_URL", $sess->url(build_good_url($t4u['path'])));
+ $tpl->set_var("T4U_TITLE", friendlyname($t4u['path']));
+ $tpl->set_var("T4U_DESC", $t4u['description']);
+ $tpl->set_var("T4U_TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222)); 
+ $tpl->parse("main", "name");
+ return $tpl->get("main");
+}
 function print_mypage_name($first, $last){
  $tpl = new Template(APPLICATION_HOME."/templates/mypage/profile", "keep");
  $tpl->set_file(array("name" => "name.html"));

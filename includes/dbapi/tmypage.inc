@@ -18,7 +18,7 @@
  if (!defined("COMUTILS_INC"))
   include("dbapi/comutils.inc");
 
- if (!defined("SQL_MYPAG_INC"))
+ if (!defined("SQL_MYPAGE_INC"))
   include("dbapi/sql_mypage.inc");
 
   
@@ -75,6 +75,7 @@ function read_table_mp($tablename, $order_by, $order_type, $limit){
   $hsh['parent']              = $myDB->f("parent");
   $hsh['subscribed']          = $myDB->f("SubscribedToTrail") != 0;
   $hsh['language']            = $myDB->f("Language");
+  $hsh['parent_id']           = $myDB->f("parent_id");
   $arr[] = $hsh;
  }
  reset($arr);
@@ -83,13 +84,13 @@ function read_table_mp($tablename, $order_by, $order_type, $limit){
 
 function count_results_mp($tablename){
  global $myDB;
- if (! $myDB->query(FormatSQL(COUNT_RESULTS, array($tablename)))) return 0;
+ if (! $myDB->query(FormatSQL(COUNT_RESULTS_MYPAGE, array($tablename)))) return 0;
  $myDB->next_record();
  return $myDB->f("cnt");
 }
 
 function delete_table_mp($tablename){
  global $myDB;
- $myDB->query(FormatSQL(DROP_TEMP, array($tablename)));
+ $myDB->query(FormatSQL(DROP_TEMP_MYPAGE, array($tablename)));
 }
 

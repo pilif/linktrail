@@ -9,7 +9,8 @@ define("CREATE_AND_FILL_MYPAGE","
 CREATE TEMPORARY TABLE #I
  SELECT 
  ltrDirectoryData.AddDate, ltrDirectoryData.ChangeDate, 
- ltrDirectory.Name, ltrDirectory.Node_ID, ltrDirectory.Language,
+ ltrDirectory.Name, ltrDirectory.Node_ID, ltrDirectory.Parent as parent_id,
+ ltrDirectory.Language,
  0 as SubscribedToTrail,
  tbl2.Name as parent,
  RIGHT(ltrDirectory.Name, INSTR(MID(REVERSE(ltrDirectory.Name),2,LENGTH(ltrDirectory.Name)) ,'/')) as friendlyname_trail,
@@ -30,7 +31,8 @@ define("INSERT_SUBSCRIBED", "
 INSERT INTO #I
 SELECT 
  ltrDirectoryData.AddDate, ltrDirectoryData.ChangeDate, 
- ltrDirectory.Name, ltrDirectory.Node_ID, ltrDirectory.Language,
+ ltrDirectory.Name, ltrDirectory.Node_ID, ltrDirectory.Parent as parent_id, 
+ ltrDirectory.Language,
  ltrSubscriptions.Trail as SubscribedToTrail,
  tbl2.Name as parent,
  RIGHT(ltrDirectory.Name, INSTR(MID(REVERSE(ltrDirectory.Name),2,LENGTH(ltrDirectory.Name)) ,'/')) as friendlyname_trail,

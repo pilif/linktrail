@@ -32,7 +32,10 @@ if (!defined("TMYPAGE_INC"))
   
 if (!defined("COMMON_USER_INC"))
   include("commonapi/common_user.inc");
-
+ 
+if  (!defined("TRAILFORYOU_INC"))
+  include("dbapi/trailforyou.inc");
+  
  $userdata = get_user_from_name($expert);
  if ($userdata == -1){
   page_close();
@@ -101,6 +104,8 @@ if (!defined("COMMON_USER_INC"))
  $max_trail_count = count_trails_mypage($expert, !$itsme); */
 
  $trailsdata = read_trails_mypage(&$userdata, $current_index, $ob, $ot);
+ if ($expert == $auth->auth['uname'])
+  $t4u = read_a_trail_for_you($trailsdata['trails'], $auth->auth['uname'], $auth->auth['uid']);
 
  include("commonheader2.html");
  $tpl->set_var("SORTACTION", $PHP_SELF);
@@ -140,7 +145,12 @@ if (!defined("COMMON_USER_INC"))
     $c++; //h„h„h„
    }
   }
- } 
+ }
+ //echo($expert);
+ if ($userdata['Username'] == $auth->auth['uname'])
+  $tpl->set_var("T4U", print_mypage_t4u($t4u));
+ else
+  $tpl->set_var("T4U", "");
  $tpl->set_var("TRAILS", $str);
  if ($trailsdata['count'] > DIR_MAX_TRAILS)
   $tpl->set_var("LIMITBOX", print_limitbox($current_index, $trailsdata['count'])); 
