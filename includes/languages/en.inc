@@ -35,9 +35,9 @@ $ltrstr['Preferences']	  		  = "Customize linktrail";
 $ltrstr['Settings']	  		      = "Settings";
 $ltrstr['SETTINGS']	  		      = "SETTINGS";
 $ltrstr['MESSAGES']	  		      = "MESSAGES";
-$ltrstr['Inbox']	  		      = "Received messages";
-$ltrstr['Outbox']	  		      = "Sent messages";
-$ltrstr['Composer']	  		      = "Compose a message";
+$ltrstr['Inbox']	  		      = "Check messages";
+$ltrstr['Outbox']	  		      = "Read sent messages";
+$ltrstr['Composer']	  		      = "Compose messages";
 
 
 $ltrstr['Pass_Nomatch']			  = "Your passwords did not match.";
@@ -204,7 +204,7 @@ $ltrstr['accept request']         = "Accept the friendship request of %s";
 $ltrstr['cancel friendship']      = "Quit friendship";
 $ltrstr['editmode']               = "Edit this node (admin)";
 $ltrstr['iw_login']               = "Login";
-$ltrstr['iw_logout']              = "Logout (%s)";
+$ltrstr['iw_logout']              = "Logout %s";
 $ltrstr['iw_register']            = "Register";
 $ltrstr['iw_linkdrop']            = "Paste shortcut to %s here";
 $ltrstr['iw_nodedrop']            = "Paste category %s here";
@@ -214,7 +214,7 @@ $ltrstr['iw_readmsgs_sub']        = '<br>%d new message(s)';
 $ltrstr['Home']                   = 'Home';
 $ltrstr['Mypage']                 = 'Mypage';
 $ltrstr['comfirm_friendship']     = 'Accept friendship request of %s';
-$ltrstr['quit_friendship']      = 'Quit my friendship with %s';
+$ltrstr['quit_friendship']        = 'Quit my friendship with %s';
 $ltrstr['make_friendship']        = 'Request a friendship with %s';
 $ltrstr['iw_editmode']            = 'Admin: Edit this node';
 

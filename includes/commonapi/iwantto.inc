@@ -21,8 +21,8 @@
  $iw_action['/^\/About\/.*/']              = 'print_actions_about';
  $iw_action['/^\/.*/']                     = 'print_actions_directory';
  
- $nav_logged['/^\/(.+)\/Messages/']    = array('print_nav_messages_a', 'print_nav_messages_d', 3);
- $nav_logged['/^\/(.+)\/Settings/']    = array('print_nav_settings_a', 'print_nav_settings_d', 2);
+ $nav_logged['/^\/(.+)\/Messages/']    = array('print_nav_messages_a', 'print_nav_messages_d', 2);
+ $nav_logged['/^\/(.+)\/Settings/']    = array('print_nav_settings_a', 'print_nav_settings_d', 3);
  $nav_logged['/^\/$/']                          = array('print_nav_home_active', 'print_nav_home_inactive', 0);
  $nav_logged['/^\/Experts\/'.$auth->auth['uname'].'$/']   = array('print_nav_mypage_a', 'print_nav_mypage_d', 1);
 

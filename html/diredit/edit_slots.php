@@ -166,7 +166,7 @@ function add_slot(){
  
  copy_file($slot_id);
  
- if (isset($HTTP_POST_VARS['field_notify_users'])){
+ if (isset($HTTP_POST_VARS['field_notify_users']) and ($slot['islive'] == "y")){
   $trail1 = get_node_info($slot['trail_1_id']);
   $trail2 = ($slot['trail_2_id']) ?  get_node_info($slot['trail_2_id']) : -1;
  
@@ -179,8 +179,9 @@ function add_slot(){
 }
 
 function go_back(){
- global $kat;
- header("Location: $kat");
+ global $kat, $HTTP_HOST;
+ Header("Location: http://$HTTP_HOST$kat");
+ exit;
 }
 
 function edit_slot_form(){
@@ -203,18 +204,17 @@ function edit_slot_form(){
 }
 
 function delete_slot(){
- global $nodeinfo, $HTTP_POST_VARS, $field_image_file, $field_image_file_name, $sess;
+ global $nodeinfo, $HTTP_POST_VARS, $field_image_file, $field_image_file_name, $sess, $HTTP_HOST;
 
  if (!defined("RED_NOTIFICATION_INC"));
   include("messages/red_notification.inc"); 
-
  
  $slotobj = get_slot_info($HTTP_POST_VARS['id']);
  rm_slot_ex($slotobj, true);
  remove_file($HTTP_POST_VARS['id']);
 
  //Notify users only if god (admin) wants them to be notified (the default)
- if (isset($HTTP_POST_VARS['field_notify_users'])){
+ if (isset($HTTP_POST_VARS['field_notify_users']) and ($slotobj['islive'] == "y") ){
  
   $trail1 = get_node_info($slotobj['trail_1_id']);
   $trail2 = ($slotobj['trail_2_id']) ?  get_node_info($slotobj['trail_2_id']) : -1;
@@ -223,8 +223,10 @@ function delete_slot(){
   if ($trail2 != -1)
    send_red_notification(LTMSG_SLOTTERM, $trail2['userid'], $trail2['id'], $slotobj['node']);
  } 
- 
- Header("Location: ".$sess->url($nodeinfo['path']));
+// page_close();
+ header("Location: ".$sess->url($nodeinfo['path']));
+ echo("blepp");
+ exit;
 }
 
 function edit_slot(){
@@ -242,14 +244,14 @@ function edit_slot(){
  copy_file($slot['id']);
 
  //Notify users only if god (admin) wants them to be notified (the default)
- if (isset($HTTP_POST_VARS['field_notify_users'])){
+ if (isset($HTTP_POST_VARS['field_notify_users']) and ($slot['islive'] == "y")){
  
   $trail1_new = get_node_info($slot['trail_1_id']);
   $trail2_new = ($slot['trail_2_id']) ?  get_node_info($slot['trail_2_id']) : -1;
  
   $trail1_old = get_node_info($oldslot['trail_1_id']);
   $trail2_old = ($oldslot['trail_2_id']) ?  get_node_info($oldslot['trail_2_id']) : -1;
-
+   
   send_red_notification(LTMSG_SLOTTERM, $trail1_old['userid'], $trail1_old['id'], $slot['node']);
   if ($trail2 != -1)
    send_red_notification(LTMSG_SLOTTERM, $trail2_old['userid'], $trail2_old['id'], $slot['node']);

@@ -190,7 +190,7 @@ function move(direction, form, listname, position_field){
 
 <tr><td colspan="2">		
 <center>
- <input type="submit" name="ok" value="&nbsp;Change&nbsp;">&nbsp;&nbsp;<input type="submit" value="delete this slot"  name="del" align="middle" border="0" onClick="if (confirm('You are deleting this slot!')) document.editform.submit(); else return false;"><p>
+ <input type="submit" name="ok" value="&nbsp;Change&nbsp;">&nbsp;&nbsp;<input type="submit" value="delete this slot"  name="del" align="middle" border="0" onClick="return (confirm('You are deleting this slot!'));"><p>
 	 <font size="1" face="verdana, arial, helvetica">
 <a href="{BACKURL}">go back without saving changes</a></font>
 </center>

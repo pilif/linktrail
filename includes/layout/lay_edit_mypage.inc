@@ -574,10 +574,18 @@ function print_all_settings_form($ext, $userdata, $passerror, $posconf){
  global $glob_language_name;
 
  $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
- $tpl->set_file(array("settings" => "settings_top.html"));
+
+ if ($posconf){
+ $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
+ $tpl->set_file(array("settings" => "settings_bottom.html"));
+ $tpl->parse("main", "settings");
+ $str .= '<p>'. $tpl->get("main");
+ }
+
+/* $tpl->set_file(array("settings" => "settings_top.html"));
  $tpl->set_var("USERNAME", $userdata['Username']);
  $tpl->parse("main", "settings");
- $str = $tpl->get("main");
+ $str = $tpl->get("main");*/
  $extl = strtolower($ext);
  if (file_exists(APPLICATION_HOME."/templates/$glob_language_name/mypage/edit/$extl.html")){
   $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
@@ -586,12 +594,12 @@ function print_all_settings_form($ext, $userdata, $passerror, $posconf){
   $tpl->parse("main", "settings");
   $str .='<p>'.$tpl->get("main");
  }
- if ($posconf){
+/* if ($posconf){
  $tpl = new Template(APPLICATION_HOME."/templates/mypage/edit", "keep");
  $tpl->set_file(array("settings" => "settings_bottom.html"));
  $tpl->parse("main", "settings");
  $str .= '<p>'. $tpl->get("main");
- }
+ }*/
  return $str;
 }
 

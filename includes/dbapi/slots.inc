@@ -97,12 +97,12 @@ function rm_slot_ex($obj){
  $object->set_sql_str("UPDATE ltrSlots SET Next=%s WHERE Slot_ID=%s");
  $object->delete_element($obj['id']);
  $sql_strs = $object->get_sql_diff($current_slots);
- lock_table('ltrSlots');
+// lock_table('ltrSlots');
  foreach($sql_strs as $sql)
   $myDB->query($sql);
  $query = FormatSQL(SQL_SLOT_DEL, array($obj['id']));
  $myDB->query($query);
- unlock_table('ltrSlots');
+// unlock_table('ltrSlots');
  return true;
 }
 
@@ -160,7 +160,7 @@ function edit_slot_ex($id, $obj){
 function reposition_slot($obj, $newpos){
  global $myDB;
 // die($newpos);
- lock_table('ltrSlots WRITE, ltrDirectory as tbl1 READ, ltrDirectory as tbl2');
+// lock_table('ltrSlots WRITE, ltrDirectory as tbl1 READ, ltrDirectory as tbl2');
  $current_slots = get_slots((integer)$obj['node']);
  $linkid = $obj['id'];
  $object = new user_sorted_list($current_slots);
@@ -177,7 +177,7 @@ function reposition_slot($obj, $newpos){
   $myDB->query($sql);
 //  echo("<pre>$sql</pre><br>");
  }
- unlock_table();
+// unlock_table();
 // die("feritg repos");
 }
 
