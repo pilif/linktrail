@@ -147,17 +147,10 @@ function get_user_from_name($name){
    $hsh['Email']             = $myDB->f("Email");
    $hsh['Homepage']          = $myDB->f("Homepage");
    $hsh['Description']       = $myDB->f("Description"); 
-   $hsh['Favourites']        = $myDB->f("MyURLS");
    $hsh['Gender']  	         = $myDB->f("Gender");
    $hsh['Age']  	         = $myDB->f("Age");
-   $hsh['Interests']         = $myDB->f("Interests");
    $hsh['Country']           = $myDB->f("Country");
    $hsh['PhotoUrl']          = $myDB->f("PhotoUrl");
-   $hsh['AIM']               = $myDB->f("AIM");
-   $hsh['Yahoo']  	         = $myDB->f("Yahoo");
-   $hsh['ICQ']               = $myDB->f("ICQ");
-   $hsh['MSN_Name']          = $myDB->f("MSN_Name");
-   $hsh['MSN_Pro']           = $myDB->f("MSN_Pro");
    $hsh['ShowNobody']        = $myDB->f("ShowNobody");
    $hsh['ShowFriend']        = $myDB->f("ShowFriend");
    $hsh['ShowAnyone']        = $myDB->f("ShowAnyone");
