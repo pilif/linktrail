@@ -160,7 +160,7 @@ function print_one_subnode($nodeobj, $may_click=true){
   
   $url   = ($nodeobj['subs'][$ci]['linkto'] == "") ? $nodeobj['subs'][$ci]['name'] : $nodeobj['subs'][$ci]['linkto'];
   $marker = ($nodeobj['subs'][$ci]['linkto'] == "") ? "" : "@";
-  $tpl->set_var("SUBURL", $sess->url($url));
+  $tpl->set_var("SUBURL", $sess->url(build_good_url($url)));
   $tpl->set_var("LINK_NOTE", $marker);
   $tpl->set_var("SUBNAME", friendlyname($nodeobj['subs'][$ci]['name']));
   $cc += strlen(friendlyname($nodeobj['subs'][$ci]['name']));
@@ -178,11 +178,11 @@ function print_one_subnode($nodeobj, $may_click=true){
  }else
   $tpl->set_file(array("main" => "one_subnode.html"));
  if ($nodeobj['linkto'] == ""){
-  $tpl->set_var("MAIN_URL", $sess->url($nodeobj['name']));
+  $tpl->set_var("MAIN_URL", $sess->url(build_good_url($nodeobj['name'])));
   $tpl->set_var("MAIN_NAME", friendlyname($nodeobj['name']));
   $tpl->set_var("LINK_NOTE", "");
  }else{
-  $tpl->set_var("MAIN_URL", $nodeobj['linkto']);
+  $tpl->set_var("MAIN_URL", $sess->url(build_good_url($nodeobj['linkto'])));
   $tpl->set_var("MAIN_NAME", friendlyname($nodeobj['name']));
   $tpl->set_var("LINK_NOTE", "@");
  }

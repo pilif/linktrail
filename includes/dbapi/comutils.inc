@@ -291,7 +291,7 @@ function build_good_url($path){
   $parts = explode("/", $path);
   $res = '/';
   for ($x=0; $x < count($parts); $x++){
-	  $res = $res.urlencode($parts[$x]).'/';
+	  $res = $res.rawurlencode($parts[$x]).'/';
       //$old = $old.urlencode($parts[$x]).'/';
   } 
  } 

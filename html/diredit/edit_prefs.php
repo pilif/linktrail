@@ -54,7 +54,7 @@ if ( ($method != "Send_Message") and ($method != 'Make_friendship') and ($method
 }elseif ( ($method == "Send_Message") or ($method == "Make_Friendship")){
  //user must be authenticated when sending a message
  $auth->login_if( ($auth->auth["uid"] == "nobody") );
-}else{
+}elseif ($method == "Settings"){
  //user must authenticated and THE user when sending a message
  $auth->login_if( ($auth->auth["uid"] == "nobody") or ($auth->auth['uname'] != $expert) );
 }

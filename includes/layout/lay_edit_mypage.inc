@@ -294,7 +294,6 @@ if ($list){
  
  $objs = read_messages_ex(($inbox) ? $userdata['User_ID'] : $userdata['Username'], $inbox, $ci, $bytext);
 
-
  $str = "";
  if (($viewtype == 1) or ($viewtype == 2)){
   $colorx = 0;
