@@ -207,10 +207,10 @@ if ( $HTTP_GET_VARS['drop'] == "1" ){
   $oldname = id2path($movetrail);
   mv_object($oldname, $kat.friendlyname($oldname));
   $ni = get_node_info($movetrail);
-  if (has_caps($capabilities, CAP_SUPERUSER))
+/*  if (has_caps($capabilities, CAP_SUPERUSER))
    send_link_admin_move_notification($ni, $newname);
   else
-   send_move_notification($auth->auth['uid'], $ni, $newname);
+   send_move_notification($auth->auth['uid'], $ni, $newname); */
   $movetrail = "";
   
   $sess->unregister("movetrail");
