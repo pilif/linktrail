@@ -247,18 +247,21 @@ function print_subnodes($kat, $subnodes, $caps){
  return $contents;
 }
 
-function print_trail_move_link($trail_id){
-  global $REQUEST_URI, $HTTP_GET_VARS, $QUERY_STRING, $sess;
+function print_trail_move_link(&$trail){
+  global $REQUEST_URI, $HTTP_GET_VARS, $QUERY_STRING, $sess, $glob_userdata;
   $url = $REQUEST_URI;
   if ($QUERY_STRING != 'movetrail='.$HTTP_GET_VARS['movetrail'])
     $url .=  (strstr($url, "?")) ? "&" : "?";
   if (strstr($url, 'movetrail='))
-   $url = str_replace('movetrail='.$HTTP_GET_VARS['movetrail'], 'movetrail='.$trail_id, $url);
+   $url = str_replace('movetrail='.$HTTP_GET_VARS['movetrail'], 'movetrail='.$trail['id'], $url);
   else
-   $url .= 'movetrail='.$trail_id;
+   $url .= 'movetrail='.$trail['id'];
   $tpl = new Template(APPLICATION_HOME."/templates/directory/trails", "keep");
   $tpl->set_file(array("main" => "trailmove.html"));
   $tpl->set_var("MOVEURL", $sess->url($url));
+  $tpl->set_var("EDITURL", $sess->url('/diredit/edittrail.php'.build_good_url($trail['path'])));
+  $tpl->set_var("DELURL", $sess->url('/diredit/edittrail.php'.build_good_url($trail['path']).'?action=quickdelete'));
+  $tpl->set_var("TARGET", 'trail'.($glob_userdata['NewWindow'] ? rand(11111,99999) : 222));
   $tpl->parse("main", "main");
   return $tpl->get("main"); 
 }
@@ -303,7 +306,7 @@ function print_trail($data, $caps, $node_id){
  }
  $tpl->set_var("UPDATED", $str); 
  if ( (has_caps($permmission, PERM_MOVE_TRAIL)) and ($HTTP_GET_VARS['movetrail'] != $data['id']) and ($movetrail != $data['id']))
-   $tpl->set_var("MOVE", print_trail_move_link($data['id']));
+   $tpl->set_var("MOVE", print_trail_move_link($data));
  else 
    $tpl->set_var("MOVE", "");
  $tpl->set_var("DATE", $date);

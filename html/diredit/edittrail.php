@@ -173,7 +173,7 @@ function cancel(){
  exit;
 }
 
-function del($id, $act_as_admin = false){  
+function del($id, $act_as_admin = false, $quick=false){  
  global $sess, $mytrail, $auth;
 
  if (!defined("DIRECTORY_NOTIFICATION_INC"));
@@ -184,7 +184,14 @@ function del($id, $act_as_admin = false){
  if ($act_as_admin)
   send_admin_notification($mytrail, LTMSG_TRAILDEL); //TODO: add reason
  
- include("directory/edit/del-confirmation.html");
+ if (!$quick){
+  page_close();
+  include("directory/edit/del-confirmation.html");
+  exit;
+ }else{
+  page_close();
+  Header("Location: ".$sess->url(build_good_url(parent_path($mytrail['path'])))); 
+ }
 }
 
 function lang_answer($trailinfo){
@@ -253,6 +260,9 @@ switch ($action) {
   case "langanswer":
           lang_answer($trailinfo);
           break;
+  case "quickdelete":
+          del($mytrail['id'], false, true);
+          break; 
 		  
 }
  
