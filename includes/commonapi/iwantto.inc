@@ -18,7 +18,7 @@
  $iw_action['/^\/Experts\/.*/']            = 'print_actions_mypage';
  $iw_action['/^\/Tour\/.*/']               = 'print_actions_tour';
  $iw_action['/^\/Experts\/.*/']            = 'print_actions_experts';
- $iw_action['/^\/About\/.*/']              = 'print_actions_about';
+ $iw_action['/^\/(About|Help)\/.*/']       = 'print_actions_tour';
  $iw_action['/^\/.*/']                     = 'print_actions_directory';
  
  $nav_logged['/^\/(.+)\/Messages/']    = array('print_nav_messages_a', 'print_nav_messages_d', 2);
@@ -30,6 +30,10 @@
 //die('/^\/Experts\/'.$auth->auth['uname'].'$/');
  $nav_unlogged['/^\/$/']       =    array('print_nav_home_active', 'print_nav_home_inactive', 0);
  $nav_unlogged['/^\/Tour.*/']           = array('print_nav_tour_a', 'print_nav_tour_d', 1);
+ 
+ function print_actions_static($kat){
+  return "nothing";
+ }
  
  function print_nav_tour_a(){
   global $sess, $ltrstr;
@@ -234,6 +238,7 @@
  function print_actions_directory($kat){
   global $auth, $sess, $PATH_INFO, $ltrstr, $PHP_SELF, $perm, $movetrail;
 
+  echo($kat);
   if(!defined("COMMON_PERMISSIONS_INC"))
    include("commonapi/permissions.inc");
    

@@ -60,7 +60,7 @@ function print_sidebar($rubrik, $active_url){
  $arr = $$var; 
  foreach($arr as $key => $value)
   $tpl->set_var("LINKS_".strtoupper($key), print_side_links($key, $active_url, $rubrik));
- $tpl->set_var("IWANTTO", print_iwantto('/', $capabilities)); 
+ $tpl->set_var("IWANTTO", print_iwantto($active_url, $capabilities)); 
  $tpl->parse("main", "main");
  return $tpl->get("main");  
 }
