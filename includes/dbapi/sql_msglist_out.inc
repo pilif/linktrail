@@ -27,8 +27,6 @@ SELECT
 FROM 
  ltrMessages
 LEFT JOIN auth_user ON ltrMessages.Target = auth_user.user_id
-FROM 
- ltrMessages
 WHERE
  (Sender = #S)
 AND
