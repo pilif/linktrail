@@ -1,4 +1,5 @@
 <?php
+$in_settings = 1;
 page_open(array("sess" => "Linktrail_Session", "auth" => "Linktrail_Auth", "perm" => "Linktrail_Perm"));
 
 if ( $dologout == "1" ){
@@ -55,14 +56,13 @@ if ( ($method != "Send_Message") and ($method != 'Make_friendship') and ($method
  $auth->login_if( ($auth->auth["uid"] == "nobody") );
 }else{
  //user must authenticated and THE user when sending a message
- $PATH_INFO = '/Experts'.$PATH_INFO;
  $auth->login_if( ($auth->auth["uid"] == "nobody") or ($auth->auth['uname'] != $expert) );
 }
 
 if ( ($method != "Settings") and ($method != "Make_friendship") and ($method != "Send_Message") and ($method != "Messages"))
  error("Unknown Method", "The given Method ($method) is not known. Please do not call this file directely", __LINE__, __FILE__);
 
-$kat = "/Experts".$PATH_INFO;
+ $kat = "/Experts".$PATH_INFO;
 
 foreach($virt_dir as $dir){
  if ( ($method == $dir) and ($extension == "" and (substr($PATH_INFO, -1) != '/') ) ){

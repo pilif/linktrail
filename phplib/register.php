@@ -7,6 +7,8 @@ if (!defined("LAY_LOGIN_INC"))
 
 include("template.inc");
 
+global $in_settings;
+
 if (isset($node))
  $kat = base64_decode($node);
 else
@@ -14,6 +16,9 @@ else
 
 $kat = trim($kat);
 
+if ($in_settings)
+ $kat = "/Experts".$kat;
+ 
 //for the commonheader-template
 $pl  = build_pathlist($kat, false);
 $plf = build_pathlist($kat, true, true); 
