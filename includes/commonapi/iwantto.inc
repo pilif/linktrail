@@ -207,7 +207,7 @@
  }
  
  function print_actions_directory(){
-  global $auth, $sess, $PATH_INFO, $ltrstr, $PHP_SELF, $perm;
+  global $auth, $sess, $PATH_INFO, $ltrstr, $PHP_SELF, $perm, $movetrail;
   
   if(!defined("COMMON_PERMISSIONS_INC"))
    include("commonapi/permissions.inc");
@@ -227,7 +227,11 @@
 // die($ltrstr['iw_editmode']);
   if (has_caps($capabilities, CAP_ADMIN_DIRECTORY))
    $str .= print_iwantto_item_ex($ltrstr['iw_editmode'], "", $sess->url(build_good_url($PHP_SELF).'?editmode=1'));
-   
+  
+  if (has_caps($capabilities, CAP_ADD_TRAIL) and ($movetrail != "")){
+   $name = id2path($movetrail);
+   $str .= print_iwantto_item_ex(sprintf($ltrstr['iw_traildrop'], friendlyname($name)), "", build_good_url($PHP_SELF).'?drop=1');
+  }
   return $str;
  }
 
