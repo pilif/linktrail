@@ -122,9 +122,10 @@ if  (!defined("TRAILFORYOU_INC"))
  $max_trail_count = count_trails_mypage($expert, !$itsme); */
 
  
- if (!isset($viewdata_mypage['ob'])) $viewdata_mypage['ob'] = $ob;
+ /*if (!isset($viewdata_mypage['ob'])) $viewdata_mypage['ob'] = $ob;
  if (!isset($viewdata_mypage['ot'])) $viewdata_mypage['ob'] = $ot;
  $phplib_user->register("viewdata_mypage");
+ */
  
  $trailsdata = read_trails_mypage(&$userdata, $current_index, $ob, $ot);
  if ($expert == $auth->auth['uname'])

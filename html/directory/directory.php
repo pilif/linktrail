@@ -6,7 +6,7 @@ header("Location: $PHP_SELF?".$QUERY_STRING."#".$HTTP_GET_VARS['anchor']);
  exit;
 }
 $phplib_user = $user; //so many times, we use $user...
-echo("Test: $phplib_user");
+//echo("Test: $phplib_user");
 if ( $dologout == "1" ){
  //die("unauth");
  
