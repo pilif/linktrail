@@ -23,6 +23,8 @@ AND
 AND 
  ltrDirectoryData.Node_ID = ltrDirectory.Node_ID
 AND
+ ltrDirectoryData.Description != ''
+AND
  ltrDirectoryData.Owner != #S
 ORDER BY
  ltrDirectoryData.ExtraLong DESC
