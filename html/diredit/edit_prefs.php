@@ -45,14 +45,17 @@ if ($method == ""){
 
 //All of this pages but Send_Message are private for the user that is on his mypage.
 //Send_Message works for all users that are logged on
-if ( ($method != "Send_Message") and ($method != 'Make_friendship')){
+if ( ($method != "Send_Message") and ($method != 'Make_friendship') and ($method != 'Settings')){
  if ( ($expert != $auth->auth['uname']) or ($auth->auth['uid'] == "nobody") ){
   Header("Location: ".$sess->url("/Experts/".rawurlencode($expert)));
   exit;
  }
-}else{
+}elseif ( ($method == "Send_Message") or ($method == "Make_Friendship")){
  //user must be authenticated when sending a message
  $auth->login_if( ($auth->auth["uid"] == "nobody") );
+}else{
+ //user must authenticated and THE user when sending a message
+ $auth->login_if( ($auth->auth["uid"] == "nobody") or ($auth->auth['uname'] != $expert) );
 }
 
 if ( ($method != "Settings") and ($method != "Make_friendship") and ($method != "Send_Message") and ($method != "Messages"))
@@ -68,7 +71,9 @@ foreach($virt_dir as $dir){
  } 
 }
 
-if ($REQUEST_METHOD == "GET")
+global $HTTP_POST_VARS;
+
+if (($REQUEST_METHOD == "GET") or ($HTTP_POST_VARS['username'] != ""))
  display_form();
 else
  do_changes();
