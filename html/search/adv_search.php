@@ -70,11 +70,32 @@ function search(&$cond_array){
                     );
  foreach($cond_array as $condition){
   if ($condition['text'] == "") continue; //ignore empty conditions!
-  $query .= $connectors[$condition['conn']];
-  $query .= '"'.$condition['text'].'"'; 
+  if ($condition['loc'] == "a"){
+   $query .= $connectors[$condition['conn']];
+   $query .= '"%'.$condition['text'].'%"'; 
+  }else{
+   $query .= $connectors[$condition['conn']];
+   switch ($condition['loc']) {
+    case "tt":
+        $query .= '{"%'.$condition['text'].'%";TrailTitle:100}'; 
+        break;
+    case "td":
+        $query .= '{"%'.$condition['text'].'%";TrailDesc:100}'; 
+        break;
+    case "lt":
+        $query .= '{"%'.$condition['text'].'%";LinkName:100}'; 
+        break;
+    case "ld":
+        $query .= '{"%'.$condition['text'].'%";LinkDesc:100}'; 
+        break;
+    case "lu":
+        $query .= '{"%'.$condition['text'].'%";URL:100}'; 
+        break;
+   }
+  }
  }
- 
- Header("Location: ".$sess->url(build_good_url(parent_path($kat)).'Search?sq='.urlencode($query)));
+// die("<pre>$query</pre>");
+ Header("Location: ".$sess->url(build_good_url(parent_path($kat)).'Search?aq='.urlencode($query)));
 
 }
 
