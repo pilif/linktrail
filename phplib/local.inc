@@ -7,7 +7,7 @@
  *
  * $Id: local.inc,v 1.5 2001-11-07 22:04:33 pilif Exp $
  *
- */ 
+ */
 
 class DB_Linktrail extends DB_Sql {
   var $Host     = DB_SERVER;
@@ -15,10 +15,10 @@ class DB_Linktrail extends DB_Sql {
   var $User     = DB_USER;
   var $Password = DB_PASS;
   var $Debug    = false;
-  
+
   function haltmsg($msg){
    global $in_trail, $ltrstr;
-   
+
    $error['short']       = "SQL - Error";
    $error['description'] = $ltrstr['Database Error'];
    $error['filename']    = basename(__FILE__);
@@ -36,9 +36,9 @@ class DB_Tester extends DB_Sql {
   var $User     = "root";
   var $Password = "oelberg";
   var $Debug    = false;
-  
+
   function haltmsg($msg){
-   echo("error: $msg"); 
+   echo("error: $msg");
   }
 }
 
@@ -59,7 +59,7 @@ class Linktrail_Session extends Session {
   var $lifetime       = 0;                 ## 0 = do session cookies, else minutes
   var $that_class     = "Linktrail_CT_Sql"; ## name of data storage container
   //var $that_class = "Linktrail_CT_Shm";
-  var $gc_probability = 20;  
+  var $gc_probability = 20;
 }
 
 class Linktrail_User extends User {
@@ -81,8 +81,8 @@ function logout_done(){
  global $glob_userdata, $sess, $HTTP_COOKIE_VARS;
  $glob_userdata = "";
  $sess->unregister("glob_userdata");
-} 
- 
+}
+
 function login_done(){
  global $glob_userdata, $glob_immp, $sess, $PHP_SELF, $REQUEST_METHOD;
   //echo("login_done<br>");
@@ -121,7 +121,7 @@ function login_done(){
       $this->auth["uname"] = "";
    }
   }
-  
+
   function auth_loginform() {
     global $sess, $auth;
     global $_PHPLIB;
@@ -134,10 +134,10 @@ function login_done(){
 	if (!isset($in_trail))
 	 $in_trail = 0;
     if ( (is_trail($PHP_SELF)) and (!preg_match('/\/Tour/', $PHP_SELF)) and (!preg_match('/\/Experts/', $PHP_SELF)) and (!preg_match('/\/About/', $PHP_SELF)) and (!preg_match('/\/Help/', $PHP_SELF))){
-      $in_trail = 4; 
+      $in_trail = 4;
 	}
-    if ($in_trail != 0) 
-	 include("logon_intrail.php"); // in the phplib-subdir 
+    if ($in_trail != 0)
+	 include("logon_intrail.php"); // in the phplib-subdir
 	else
 	 include("register.php"); //register.php is in the phplib-Subdir of the Application
   }
@@ -157,7 +157,7 @@ function login_done(){
     }
     return $uid;
   }
-  
+
   function auth_validatelogin() {
     global $username, $password, $savepass, $HTTP_POST_VARS;
 
@@ -176,7 +176,7 @@ function login_done(){
     }
     return $this->init_user($uid);
   }
-  
+
   function first_step(){
    global $PHP_SELF, $backurl, $sess, $forcelogin;
 
@@ -192,13 +192,13 @@ function login_done(){
    $sess->unregister("backurl");
    return $result;
   }
-  
+
 }
 
 
 class Linktrail_Perm extends Perm {
   var $classname = "Linktrail_Perm";
-  
+
   var $permissions = array(
                             "user"       => 1,
                             "red"        => 2,
@@ -210,7 +210,7 @@ class Linktrail_Perm extends Perm {
   function perm_invalid($does_have, $must_have) {
     global $perm, $auth, $sess;
     global $_PHPLIB;
-    
+
     include($_PHPLIB["libdir"] . "perminvalid.ihtml");
   }
 }
