@@ -11,12 +11,12 @@ if (!defined("COMUTILS_INC"))
 
 function print_loginform_trail($action_login, $current_user, $logintext, $failed=false){
  global $ltrstr, $sess, $HTTP_GET_VARS;
- 
+
  if (!class_exists("Template"))
   include("template.inc");
  $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "login_trail.html"));
- 
+
  if ($failed)
    $tpl->set_var("ERROR_STRING", '<font size=2 face="Verdana, Arial, Helvetica, Sans-Serif"><font color="'.ERR_COLOR.'">'.$ltrstr['Error'].'</font>'.$ltrstr['Login failed'].'</font>');
  else
@@ -48,7 +48,7 @@ return $tpl->get("main");
 
 function print_password_request_answer(){
  global $PHP_SELF;
- 
+
 $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 $tpl->set_file(array("main" => "password_query_answer.html"));
 $tpl->parse("main", "main");
@@ -63,14 +63,14 @@ function print_password_request($done = false, $kat="", $capabilities=0){
   $form = print_password_request_answer();
  else
   $form = print_password_request_form();
- 
+
  $tpl->set_var("FIRST_FIELD", $form);
  $tpl->set_var("SECOND_FIELD", "");
- 
+
  if (!defined("LAY_DIRECTORY_INC"))
   include("layout/lay_directory.inc");
-  
- $tpl->set_var("IWANTTO", print_iwantto($kat, $capabilities)); 
+
+ $tpl->set_var("IWANTTO", print_iwantto($kat, $capabilities));
  $tpl->parse("main", "main");
  return $tpl->get("main");
 }
@@ -93,7 +93,7 @@ function print_login_main($type, $action_login, $action_register, $current_user=
    include("layout/lay_directory.inc");
 //die("a");
   $capabilities = get_caps($perm, '/');
-  
+
   $tpl->set_var("IWANTTO", print_iwantto('/', $capabilities));
  }else{
   $tpl->set_file(array("main" => "register_main.html"));
@@ -105,10 +105,10 @@ function print_login_main($type, $action_login, $action_register, $current_user=
    include("commonapi/common_permissions.inc");
   if (!defined("LAY_DIRECTORY_INC"))
    include("layout/lay_directory.inc");
-   
-  
+
+
   $capabilities = get_caps($perm, '/Experts/New_User');
-  
+
   $tpl->set_var("IWANTTO", print_iwantto('/Experts/New_User', $capabilities));
  }
  $tpl->parse("main", "main");
@@ -116,13 +116,13 @@ function print_login_main($type, $action_login, $action_register, $current_user=
 }
 
 function print_register_link(){
- global $sess; 
- 
+ global $sess;
+
  $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "register_link.html"));
  $tpl->set_var("JOINURL", $sess->url("/Experts/New_User"));
  $tpl->parse("main", "main");
- return $tpl->get("main"); 
+ return $tpl->get("main");
 }
 
 function print_error_string_login($errmsg){
@@ -130,19 +130,19 @@ $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
 $tpl->set_file(array("main" => "error_login.html"));
 $tpl->set_var("ERROR", $errmsg);
 $tpl->parse("main", "main");
-return $tpl->get("main"); 
-} 
- 
+return $tpl->get("main");
+}
+
 function print_login_form_main($action_url, $current_user="", $failed=false, $backlink=true){
  global $ltrstr, $PHP_SELF, $sess;
- 
+
  $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  if ($backlink)
   $tpl->set_file(array("main" => "existing_user.html"));
  else
   $tpl->set_file(array("main" => "existing_user_noback.html"));
- 
- 
+
+
  if ($failed)
    $tpl->set_var("ERROR_STRING", print_error_string_login($ltrstr['Login failed']));
  else
@@ -165,7 +165,7 @@ function print_errors($errarr){
   return "";
  $tpl = new Template(APPLICATION_HOME."/templates/login", "keep");
  $tpl->set_file(array("main" => "new_error.html"));
- 
+
   $tpl->set_block("main", "error", "errors");
  # define NUM and BIGNUM, then append "row" to "rows"...
  for($x=0; $x < count($errarr); $x++) {

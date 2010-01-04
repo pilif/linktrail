@@ -1,4 +1,8 @@
 <?php
+
+
+
+
 if ($laypreview== "1"){
  display_done();
  exit;
@@ -22,7 +26,7 @@ if (!defined("LAY_LOGIN_INC"))
  include("layout/lay_login.inc");
 
 if (!defined("COMMON_USER_INC"))
- include("commonapi/common_user.inc"); 
+ include("commonapi/common_user.inc");
 
 if (!defined("COMMON_ERRORS_INC"))
  include("commonapi/common_errors.inc");
@@ -38,7 +42,7 @@ if ($auth->auth['uid'] != "nobody"){
  $sess->unregister("linknode");  $linknode  = "";
  $sess->unregister("movenode");  $movenode  = "";
  $sess->unregister("movetrail"); $movetrail = "";
- setcookie("ltrLoginAs","",time()+2592000);  
+ setcookie("ltrLoginAs","",time()+2592000);
  $HTTP_COOKIE_VARS['ltrLoginAs'] = "";
  page_close();
  Header("Location: $PHP_SELF");
@@ -51,23 +55,23 @@ else{
  if ( $errors == 0){
   $logon_now_as = $uid;
   if (isset($savepass))
-   setcookie("ltrLoginAs",$uid,time()+2592000);  
+   setcookie("ltrLoginAs",$uid,time()+2592000);
   $sess->register("logon_now_as");
   page_close();
   display_done();
   exit;
- } 
+ }
  $suggestions = "";
  if ( ($errors & ERR_USEREXISTS) != 0 )
   $suggestions = get_suggestions(strtolower($username));
- 
+
  $uname = "";
  if ($suggestions == ""){
  $uname = $username;
  }
- display_form($errors, $suggestions, $HTTP_POST_VARS['field_email'], $uname); 
+ display_form($errors, $suggestions, $HTTP_POST_VARS['field_email'], $uname);
 }
- 
+
 
 function display_done(){
 global $kat, $auth, $uid, $perm, $sess;
@@ -75,7 +79,7 @@ global $kat, $auth, $uid, $perm, $sess;
  if (!defined("COMMON_PERMISSIONS_INC"))
   include("commonapi/common_permissions.inc");
 
-/* 
+/*
  auth_preauth() will authenticatge the user since logon_now_as is registered and set to true
 */
 page_close();
@@ -93,7 +97,7 @@ $caps = get_caps($perm, '/');
 $pl  = build_pathlist($kat, false);
 $plf = build_pathlist($kat, true);
 $restriction_list = build_restriction_list($kat);
-//$username = $auth->auth['uname']; 
+//$username = $auth->auth['uname'];
 $in_login = false;
 
 include("template.inc");
@@ -125,7 +129,7 @@ function display_form($error=0, $suggestions="", $email="", $uname=""){
 $nobody = ( ($auth->auth["uid"] == "nobody") or ($auth->auth["uid"] == "") or ($auth->auth["uid"] == "form"));
 $pl  = build_pathlist($kat, false);
 $plf = build_pathlist($kat, true);
-$username = $auth->auth['uname']; 
+$username = $auth->auth['uname'];
 $restriction_list = build_restriction_list($kat);
 $in_login = false;
 
@@ -138,7 +142,7 @@ include("commonfooter2.html");
 function do_changes(){
  global $HTTP_POST_VARS, $invalid_user_names, $username, $uid;
  $errors = 0;
- 
+
  $username = strtolower($HTTP_POST_VARS['field_username']);
  if ( ($username == "") and ($HTTP_POST_VARS['field_username_suggestion'] != '')){
   if ($HTTP_POST_VARS['field_username_suggestion'] == 'other')
@@ -150,10 +154,10 @@ function do_changes(){
   if ($username == $baduser)
    $errors = $errors | ERR_NOUSERNAME;
  if ($username == "")
-  $errors = $errors | ERR_NOUSERNAME;  
+  $errors = $errors | ERR_NOUSERNAME;
 // lock_table('auth_user'); //we do not allow any writes of usernames whiile checking for dupes...
  if (user_exists($username))
-   $errors = $errors | ERR_USEREXISTS; 
+   $errors = $errors | ERR_USEREXISTS;
  if ($HTTP_POST_VARS['field_email'] == "")
    $errors = $errors | ERR_NOEMAIL;
  if (! validate_email($HTTP_POST_VARS['field_email']) )
@@ -172,7 +176,7 @@ function do_changes(){
 
  if ($errors != 0)
   return $errors;
- 
+
  $userval['name']     = $username;
  $userval['email']    = $HTTP_POST_VARS['field_email'];
  $userval['password'] = $HTTP_POST_VARS['field_password1'];
@@ -183,5 +187,5 @@ function do_changes(){
 }
 
 page_close();
-?>                            
-                                                                                                                                
+?>
+

@@ -1,10 +1,10 @@
 <?php
-$ltrstr['Change Subscription']    = 'Unsubscribe'; 
-$ltrstr['Change Notification']    = 'Change Notification'; 
-$ltrstr['Subscribe']              = 'Subscribe'; 
+$ltrstr['Change Subscription']    = 'Unsubscribe';
+$ltrstr['Change Notification']    = 'Change Notification';
+$ltrstr['Subscribe']              = 'Subscribe';
 
-$ltrstr['CHANGE SUBSCRIPTION']    = 'UNSUBSCRIBE'; 
-$ltrstr['SUBSCRIBE']              = 'SUBSCRIBE'; 
+$ltrstr['CHANGE SUBSCRIPTION']    = 'UNSUBSCRIBE';
+$ltrstr['SUBSCRIBE']              = 'SUBSCRIBE';
 
 $ltrstr['Go to the Creators page'] = 'Go to the Creators page';
 $ltrstr['Go to my Mypage']         = 'Go to my Mypage';
