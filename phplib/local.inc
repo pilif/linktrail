@@ -98,12 +98,13 @@ function login_done(){
  $sess->register("glob_immp");
  update_logon_date($this->auth['uid']);
 }
-  
+
  function auth_preauth(){
    global $sess, $logon_now_as, $REQUEST_METHOD, $HTTP_POST_VARS;
 
    if ($logon_now_as){
        $uid = $logon_now_as;
+       $logon_now_as = null;
        unset($logon_now_as);
        $this->init_user($uid);
        $this->login_done();
