@@ -100,12 +100,22 @@ function login_done(){
 }
   
  function auth_preauth(){
-   global $sess, $REQUEST_METHOD, $HTTP_POST_VARS;
+   global $sess, $logon_now_as, $REQUEST_METHOD, $HTTP_POST_VARS;
+
+   if ($logon_now_as){
+       $uid = $logon_now_as;
+       unset($logon_now_as);
+       $this->init_user($uid);
+       $this->login_done();
+       return $uid;
+   }
+
    if ( ($REQUEST_METHOD == "POST") and ($HTTP_POST_VARS['libaction'] == "directlogin") ){
     $id = $this->auth_validatelogin();
+
     if ($id){
-      return $id;
       $this->login_done();
+      return $id;
     }else
       $this->auth["uname"] = "";
    }
@@ -130,15 +140,26 @@ function login_done(){
 	else
 	 include("register.php"); //register.php is in the phplib-Subdir of the Application
   }
+
+  function init_user($uid){
+    $query = sprintf("select username, perms ".
+                       "        from %s ".
+                       "       where user_id = '%s' ",
+                          $this->database_table,
+                          addslashes($uid));
+    $this->db->query($query);
+    while($this->db->next_record()) {
+          $uid = $this->db->f("user_id");
+	  $this->auth["uid"] = $uid;
+          $this->auth["perm"] = $this->db->f("perms");
+          $this->auth["uname"] = $this->db->f("username");
+    }
+    return $uid;
+  }
   
   function auth_validatelogin() {
     global $username, $password, $savepass, $HTTP_POST_VARS;
 
-    if(isset($username)) {
-      $this->auth["uname"]=strtolower($username);        ## This provides access for "loginform.ihtml"
-    }
-    
-    
     $uid = false;
     $query = sprintf("select user_id, perms ".
                              "        from %s ".
@@ -151,9 +172,8 @@ function login_done(){
 
     while($this->db->next_record()) {
 	  $uid = $this->db->f("user_id");
-      $this->auth["perm"] = $this->db->f("perms");
     }
-    return $uid;
+    return $this->init_user($uid);
   }
   
   function first_step(){
