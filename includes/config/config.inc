@@ -17,8 +17,8 @@ define("BOUNCE_ERR", -1);
 
 define("DB_SERVER",   "localhost");
 define("DB_DATABASE", "linktrail");
-define("DB_USER",     "root");
-define("DB_PASS",     "oelberg");
+define("DB_USER",     "linktrail");
+define("DB_PASS",     "ltrlocal");
 
 define("SEARCH_HOST", "localhost");
 define("SEARCH_PORT", 7779);
