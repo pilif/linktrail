@@ -30,8 +30,8 @@ if (!defined("COMMON_ERRORS_INC"))
 if (!defined("PERMISSIONS_INC"))
  include("dbapi/permissions.inc");
 
- 
-  
+require_once('thirdparty/recaptchalib.php');
+
 $kat = $kat = (ereg_replace('^/([^-\]*-[^/]*)(.*)', '\\2', $PHP_SELF));;
 if ($auth->auth['uid'] != "nobody"){
  $auth->unauth(true);
@@ -160,6 +160,16 @@ function do_changes(){
    $errors = $errors | ERR_NOEMAIL;
  if ($HTTP_POST_VARS['field_password1'] != $HTTP_POST_VARS['field_password2'])
    $errors = $errors | ERR_PASSWORDMATCH;
+
+ $resp = recaptcha_check_answer(RECAPTCHA_PRIVATE_KEY,
+                                $_SERVER["REMOTE_ADDR"],
+                                $_POST["recaptcha_challenge_field"],
+                                $_POST["recaptcha_response_field"]);
+
+ if (!$resp->is_valid) {
+     $errors = $errors | ERR_CAPTCHA;
+ }
+
  if ($errors != 0)
   return $errors;
  

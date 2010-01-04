@@ -1,6 +1,7 @@
 <?php
 define("LAY_LOGIN_INC", true);
 
+require_once('thirdparty/recaptchalib.php');
 
 if (!defined("COMUTILS_INC"))
  include("dbapi/comutils.inc");
@@ -211,6 +212,8 @@ function print_register_form_main($action_url, $errors="", $suggestions="", $pre
   $errarr[] .= $ltrstr['No Username Provided'];
  if ( ($errors & ERR_NOEMAIL) != 0)
   $errarr[] .= $ltrstr['No Email Provided'];
+ if ( ($errors & ERR_CAPTCHA) != 0)
+  $errarr[] .= $ltrstr['Captcha verification failed'];
 
  $tpl->set_var("BACKURL", $sess->url("/"));
  $tpl->set_var("ACTION", $sess->url("/Experts/New_User"));
@@ -220,7 +223,8 @@ function print_register_form_main($action_url, $errors="", $suggestions="", $pre
  $tpl->set_var("VALUE_EMAIL", $predef_email);
  $tpl->set_var("FIELD_PASSWORD1", 'field_password1');
  $tpl->set_var("FIELD_PASSWORD2", 'field_password2');
- 
+ $tpl->set_var('RECAPTCHA', recaptcha_get_html('6LcvTQoAAAAAAJE4O775YtFdRW1JcdqZs_DvIalD'));
+
  $tpl->parse("main", "main");
  return $tpl->get("main");
 }

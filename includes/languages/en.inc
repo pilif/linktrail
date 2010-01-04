@@ -39,7 +39,7 @@ $ltrstr['Inbox']	  		      = "Check messages";
 $ltrstr['Outbox']	  		      = "Read sent messages";
 $ltrstr['Composer']	  		      = "Compose messages";
 
-
+$ltrstr['Captcha verification failed']    = 'The recaptcha verficiation has failed';
 $ltrstr['Pass_Nomatch']			  = "Your passwords did not match.";
 $ltrstr['Passnote']				  = "";
 $ltrstr['User Exists']			  = "This name is already in use by another member. Please select a username from the list below or try another one.";
